@@ -35,6 +35,9 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+
+
+//#################################### This activity uses the main layout and is used to display the albums
 public class AlbumListActivity extends Activity {
     private Uri imageUri;
     @Override

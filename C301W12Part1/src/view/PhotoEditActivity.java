@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 
 
-
+//#################################### This activity uses the edit_photo layout and is used to edit aspects of the photos
 public class PhotoEditActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {

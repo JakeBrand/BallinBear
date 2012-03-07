@@ -37,6 +37,10 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+
+
+
+//#################################### This activity uses the album_edit layout and is used to edit albums (duh!)
 public class AlbumEditActivity extends Activity {
     
 

@@ -27,7 +27,7 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 
-
+//#################################### This activity uses the albumthumbnail layout and is used to display the photos
 public class GalleryActivity extends Activity{
 
     Album alb;
@@ -52,7 +52,7 @@ public class GalleryActivity extends Activity{
         
         Log.e(null, "got here 3");
         
-        setContentView(R.layout.main);
+        setContentView(R.layout.albumthumbnail);
         Log.e(null, "got here 4");
         
         Gallery ga = (Gallery)findViewById(R.id.albumGallery);

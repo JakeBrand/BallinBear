@@ -20,6 +20,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+
+//#################################### This activity can be used to list anything and react when an item is selected
 public class GeneralListActivity extends ListActivity {
         /** Called when the activity is first created. */
     
