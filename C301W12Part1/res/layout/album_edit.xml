@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/albumTitleLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        >
+
+        <TextView
+            android:id="@+id/albumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editAlbumText"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            />
+
+            </LinearLayout>
+            
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp" >
+
+
+                <TextView
+                    android:id="@+id/albumNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/albumNameLabelText"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <EditText
+                    android:id="@+id/albumNameEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp" >
+
+                    <requestFocus />
+                </EditText>
+
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:layout_marginTop="60dp">
+
+       <Button
+           android:id="@+id/deleteButton"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/deleteAlbumLabelText" 
+           android:layout_marginTop="60dp"/>
+        
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doneText"
+            android:layout_marginTop="20dp" />
+        
+        <Button
+            android:id="@+id/backToAlbumButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backToAlbumText"
+            android:layout_marginTop="20dp" />
+        
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

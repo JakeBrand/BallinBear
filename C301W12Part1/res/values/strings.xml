@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">SkinComp</string>
-    <string name="app_name">SkinCompApp</string>
-    <string name="NewAlbum">New Album</string>
-    <string name="NewPhoto">New Photo</string>
-    <string name="SlideShow">Slideshow View</string>
-    <string name="ComparePhotos">Compare Photos</string>
-    <string name="Date">Date:</string>
-    <string name="Comment1">Comment 1:</string>
-    <string name="Comment2">Comment 2:</string>
-    <string name="SaveChanges">Save Changes</string>
-    <string name="CancelChanges">Cancel</string>
+    <string name="app_name">SkinComp</string>
+    <string name="menuButtonText">Menu</string>
+    <string name="sortLabelText">Sort</string>
+    <string name="saveLabelext">Save</string>
+    <string name="uploadPhoto">Upload Photo</string>
+    <string name="discardChangeLabelText">Discard Changes</string>
+    <string name="thumbnailLabelText">Thumbnail</string>
+    <string name="listLabelText">List</string>
+    <string name="albumLabelText">Albums</string>
+    <string name="commentLabelText">Comments</string>
+    <string name="editLabelText">Edit</string>
+    <string name="takeNewLabelText">New Photo</string>
+    <string name="addNewAlbumButtonText">New Album</string>
+    <string name="backToAlbumText">Back To Album</string>
+    <string name="editAlbumText">Edit Album</string>
+    <string name="doneText">Done</string>
+    <string name="albumNameLabelText">Album Name:</string>
+    <string name="editPhotoLabelText">Edit Photo</string>
+    <string name="changeAlbumLabelText">Change Album</string>
+    <string name="deletePhotoLabelText">Delete Photo</string>
+    <string name="deleteAlbumLabelText">Delete Album</string>
     
+
 </resources>
