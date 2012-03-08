@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+    <string name="hello">SkinComp</string>
+    <string name="NewAlbum">New Album</string>
+    <string name="NewPhoto">New Photo</string>
+    <string name="SlideShow">Slideshow View</string>
+    <string name="ComparePhotos">Compare Photos</string>
+    <string name="Date">Date:</string>
+    <string name="Comment1">Comment:</string>
+    <string name="SaveChanges">Save Changes</string>
+    <string name="CancelChanges">Cancel</string>
+    <string name="TakeAPicture">Take A Photo</string>
+    <string name="DeletePhoto">Delete Photo</string>
+    <string name="Back">Back</string>
+
     <string name="app_name">CicatrixTracker</string>
     <string name="menuButtonText">Menu</string>
     <string name="sortLabelText">Sort</string>
@@ -21,6 +36,6 @@
     <string name="changeAlbumLabelText">Change Album</string>
     <string name="deletePhotoLabelText">Delete Photo</string>
     <string name="deleteAlbumLabelText">Delete Album</string>
-    
+
 
 </resources>

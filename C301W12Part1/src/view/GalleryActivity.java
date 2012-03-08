@@ -52,7 +52,7 @@ public class GalleryActivity extends Activity{
         
         Log.e(null, "got here 3");
         
-        setContentView(R.layout.albumthumbnail);
+        setContentView(R.layout.galleryview);
         Log.e(null, "got here 4");
         
         Gallery ga = (Gallery)findViewById(R.id.albumGallery);

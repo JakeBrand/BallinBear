@@ -17,7 +17,7 @@ public class PhotoEditActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
-      setContentView(R.layout.album_edit);
+      setContentView(R.layout.editphotoview);
       
       // Get a hold of button 
       Button doneButton = (Button) findViewById(R.id.doneButton);
