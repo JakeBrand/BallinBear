@@ -29,11 +29,8 @@ public class GenerateBogoPicActivity extends Activity
     {
 
         super.onCreate(savedInstanceState);
-      /*
-        setContentView(R.layout.main);
-*/
-
-        // ADJUST THE BELOW COMMENTS TO FIT THIS PROJECT, NOT THE ORIGINAL PROJECT
+      
+        setContentView(R.layout.take_photo);
 
         /*
         ImageButton imageButton = (ImageButton) findViewById(R.id.TakePhotoButton);
@@ -102,13 +99,10 @@ public class GenerateBogoPicActivity extends Activity
 
     protected void acceptBogoPic()
     {
-        Log.d("TEST", "acceptBogoPic() entered");
-
         // get intent that starts the activity
         Intent intent = getIntent();
         if (intent == null)
         {
-            Log.d("TEST", "NULL intent...");
             return;
         }
 
@@ -124,8 +118,6 @@ public class GenerateBogoPicActivity extends Activity
 
     private void saveBMP(File intentFile, Bitmap ourBMP2)
     {
-
-        Log.d("TEST", "saveBMP() entered");
 
         OutputStream stream;
         try
@@ -146,8 +138,6 @@ public class GenerateBogoPicActivity extends Activity
     private File getPicturePath(Intent intent)
     {
 
-        Log.d("TEST", "getPicturePath(Intent) entered");
-
         Uri uri = (Uri) intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
         File file = new File(uri.getPath());
 
@@ -159,12 +149,9 @@ public class GenerateBogoPicActivity extends Activity
     protected void setBogoPic()
     {
 
-        Log.d("TEST", "setBogoPic() entered");
 
         ImageButton button = (ImageButton) findViewById(R.id.TakePhotoButton);
-        Log.d("TEST", "Creating image");
          ourBMP = BogoPicGen.generateBitmap(400,400);
-         Log.d("TeST", "Finished taking picture");
         button.setImageBitmap(ourBMP);
     }
 

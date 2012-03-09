@@ -1,4 +1,5 @@
 package view;
+import control.GenerateBogoPicActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -84,8 +85,7 @@ public class AlbumListActivity extends Activity
     private void takeNewPhoto(View v)
     {
 
-        setContentView(R.layout.take_photo);
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, GenerateBogoPicActivity.class);
         // Other stuff for storage
         startActivityForResult(intent, 0);
     }
