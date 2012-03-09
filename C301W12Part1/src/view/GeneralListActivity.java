@@ -33,7 +33,7 @@ public class GeneralListActivity extends ListActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
-                setContentView(R.layout.genlist);
+               // setContentView(R.layout.genlist);
                 
                 Bundle bundle = getIntent().getExtras();
                 
@@ -53,7 +53,7 @@ public class GeneralListActivity extends ListActivity {
                 
                 
                 
-                //TODO
+                //
                 // Create our own version of the list adapter
                 
                 

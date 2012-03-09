@@ -39,14 +39,39 @@ import android.view.View.OnClickListener;
 
 //#################################### This activity uses the main layout and is used to display the albums
 public class AlbumListActivity extends Activity {
-    private Uri imageUri;
+  ArrayList<Item> items;
+  ArrayList<Album> albs;
+    
+    
+    
+    // TODO AlbumListActivity: setup android:albumlist with current data, items have album name, sub items could have album length, the most current photo could be as a thumbnail, last updated?
+   
     @Override
     public void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
       setContentView(R.layout.main);
-             
+      
+      
     }
+    
+    private ArrayList<Item> toItem(ArrayList<Album> gal){
+        ArrayList<Item> items = new ArrayList<Item>();
+        for(int i = 0; i < gal.size(); i++){
+            items.add(new Item(gal.get(i), gal.get(i).getAlbumName(), "" + gal.get(i).getPhotos().size()));
+            
+        }
+        return items;
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 //    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
 //    protected void takeAPhoto()

@@ -2,7 +2,6 @@
 <resources>
 
 
-    <string name="hello">SkinComp</string>
     <string name="NewAlbum">New Album</string>
     <string name="NewPhoto">New Photo</string>
     <string name="SlideShow">Slideshow View</string>
@@ -36,6 +35,7 @@
     <string name="changeAlbumLabelText">Change Album</string>
     <string name="deletePhotoLabelText">Delete Photo</string>
     <string name="deleteAlbumLabelText">Delete Album</string>
+    <string name="BogoPrompt">Click to take new Photo</string>
 
 
 </resources>

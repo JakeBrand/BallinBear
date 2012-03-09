@@ -29,6 +29,7 @@ import ca.ualberta.ca.c301.R;
 
 
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -47,14 +48,12 @@ public class AlbumEditActivity extends Activity {
     
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {       
+      super.onCreate(savedInstanceState);
       setContentView(R.layout.album_edit);
       
       EditText albName = (EditText) findViewById(R.id.albumNameEditText);
-      Button deleteButton = (Button) findViewById(R.id.deleteButton);
-      Button doneButton = (Button) findViewById(R.id.doneButton);
+
       Bundle bundle = getIntent().getExtras();
       
       if(bundle.get("Alb") == null)
@@ -62,24 +61,41 @@ public class AlbumEditActivity extends Activity {
       else
           albName.setText(Album.getAlbumName());
       
+      
+      Button deleteButton = (Button) findViewById(R.id.deleteButton);
       OnClickListener deleteListener = new OnClickListener(){
 
           @Override
           public void onClick(View v){
 
-            // TODO delete album
+            // TODO AlbumEditActivity: delete album; show a warning of all the photos that will be deleted
+              // if only album go to welcome, else go to albumlist
         }
           
       };
       deleteButton.setOnClickListener(deleteListener);
        
       
+      Button backToAlbumButton = (Button) findViewById(R.id.backToAlbumButton);
+      OnClickListener backToAlbumButtonListener = new OnClickListener(){
+
+          @Override
+          public void onClick(View v){
+
+           // TODO AlbumEditActivity: back to album
+        }
+          
+      };
+      backToAlbumButton.setOnClickListener(backToAlbumButtonListener);
       
+      
+      
+      Button doneButton = (Button) findViewById(R.id.doneButton);
       OnClickListener doneListener = new OnClickListener(){
           @Override
           public void onClick(View v){
               
-              // TODO back to album
+              // TODO AlbumEditActivity: change album name if edit text has changed
         }
           
       };

@@ -16,15 +16,22 @@
             android:layout_height="wrap_content"
             android:text="@string/albumLabelText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ListView
+            android:id="@+id/android:albumlist"
+            android:layout_width="wrap_content"
+            android:layout_height="410dp" >
+
+        </ListView>
+
+
+
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/android:albumlist"
-        android:layout_width="wrap_content"
-        android:layout_height="0dip"
-        android:layout_weight="0.98" >
-    </ListView>
-
-    
+            <Button
+            android:id="@+id/NewPhotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Photo" />
 
 </LinearLayout>
