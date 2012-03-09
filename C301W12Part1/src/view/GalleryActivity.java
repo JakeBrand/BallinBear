@@ -106,7 +106,6 @@ public class GalleryActivity extends Activity{
                 
                 return arg0;
         }
-
         
         
    
