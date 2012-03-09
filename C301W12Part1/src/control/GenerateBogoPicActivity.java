@@ -22,7 +22,7 @@ import android.widget.ImageButton;
 
 public class GenerateBogoPicActivity extends Activity
 {
-
+    private Bitmap BMPphoto;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -30,11 +30,11 @@ public class GenerateBogoPicActivity extends Activity
 
         super.onCreate(savedInstanceState);
       
-        setContentView(R.layout.take_photo);
+        setContentView(R.layout.editphotoview);
 
-        /*
-        ImageButton imageButton = (ImageButton) findViewById(R.id.TakePhotoButton);
-        OnClickListener listener = new OnClickListener()
+        
+        ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
+        OnClickListener generatedListener = new OnClickListener()
         {
 
             @Override
@@ -46,11 +46,11 @@ public class GenerateBogoPicActivity extends Activity
             }
 
         };
-        imageButton.setOnClickListener(listener);
-      */  
-        /*
-        Button acceptButton = (Button) findViewById(R.id.AcceptButton);
-        OnClickListener listener2 = new OnClickListener()
+        imageButton.setOnClickListener(generatedListener);
+        
+        
+        Button capture = (Button) findViewById(R.id.PhotoViewSave);
+        OnClickListener caputreListener = new OnClickListener()
         {
 
             @Override
@@ -62,11 +62,11 @@ public class GenerateBogoPicActivity extends Activity
             }
 
         };
-        acceptButton.setOnClickListener(listener2);
-        */
-        /*
-        Button cancelButton = (Button) findViewById(R.id.CancelButton);
-        OnClickListener listener3 = new OnClickListener()
+        capture.setOnClickListener(caputreListener);
+        
+        
+        Button backButton = (Button) findViewById(R.id.PhotoViewCancel);
+        OnClickListener backListener = new OnClickListener()
         {
 
             @Override
@@ -78,14 +78,12 @@ public class GenerateBogoPicActivity extends Activity
             }
 
         };
-        cancelButton.setOnClickListener(listener3);
-        */
+        backButton.setOnClickListener(backListener);
+        
     }
 
     protected void cancelBogoPic()
     {
-
-        Log.d("TEST", "cancelBogoPic() entered");
 
         Intent intent = getIntent();
         if (intent == null)
@@ -109,13 +107,15 @@ public class GenerateBogoPicActivity extends Activity
         if (intent.getExtras() != null)
         {
             File intentFile = getPicturePath(intent);
-            saveBMP(intentFile, ourBMP);
+  //          saveBMP(intentFile, BMPphoto);
+            intent.putExtra("BMPphoto", BMPphoto);
             setResult(RESULT_OK);
         }
         finish();
 
     }
-
+// TODO: Save the BMP or create a Photo and save the Photo?
+    /*
     private void saveBMP(File intentFile, Bitmap ourBMP2)
     {
 
@@ -123,7 +123,7 @@ public class GenerateBogoPicActivity extends Activity
         try
         {
             stream = new FileOutputStream(intentFile);
-            ourBMP.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+            BMPphoto.compress(Bitmap.CompressFormat.JPEG, 75, stream);
             stream.close();
         } catch (FileNotFoundException e)
         {
@@ -134,7 +134,7 @@ public class GenerateBogoPicActivity extends Activity
         }
 
     }
-
+*/
     private File getPicturePath(Intent intent)
     {
 
@@ -144,22 +144,21 @@ public class GenerateBogoPicActivity extends Activity
         return file;
     }
 
-    private Bitmap ourBMP;
-/*
+
+
     protected void setBogoPic()
     {
 
 
-        ImageButton button = (ImageButton) findViewById(R.id.TakePhotoButton);
-         ourBMP = BogoPicGen.generateBitmap(400,400);
-        button.setImageBitmap(ourBMP);
+        ImageButton button = (ImageButton) findViewById(R.id.generated_pic);
+         BMPphoto = BogoPicGen.generateBitmap(400,400);
+        button.setImageBitmap(BMPphoto);
     }
 
     public int getCurrentState()
     {
 
-        // TODO Auto-generated method stub
         return 7;
     }
-*/
+
 }

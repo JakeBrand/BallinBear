@@ -1,4 +1,5 @@
 package view;
+
 import control.GenerateBogoPicActivity;
 
 import java.io.File;
@@ -126,18 +127,21 @@ public class AlbumListActivity extends Activity
     // }
     //
     //
-    // @Override // if requestCodeis 100 we are good, result code is to see if a
+    @Override // if requestCode is 100 we are good?, result code is to see if a
     // picture was actually taken
-    // protected void onActivityResult(int requestCode, int resultCode,Intent
-    // intent ){
-    // if(requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST){
-    // if(resultCode == RESULT_OK){
-    // Intent intent2 = new Intent(getParent(), PhotoEditActivity.class);
-    // // set button to look like photo just taken
-    // intent2.putExtra("imagePath",imageUri.getPath()); // How do you pass
-    // around albums
-    // startActivity(intent2);
-    // }
-    // }
-    // }
+    //TODO: find out how to access the BMPphoto just taken
+    protected void onActivityResult(int requestCode, int resultCode,Intent
+     intent ){
+     //if(requestCode == 0){
+     if(resultCode == RESULT_OK){
+         intent.getBundleExtra("BMPphoto");
+         
+     //  Intent intent2 = new Intent(getParent(), PhotoEditActivity.class);
+     // set button to look like photo just taken
+  //   intent2.putExtra("imagePath",imageUri.getPath());
+
+  //  startActivity(intent2);
+     //}
+     }
+     }
 }
