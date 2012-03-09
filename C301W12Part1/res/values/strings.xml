@@ -37,6 +37,7 @@
     <string name="deleteAlbumLabelText">Delete Album</string>
     <string name="BogoPrompt">Click to take new Photo</string>
     <string name="welcomeLabelText">Welcome</string>
+    <string name="Capture">Capture</string>
 
 
 </resources>

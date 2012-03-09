@@ -59,7 +59,7 @@ public class AlbumListActivity extends Activity
             public void onClick(View v)
             {
 
-                takeNewPhoto();
+                takeNewPhoto(v);
 
             }
 
@@ -81,12 +81,13 @@ public class AlbumListActivity extends Activity
 
     }
 
-    private void takeNewPhoto()
+    private void takeNewPhoto(View v)
     {
 
+        setContentView(R.layout.take_photo);
         Intent intent = new Intent();
         // Other stuff for storage
-    //    startActivityForResult(intent, this);
+        startActivityForResult(intent, 0);
     }
 
     // private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
