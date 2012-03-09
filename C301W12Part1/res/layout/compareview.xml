@@ -10,12 +10,13 @@
         android:orientation="vertical">
 
 	    <TextView
+	        android:id="@+id/photo1DateLabel" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/Date" />
 	
 	    <ImageView
-	        android:id="@+id/CompareImageView"
+	        android:id="@+id/photo1ImageView"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1.40"
@@ -27,7 +28,7 @@
 	        android:text="@string/Comment1" />
 	
 	    <EditText
-	        android:id="@+id/editText1"
+	        android:id="@+id/photo1EditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="35dp"
 	        android:inputType="textMultiLine" >
@@ -42,12 +43,13 @@
         android:orientation="vertical">
 
 	    <TextView
+	        android:id="@+id/photo2DateLabel" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/Date" />
 	
 	    <ImageView
-	        android:id="@+id/CompareImageView"
+	        android:id="@+id/photo2ImageView"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1.40"
@@ -59,7 +61,7 @@
 	        android:text="@string/Comment1" />
 	
 	    <EditText
-	        android:id="@+id/editText1"
+	        android:id="@+id/photo2EditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="35dp"
 	        android:inputType="textMultiLine" >

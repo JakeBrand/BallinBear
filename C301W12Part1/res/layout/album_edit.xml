@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/albumTitleLinearLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" 
         >
 
@@ -54,22 +54,31 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" 
-        >
+        android:layout_marginTop="60dp">
 
        <Button
            android:id="@+id/deleteButton"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:text="@string/deleteAlbumLabelText" 
-           />
+           android:layout_marginTop="60dp"/>
+        
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doneText"
+            android:layout_marginTop="20dp" />
+        
+        <Button
+            android:id="@+id/backToAlbumButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backToAlbumText"
+            android:layout_marginTop="20dp" />
         
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/doneButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/doneText" />
 
 </LinearLayout>
