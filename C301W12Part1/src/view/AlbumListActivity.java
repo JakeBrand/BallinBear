@@ -9,12 +9,14 @@ import model.Album;
 import model.Item;
 import model.Photo;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -134,7 +136,10 @@ public class AlbumListActivity extends Activity
      intent ){
      //if(requestCode == 0){
      if(resultCode == RESULT_OK){
-         intent.getBundleExtra("BMPphoto");
+         Log.d("TEST", "resultCode == RESULT_OK");
+         Bundle bundle = intent.getBundleExtra("BMPphoto");
+         Bitmap BMPphoto = (Bitmap) bundle.get("BMPphoto");
+        Log.d("BMPphoto.toString =", BMPphoto.toString());
          
      //  Intent intent2 = new Intent(getParent(), PhotoEditActivity.class);
      // set button to look like photo just taken

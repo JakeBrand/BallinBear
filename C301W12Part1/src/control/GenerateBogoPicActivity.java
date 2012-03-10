@@ -34,7 +34,7 @@ public class GenerateBogoPicActivity extends Activity
 
         
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
-        OnClickListener generatedListener = new OnClickListener()
+        OnClickListener generateListener = new OnClickListener()
         {
 
             @Override
@@ -46,7 +46,7 @@ public class GenerateBogoPicActivity extends Activity
             }
 
         };
-        imageButton.setOnClickListener(generatedListener);
+        imageButton.setOnClickListener(generateListener);
         
         
         Button capture = (Button) findViewById(R.id.PhotoViewSave);
@@ -63,7 +63,6 @@ public class GenerateBogoPicActivity extends Activity
 
         };
         capture.setOnClickListener(caputreListener);
-        
         
         Button backButton = (Button) findViewById(R.id.PhotoViewCancel);
         OnClickListener backListener = new OnClickListener()
@@ -101,15 +100,19 @@ public class GenerateBogoPicActivity extends Activity
         Intent intent = getIntent();
         if (intent == null)
         {
+            Log.d("acceptBogoPic", "intent is null");
             return;
         }
 
         if (intent.getExtras() != null)
         {
-            File intentFile = getPicturePath(intent);
+  //          File intentFile = getPicturePath(intent);
   //          saveBMP(intentFile, BMPphoto);
+            Log.d("acceptBogoPic", "putting BMPphoto in Extra");
             intent.putExtra("BMPphoto", BMPphoto);
             setResult(RESULT_OK);
+        } else{
+            Log.d("acceptBogoPic", "intent.getExtras is null");
         }
         finish();
 
