@@ -89,6 +89,7 @@ public class AlbumListActivity extends Activity
     {
 
         Intent intent = new Intent(this, GenerateBogoPicActivity.class);
+      //  intent.putExtra("BMPphoto", (Bitmap) null);
         // Other stuff for storage
         startActivityForResult(intent, 0);
     }
@@ -129,24 +130,37 @@ public class AlbumListActivity extends Activity
     // }
     //
     //
-    @Override // if requestCode is 100 we are good?, result code is to see if a
-    // picture was actually taken
-    //TODO: find out how to access the BMPphoto just taken
-    protected void onActivityResult(int requestCode, int resultCode,Intent
-     intent ){
-     //if(requestCode == 0){
-     if(resultCode == RESULT_OK){
-         Log.d("TEST", "resultCode == RESULT_OK");
-         Bundle bundle = intent.getBundleExtra("BMPphoto");
-         Bitmap BMPphoto = (Bitmap) bundle.get("BMPphoto");
-        Log.d("BMPphoto.toString =", BMPphoto.toString());
-         
-     //  Intent intent2 = new Intent(getParent(), PhotoEditActivity.class);
-     // set button to look like photo just taken
-  //   intent2.putExtra("imagePath",imageUri.getPath());
+    
+    //TODO: Find out how to access (non-null) Bitmap from bundle...
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent intent)
+    {
 
-  //  startActivity(intent2);
-     //}
-     }
-     }
+        // if(requestCode == 0){
+        if (resultCode == RESULT_OK)
+        {
+            Log.d("TEST", "resultCode == RESULT_OK");
+            intent = getIntent();
+            if (intent != null)
+            {
+                Bitmap BMPphoto = (Bitmap) intent
+                        .getParcelableExtra("BMPphoto");
+                Log.d("intent", "intent is not null");
+                if (BMPphoto != null)
+                {
+                    Log.d("BMPphoto", "BMPphoto is NOT null");
+                } else{
+                    Log.d("BMPhoto", "BMPphoto is null");
+                }
+            }
+            // Intent intent2 = new Intent(getParent(),
+            // PhotoEditActivity.class);
+            // set button to look like photo just taken
+            // intent2.putExtra("imagePath",imageUri.getPath());
+
+            // startActivity(intent2);
+            // }
+        }
+    }
 }

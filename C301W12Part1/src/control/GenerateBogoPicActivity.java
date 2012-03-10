@@ -104,16 +104,12 @@ public class GenerateBogoPicActivity extends Activity
             return;
         }
 
-        if (intent.getExtras() != null)
-        {
   //          File intentFile = getPicturePath(intent);
   //          saveBMP(intentFile, BMPphoto);
             Log.d("acceptBogoPic", "putting BMPphoto in Extra");
             intent.putExtra("BMPphoto", BMPphoto);
             setResult(RESULT_OK);
-        } else{
-            Log.d("acceptBogoPic", "intent.getExtras is null");
-        }
+        
         finish();
 
     }
@@ -152,9 +148,8 @@ public class GenerateBogoPicActivity extends Activity
     protected void setBogoPic()
     {
 
-
         ImageButton button = (ImageButton) findViewById(R.id.generated_pic);
-         BMPphoto = BogoPicGen.generateBitmap(400,400);
+         BMPphoto = BogoPicGen.generateBitmap(350,350);
         button.setImageBitmap(BMPphoto);
     }
 
