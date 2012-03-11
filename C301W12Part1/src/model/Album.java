@@ -10,6 +10,7 @@ public class Album{
     
     
     // Constructor only needs name
+    @SuppressWarnings("static-access")
     public Album(String albumName) {
         this.albumName = albumName;
         this.photos = new ArrayList<Photo>();
@@ -33,5 +34,21 @@ public class Album{
         this.photos = photos;
     }
     
+    
+    public Photo getPhoto(int i){
+        return photos.get(i);
+    }
+    
+    public void addPhoto(Photo p){
+        photos.add(p);
+    }
+    
+    public void deletePhoto(int i){
+        photos.remove(i);
+    }
+    
+    public void updatePhoto(int i, Photo p){
+        photos.set(i, p);
+    }
 
 }

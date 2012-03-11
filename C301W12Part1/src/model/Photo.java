@@ -3,6 +3,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 
@@ -19,13 +20,13 @@ public class Photo {
 
    
    
-   public Photo(String comments, Uri imageUri)
+   public Photo(String comments, Uri imageU)
    {
 
        super();
        this.pTimeStamp = new Date(System.currentTimeMillis());
        this.comments = comments;
-       this.imageUri = imageUri;
+       this.imageUri = imageU;
    }
 
    
@@ -66,8 +67,8 @@ public void setComment(String com){
 
 
 
-public void getPicture(Uri uri){
-    this.imageUri = uri;
+public void setPicture(Uri imageU){
+    this.imageUri = imageU;
     
 }
 

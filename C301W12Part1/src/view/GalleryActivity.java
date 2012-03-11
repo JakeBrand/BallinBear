@@ -64,7 +64,7 @@ public class GalleryActivity extends Activity{
                         @Override 
                         public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                         // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
-                               Intent photoEditIntent = new Intent(getParent(), PhotoEditActivity.class); 
+                               Intent photoEditIntent = new Intent(getParent(), EditPhotoActivity.class); 
                                photoEditIntent.putExtra("position", position);
                                
                                int requestCode = 0;
