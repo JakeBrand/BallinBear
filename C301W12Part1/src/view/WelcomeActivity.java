@@ -7,11 +7,13 @@ import control.GenerateBogoPicActivity;
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -66,6 +68,7 @@ public class WelcomeActivity extends Activity {
     
     
   private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
+  private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
   protected void takeAPhoto()
   {
       
@@ -103,12 +106,13 @@ public class WelcomeActivity extends Activity {
       */
       Intent takePhotoIntent = new Intent(this, GenerateBogoPicActivity.class);
       // Other stuff for storage
-      startActivityForResult(takePhotoIntent, 0);
+      startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
   }
   
   
   @Override                 // if requestCodeis 100 we are good, result code is to see if a picture was actually taken
   protected void onActivityResult(int requestCode, int resultCode,Intent intent ){
+      /*
       if(requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST){
           if(resultCode == RESULT_OK){
               Intent intent2 = new Intent(getParent(), EditPhotoActivity.class);
@@ -116,6 +120,26 @@ public class WelcomeActivity extends Activity {
               intent2.putExtra("imagePath",imageUri.getPath()); // How do you pass around albums
               startActivity(intent2);
           }
+      }
+      */
+      if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
+       if(resultCode == RESULT_OK){
+           Log.d("TEST", "resultCode == RESULT_OK");
+           if (intent != null)
+           {
+               Bitmap BMPphoto = (Bitmap) intent
+                       .getParcelableExtra("BMPphoto");
+               Log.d("intent is", intent.toString());
+               if (BMPphoto != null)
+               {
+                   Log.d("BMPphoto", "BMPphoto is NOT null");
+               } else{
+                   Log.d("BMPhoto", "BMPphoto is null");
+               }
+           } else {
+               Log.d("intent is", "null");
+           }  
+       }
       }
   }
     
