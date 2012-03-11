@@ -2,6 +2,8 @@ package view;
 
 import java.io.File;
 
+import control.GenerateBogoPicActivity;
+
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -66,6 +68,9 @@ public class WelcomeActivity extends Activity {
   private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
   protected void takeAPhoto()
   {
+      
+      //TODO: Do we want to use the camera? If not we will spoof the camera.
+      /*
       // Create intent instance to be used to take photo
       Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
       
@@ -94,6 +99,11 @@ public class WelcomeActivity extends Activity {
       
       // start intent to take picture
       startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);    
+      
+      */
+      Intent takePhotoIntent = new Intent(this, GenerateBogoPicActivity.class);
+      // Other stuff for storage
+      startActivityForResult(takePhotoIntent, 0);
   }
   
   

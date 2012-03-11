@@ -107,8 +107,9 @@ public class GenerateBogoPicActivity extends Activity
   //          File intentFile = getPicturePath(intent);
   //          saveBMP(intentFile, BMPphoto);
             Log.d("acceptBogoPic", "putting BMPphoto in Extra");
+            Log.d("GenerateBogoPicActivity", "intent is "+intent.toString());
             intent.putExtra("BMPphoto", BMPphoto);
-            setResult(RESULT_OK);
+            setResult(RESULT_OK, intent);
         
         finish();
 
