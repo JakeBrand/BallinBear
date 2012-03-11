@@ -22,13 +22,14 @@ import android.widget.Button;
 public class WelcomeActivity extends Activity {
     private Uri imageUri;
     
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
+    private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
       setContentView(R.layout.welcome_view);
-
-
       
       Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
       newPhoto.setBackgroundColor(Color.GREEN);
@@ -37,14 +38,11 @@ public class WelcomeActivity extends Activity {
 
           @Override
           public void onClick(View v){
-            takeAPhoto();   // TODO WelcomeActivity: Ya, I dont know how to take random pics
+            takeAPhoto();
         }
           
       };
       newPhoto.setOnClickListener(newPhotoListener);
-      
-      
-      
       
       Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
       viewAlbums.setBackgroundColor(Color.CYAN);
@@ -60,20 +58,15 @@ public class WelcomeActivity extends Activity {
           
       };
       viewAlbums.setOnClickListener(viewAlbumsListener);
-      
-      
              
     }
     
-    
-    
-  private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
-  private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
+
   protected void takeAPhoto()
   {
       
       //TODO: Do we want to use the camera? If not we will spoof the camera.
-      /*
+      
       // Create intent instance to be used to take photo
       Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
       
@@ -98,14 +91,14 @@ public class WelcomeActivity extends Activity {
       imageUri = Uri.fromFile(imageFile);
       
       
-      intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+      //intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
       
       // start intent to take picture
-      startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);    
+     // startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);    
       
-      */
+      
       Intent takePhotoIntent = new Intent(this, GenerateBogoPicActivity.class);
-      // Other stuff for storage
+      takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
       startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
   }
   
