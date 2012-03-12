@@ -27,9 +27,13 @@ public class WelcomeActivity extends Activity {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        
+
         super.onCreate(savedInstanceState);
+        
+        
+        
       setContentView(R.layout.welcome_view);
+      
       
       Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
       newPhoto.setBackgroundColor(Color.GREEN);
