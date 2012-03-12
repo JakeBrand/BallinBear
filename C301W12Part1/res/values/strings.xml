@@ -32,7 +32,7 @@
     <string name="doneText">Done</string>
     <string name="albumNameLabelText">Album Name:</string>
     <string name="editPhotoLabelText">Edit Photo</string>
-    <string name="changeAlbumLabelText">Change Album</string>
+    <string name="changeAlbumLabelText">Album</string>
     <string name="deletePhotoLabelText">Delete Photo</string>
     <string name="deleteAlbumLabelText">Delete Album</string>
     <string name="BogoPrompt">Click to take new Photo</string>

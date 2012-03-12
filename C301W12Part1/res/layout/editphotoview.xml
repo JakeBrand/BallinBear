@@ -22,24 +22,30 @@
         android:src="@drawable/ic_launcher" />
 
 <LinearLayout
-        android:id="@+id/chooseAlbumLinearLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+    android:id="@+id/chooseAlbumLinearLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/changeAlbumTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/changeAlbumLabelText"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/changeAlbumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/changeAlbumLabelText"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Spinner
-            android:id="@+id/albumNameSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-        </Spinner>
-    </LinearLayout>
-    
+    <Spinner
+        android:id="@+id/albumNameSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.80" >
+    </Spinner>
+
+    <Button
+        android:id="@+id/newAlbumButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/NewAlbum" />
+</LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

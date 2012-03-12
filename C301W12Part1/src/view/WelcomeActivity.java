@@ -2,7 +2,6 @@ package view;
 
 import java.io.File;
 
-import control.GenerateBogoPicActivity;
 
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
@@ -68,7 +67,7 @@ public class WelcomeActivity extends Activity {
       //TODO: Do we want to use the camera? If not we will spoof the camera.
       
       // Create intent instance to be used to take photo
-      Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+     // Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
       
       // Create Folder in SD Card                                              // folder name = tmp
       String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
@@ -97,7 +96,7 @@ public class WelcomeActivity extends Activity {
      // startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);    
       
       
-      Intent takePhotoIntent = new Intent(this, GenerateBogoPicActivity.class);
+      Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);
       takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
       startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
   }
