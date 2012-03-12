@@ -5,6 +5,8 @@ package view;
 import java.sql.Blob;
 import java.sql.SQLException;
 
+import control.Controller;
+
 import model.Album;
 
 
@@ -36,11 +38,12 @@ public class GalleryActivity extends Activity{
         /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         
-        Log.e(null, "got here 1");
+        super.onCreate(savedInstanceState);
+        Log.e("GalleryActivity", "Got here");
         Bundle bundle = getIntent().getExtras();
-        Log.e(null, "got here 2");
+        
+
         
         try
         {
@@ -125,4 +128,11 @@ public class GalleryActivity extends Activity{
         }
 
     }
+    
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
+    }
+    
 }

@@ -1,5 +1,6 @@
 package view;
 
+import control.Controller;
 import model.Album;
 import model.Photo;
 import ca.ualberta.ca.c301.R;
@@ -16,11 +17,15 @@ import android.widget.TextView;
 public class CompareActivity  extends Activity {
     
     
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
+        
+        Bundle bundle = getIntent().getExtras();
+        
+        
+        
       setContentView(R.layout.compareview);
       
       EditText photo1EditText = (EditText) findViewById(R.id.photo1EditText);
@@ -37,7 +42,6 @@ public class CompareActivity  extends Activity {
       
 
       
-      Bundle bundle = getIntent().getExtras();
       
       Photo photo1 = (Photo) bundle.get("Photo1");
       Photo photo2 = (Photo) bundle.get("Photo2");
@@ -57,4 +61,10 @@ public class CompareActivity  extends Activity {
       
     }
 
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
+    }
+    
 }

@@ -51,27 +51,28 @@ import android.widget.Spinner;
 
 public class EditPhotoActivity extends Activity
 {
+    
     private Bitmap BMPphoto;
-    Controller controller;
     String[] albumNames;
-   // PopupWindow pw;
+
     Spinner albumNameSpinner;
     
-  // int albumArrayIndex;
-  //  int photoIndex;
+  int albumArrayIndex;
+    int photoIndex;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-
+        Bundle bundle = getIntent().getExtras();
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editphotoview);
        //TODO: instantiate the controller from bundle
         // controller = (Controller) savedInstanceState.get("controller");
-        // albumArrayIndex = (int) savedInstanceState.get("albumArrayIndex");
+       //  albumArrayIndex = (int) savedInstanceState.get("albumArrayIndex");
         // photoIndex = (int) savedInstanceState.get("photoIndex");
         
-        
+        albumArrayIndex = -1;
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
         OnClickListener generateListener = new OnClickListener()
         {
@@ -91,7 +92,7 @@ public class EditPhotoActivity extends Activity
         OnClickListener newAlbumListener = new OnClickListener(){
             @Override
             public void onClick(View v){
-                inflatePopup();
+                inflatePopup(); 
             }
         };
         newAlbumButton.setOnClickListener(newAlbumListener);
@@ -144,7 +145,7 @@ public class EditPhotoActivity extends Activity
         //TODO EditPhotoActivity: get the id of the current album albumNameSpinner.get, if (new album) selected go to edit album to create new album, if existing album selected
         //                                                                 add this photo to the album and go to the album view after finishing the current activity
         albumNameSpinner = (Spinner) findViewById(R.id.albumNameSpinner);
-        albumNames = new String[] {"test1", "NewAlbum"};
+        albumNames = Controller.getAlbumNames();
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(EditPhotoActivity.this, android.R.layout.simple_spinner_item, albumNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -157,7 +158,7 @@ public class EditPhotoActivity extends Activity
          AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
          alert.setTitle("Title");
-         alert.setMessage("Message");
+         alert.setMessage("Message");  
 
          // Set an EditText view to get user input
          final EditText input = new EditText(this);
@@ -221,8 +222,10 @@ public class EditPhotoActivity extends Activity
             EditText commentET = (EditText) findViewById(R.id.commentEditText);
             String comment = commentET.getText().toString();        // get the string inside
 
-            
-         //   controller.addPhoto(albumArrayIndex, p);
+            if(albumArrayIndex == -1)
+                Controller.addAlbum(albumNameSpinner.getSelectedItem().toString(), imageUri, comment);
+            else
+                Controller.addPhoto(albumArrayIndex, imageUri, comment);
             //intent.putExtra("BMPphoto", BMPphoto);
             
             setResult(RESULT_OK, intent);
@@ -276,4 +279,12 @@ public class EditPhotoActivity extends Activity
         button.setImageBitmap(BMPphoto);
     }
 
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
+    }
+    
+    
+    
 }
