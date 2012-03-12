@@ -161,10 +161,6 @@ public class EditPhotoActivity extends Activity
         // the current activity
         albumNameSpinner = (Spinner) findViewById(R.id.albumNameSpinner);
         albumNames = Controller.getAlbumNames();
-        // TODO: REMOVE ME *************//
-        albumNames = new String[] {};   //
-                                        //
-        // TODO: DONE ******************//
         ArrayAdapter<String> spinnerAdapter;
         if (albumNames.length != 0)
         {
@@ -206,10 +202,7 @@ public class EditPhotoActivity extends Activity
 
                 Log.e("InflatePopup", "Button Clicked");
                 String newAlbumName = value.toString();
-                // TODO: REMOVE ME ***************
-                albumNames = new String[] {};
 
-                // TODO: DONE *******************
                 String[] temp = new String[albumNames.length + 1];
                 temp[0] = newAlbumName;
                 for (int i = 0; i < albumNames.length; i++)
