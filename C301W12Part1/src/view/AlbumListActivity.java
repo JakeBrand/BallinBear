@@ -11,8 +11,13 @@ import model.Photo;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -43,7 +48,7 @@ public class AlbumListActivity extends Activity
 {
     ArrayList<Item>  items;
     ArrayList<Album> albs;
-
+    String[] albumNames;
     // TODO AlbumListActivity: setup android:albumlist with current data, items
     // have album name, sub items could have album length, the most current
     // photo could be as a thumbnail, last updated?
@@ -56,24 +61,22 @@ public class AlbumListActivity extends Activity
         
         Bundle bundle = getIntent().getExtras();
         
-        
-        
         setContentView(R.layout.main);
-
-        Button button = (Button) findViewById(R.id.NewPhotoButton);
-        OnClickListener listener = new OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                takeNewPhoto(v);
-
+        ListView albumlistView = (ListView) findViewById(R.id.albumlist);
+        albumNames = Controller.getAlbumNames();
+        ArrayAdapter<String> albListAdapter = new ArrayAdapter<String>(AlbumListActivity.this, android.R.layout.simple_list_item_1, albumNames);
+        albumlistView.setAdapter(albListAdapter);
+        
+        
+        albumlistView.setClickable(true);
+        
+        albumlistView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                int position, long id) {
+            	Intent intent = new Intent (AlbumListActivity.this, GalleryActivity.class);
+            	startActivity(intent);
             }
-
-        };
-        button.setOnClickListener(listener);
+        });
     }
 
     private ArrayList<Item> toItem(ArrayList<Album> gal)
@@ -90,50 +93,42 @@ public class AlbumListActivity extends Activity
 
     }
 
-    private void takeNewPhoto(View v)
-    {
-
-        Intent intent = new Intent(this, EditPhotoActivity.class);
-        // Other stuff for storage
-        startActivityForResult(intent, 0);
-    }
-
-    // private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
-    // protected void takeAPhoto()
-    // {
-    // // Create intent instance to be used to take photo
-    // Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    //
-    // // Create Folder in SD Card // folder name = tmp
-    // String folder =
-    // Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
-    //
-    //
-    // // give file the folder (wtf)?
-    // File folderF = new File(folder);
-    //
-    // if(!folderF.exists()){ // if folder doesnt exist
-    // folderF.mkdir(); // make it bloody exist
-    // }
-    //
-    // // make file path // name // type
-    // String imageFilePath = folder + "/" +
-    // String.valueOf(System.currentTimeMillis()) + ".jpg";
-    //
-    //
-    // File imageFile = new File(imageFilePath);
-    //
-    // // Create URI
-    // imageUri = Uri.fromFile(imageFile);
-    //
-    //
-    // intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-    //
-    // // start intent to take picture
-    // startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);
-    // }
-    //
-    //
+/*     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
+     protected void takeAPhoto()
+     {
+     // Create intent instance to be used to take photo
+     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    
+     // Create Folder in SD Card // folder name = tmp
+     String folder =
+     Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+    
+    
+     // give file the folder (wtf)?
+     File folderF = new File(folder);
+    
+     if(!folderF.exists()){ // if folder doesnt exist
+     folderF.mkdir(); // make it bloody exist
+     }
+    
+     // make file path // name // type
+     String imageFilePath = folder + "/" +
+     String.valueOf(System.currentTimeMillis()) + ".jpg";
+    
+    
+     File imageFile = new File(imageFilePath);
+    
+     // Create URI
+     imageUri = Uri.fromFile(imageFile);
+    
+    
+     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+    
+     // start intent to take picture
+     startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);
+     }
+    
+    
     
     //TODO: Find out how to access (non-null) Bitmap from bundle...
     //NOTE: intent that is passed IS NULL
@@ -173,6 +168,6 @@ public class AlbumListActivity extends Activity
         super.onPause();
         Controller.saveObject(this);
         
-    }
+    }*/
     
 }

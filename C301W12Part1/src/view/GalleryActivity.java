@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -54,16 +55,16 @@ public class GalleryActivity extends Activity{
         
         alb = Controller.getAlbum(albumArrayIndex);
         
-        Log.e(null, "albName " + alb.getAlbumName());
+        
+      
+        Log.e("Displaying Album", alb.getAlbumName());
         
         setContentView(R.layout.galleryview);
-        Log.e(null, "got here 4");
         
-        Gallery ga = (Gallery)findViewById(R.id.albumGallery);
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);
         
         TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);
-        Log.e(null, "is gallery null: " + ga.toString());
-        Log.e(null, "is tv null: "  + AlbumName.toString());
+        
         AlbumName.setText(alb.getAlbumName());
         
         
@@ -77,14 +78,14 @@ public class GalleryActivity extends Activity{
                         public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                         // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
 
-                            Log.e(null, "what is this: "  + toString());
-                          //  Log.e(null, "is parent: "  + getParent().toString());
                             Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class); 
-                               editPhotoIntent.putExtra("position", position);
-                               
+                               Log.e("Photo clicked", "Position = " + position);
                                int requestCode = 0;
                                Log.e("About to go to editPhoto", "request code: " + requestCode);
-                               
+                               Bundle bundle = new Bundle();
+                               bundle.putInt("albumArrayIndex", albumArrayIndex);
+                               bundle.putInt("photoIndex", position);
+                               editPhotoIntent.putExtras(bundle);
                                startActivityForResult(editPhotoIntent, requestCode);
                                
                                
@@ -130,11 +131,14 @@ public class GalleryActivity extends Activity{
         @Override
         public View getView(int arg0, View arg1, ViewGroup arg2) {
                 ImageView iv = new ImageView(ctx);
-                
+//                Log.e("In getView", "arg0 = " + arg0);
+//                Log.e(null," arg1 = " + arg1.toString());
+//                Log.e(null," arg2 = " + arg2.toString());
                 Uri pic = alb.getPhotos().get(arg0).getPicture();
-
+                Log.e("Uri of pic " + arg0,"" + pic );
+                //Bitmap myBitmap = BitmapFactory.decodeFile(pic.getPath());///sdcard/myImages/myImage.jp);
                 
-                iv.setImageDrawable(Drawable.createFromPath(pic.getPath())); 
+                iv.setImageURI(pic);//Drawable.createFromPath(pic.getPath())); 
                 iv.setScaleType(ImageView.ScaleType.FIT_XY);
                 iv.setLayoutParams(new Gallery.LayoutParams(150,120));
                 iv.setBackgroundResource(imageBackground);
