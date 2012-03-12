@@ -51,6 +51,7 @@ public class EditPhotoActivity extends Activity
     Spinner        albumNameSpinner;
     int            albumArrayIndex;
     int            photoIndex;
+    boolean        newAlbumSelected;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -115,7 +116,7 @@ public class EditPhotoActivity extends Activity
             public void onClick(View v)
             {
 
-                acceptBogoPic();
+                acceptBogoPic(newAlbumSelected);
 
             }
 
@@ -159,6 +160,7 @@ public class EditPhotoActivity extends Activity
         // create new album, if existing album selected
         // add this photo to the album and go to the album view after finishing
         // the current activity
+        newAlbumSelected = false;
         albumNameSpinner = (Spinner) findViewById(R.id.albumNameSpinner);
         albumNames = Controller.getAlbumNames();
         ArrayAdapter<String> spinnerAdapter;
@@ -180,6 +182,7 @@ public class EditPhotoActivity extends Activity
 
     }
 
+    // New Album has been clicked. Bring Dialog (popup) to front.
     private void inflatePopup()
     {
 
@@ -191,15 +194,16 @@ public class EditPhotoActivity extends Activity
         final EditText input = new EditText(this);
         alert.setView(input);
 
+            // Accept New Album button clicked. Add new option to spinner (dropdown),
+            // set newAlbumSelected flag to true, rebuild spinner, and return
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
 
             public void onClick(DialogInterface dialog, int whichButton)
             {
-
+                newAlbumSelected =  true;
                 Editable value = input.getText();
                 Log.e("value", value.toString());
-
                 Log.e("InflatePopup", "Button Clicked");
                 String newAlbumName = value.toString();
 
@@ -207,29 +211,29 @@ public class EditPhotoActivity extends Activity
                 temp[0] = newAlbumName;
                 for (int i = 0; i < albumNames.length; i++)
                 {
-                    temp[i] = albumNames[i + 1];
+                    Log.d("AlbumNames[i] = ", ""+albumNames[i]);
+                    temp[i+1] = albumNames[i];
+
                 }
                 albumNames = temp;
                 temp = null;
-                // albumNames[albumNames.length - 1] = newAlbumName; //TODO: no
-                // overwrite
+                
                 ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(
                         EditPhotoActivity.this,
                         android.R.layout.simple_spinner_item, albumNames);
                 spinnerAdapter
                         .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                 albumNameSpinner.setAdapter(spinnerAdapter);
-                albumNameSpinner.setSelection(albumNames.length - 1, false);
+                albumNameSpinner.setSelection(0, false);
             }
         });
 
+        // Dialog (popup) Cancel button clicked. Save nothing. Return.
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
         {
 
             public void onClick(DialogInterface dialog, int whichButton)
             {
-
-                // Canceled.
             }
         });
 
@@ -237,6 +241,7 @@ public class EditPhotoActivity extends Activity
 
     }
 
+    // Cancel button is clicked. Save no changes. Return.
     protected void cancelBogoPic()
     {
 
@@ -249,11 +254,12 @@ public class EditPhotoActivity extends Activity
         finish();
         return;
     }
-
-    protected void acceptBogoPic()
+    
+    // Accept button is clicked. Tell controller to save new 
+    // photo and/or album
+    protected void acceptBogoPic(boolean newAlbumSelected)
     {
 
-        // get intent that starts the activity
         Intent intent = getIntent();
         if (intent == null)
         {
@@ -261,32 +267,33 @@ public class EditPhotoActivity extends Activity
             return;
         }
 
-        // File intentFile = getPicturePath(intent);
         Uri imageUri = getImageUri(intent);
         Bundle b = new Bundle();
-        // saveBMP(intentFile, BMPphoto);
-
-        // if clicked, get the edittext
         EditText commentET = (EditText) findViewById(R.id.commentEditText);
         String comment = commentET.getText().toString(); // get the string
                                                          // inside
-
-        if (albumArrayIndex == -1)
+        // If newAlbum has been clicked and is chosen in the spinner (drop down)
+        // create a new album with picture taken
+        if (newAlbumSelected && albumNameSpinner.getSelectedItemPosition()==0)
         {
+
+            b.putInt("albumArrayIndex", 0);
             Controller.addAlbum(albumNameSpinner.getSelectedItem().toString(),
                     imageUri, comment);
-            b.putInt("albumArrayIndex", 0);
-        } else
+            Log.d("number of alums after adding is:" , ""+Controller.getAlbumNames().length);
+        } 
+        // If no need to create a new album, add the photo to the selected
+        // spinner position (drop down)
+        else
         {
-            Controller.addPhoto(albumArrayIndex, imageUri, comment);
+            albumArrayIndex = albumNameSpinner.getSelectedItemPosition();
             b.putInt("albumArrayIndex", albumArrayIndex);
+            Controller.addPhoto(albumArrayIndex, imageUri, comment);
 
         }
-
+        // Put the updated bundle back into the intent Extras and finish the intent
         intent.putExtras(b);
-
         setResult(RESULT_OK, intent);
-
         finish();
 
     }
@@ -309,13 +316,15 @@ public class EditPhotoActivity extends Activity
      * 
      * return file; }
      */
+    
+    // Return the Uri to the image with the given intent
     private Uri getImageUri(Intent intent)
     {
 
         Uri uri = (Uri) intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
         return uri;
     }
-
+    // Set the imageButton to the generated picture
     protected void setBogoPic()
     {
 
@@ -324,12 +333,13 @@ public class EditPhotoActivity extends Activity
         button.setImageBitmap(BMPphoto);
     }
 
-    public void onPause()
-    {
-
-        super.onPause();
-        Controller.saveObject(this);
-
-    }
+//    //TODO: find out how to save!
+//    public void onPause()
+//    {
+//
+//        super.onPause();
+//        Controller.saveObject(this);
+//
+//    }
 
 }
