@@ -58,10 +58,10 @@ public class Controller
     } 
 
  // add photo p to i
-    public void addPhoto(int i, Photo p)
+    public void addPhoto(int i, Uri imageUri, String comment)
     {
         Album temp = albums.get(i);
-        temp.addPhoto(p);
+        temp.addPhoto(new Photo(comment, imageUri));
         albums.set(i, temp);
     } 
 
@@ -84,6 +84,12 @@ public class Controller
     } 
 
     
-    
+    public String[] getAlbumNames(){
+        String[] albNames = new String[albums.size()];
+        for (int i = 0; i < albums.size(); i++){
+            albNames[i] = albums.get(i).getAlbumName();
+        }
+        return albNames;
+    }
     
 }
