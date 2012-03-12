@@ -138,6 +138,10 @@ public class EditPhotoActivity extends Activity
         };
         backButton.setOnClickListener(backListener);
 
+        // TODO: finish implementing!
+        // Delete button pushed. Remove photo from current album.
+        // If still Photos in Album return to Album.
+        // If Album is empty return to AlbumListView
         Button PhotoDelete = (Button) findViewById(R.id.PhotoDelete);
         OnClickListener PhotoDeleteListener = new OnClickListener()
         {
@@ -146,10 +150,9 @@ public class EditPhotoActivity extends Activity
             public void onClick(View v)
             {
 
-                // TODO EditPhotoActivity: delete the Photo from the Current
-                // Album, if there are still photos in this album stay in its
-                // gallery view
-                // else go to AlbumListView
+                //Delete album photo
+                Controller.deletePhoto(albumArrayIndex, photoIndex);
+                
             }
 
         };
@@ -179,7 +182,6 @@ public class EditPhotoActivity extends Activity
                     .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
             albumNameSpinner.setAdapter(spinnerAdapter);
         
-
     }
 
     // New Album has been clicked. Bring Dialog (popup) to front.
@@ -285,7 +287,9 @@ public class EditPhotoActivity extends Activity
         // If no need to create a new album,but must revert to previous spinner
         else if(newAlbumSelected)
         {
-            
+            albumArrayIndex = albumNameSpinner.getSelectedItemPosition()-1;
+            b.putInt("albumArrayIndex", albumArrayIndex);
+            Controller.addPhoto(albumArrayIndex, imageUri, comment);
 
         } 
         // If no need to create a new album, add the photo to the selected
