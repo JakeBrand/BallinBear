@@ -96,10 +96,13 @@ public class Controller
 
     
     public static String[] getAlbumNames(){
+        
+        
+        
         Log.e("albums.size", albums.size() + "");
        
-        if(albums.size() == 0)
-            return new String[] {"NO ALBUMS"};
+        if(albums.size() == 0) // Cant cast albums to string[] using .toArray because albums isnt an arraylist of strings
+            return new String[] {};
         
         String[] albNames = new String[albums.size()];
         
