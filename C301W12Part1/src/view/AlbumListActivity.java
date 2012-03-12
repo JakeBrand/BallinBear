@@ -24,6 +24,8 @@ import android.provider.MediaStore;
 
 import java.io.File;
 
+import control.Controller;
+
 import ca.ualberta.ca.c301.R;
 
 import android.app.Activity;
@@ -39,7 +41,6 @@ import android.view.View.OnClickListener;
 //#################################### This activity uses the main layout and is used to display the albums
 public class AlbumListActivity extends Activity
 {
-
     ArrayList<Item>  items;
     ArrayList<Album> albs;
 
@@ -52,6 +53,11 @@ public class AlbumListActivity extends Activity
     {
 
         super.onCreate(savedInstanceState);
+        
+        Bundle bundle = getIntent().getExtras();
+        
+        
+        
         setContentView(R.layout.main);
 
         Button button = (Button) findViewById(R.id.NewPhotoButton);
@@ -163,4 +169,10 @@ public class AlbumListActivity extends Activity
              }
         }
     }
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
+    }
+    
 }

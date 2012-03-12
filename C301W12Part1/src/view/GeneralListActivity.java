@@ -3,6 +3,8 @@ package view;
 
 import java.util.ArrayList;
 
+import control.Controller;
+
 import model.Album;
 import model.GenralListAdapter;
 import model.Item;
@@ -28,14 +30,15 @@ public class GeneralListActivity extends ListActivity {
     ArrayList<Item> items;
     
     
-    
         @SuppressWarnings({ "unchecked", "static-access" })
         @Override
         public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                // setContentView(R.layout.genlist);
                 
+                
                 Bundle bundle = getIntent().getExtras();
+                
                 
 //                String hi = (String) bundle.get("hello");
 //                Log.e("hey", hi);
@@ -114,7 +117,11 @@ public class GeneralListActivity extends ListActivity {
             
             
             
-        
+            public void onPause(){
+                super.onPause();
+                Controller.saveObject(this);
+                
+            }
             
             
         

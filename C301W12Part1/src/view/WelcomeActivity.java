@@ -2,6 +2,8 @@ package view;
 
 import java.io.File;
 
+import control.Controller;
+
 
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
@@ -20,16 +22,17 @@ import android.widget.Button;
 
 public class WelcomeActivity extends Activity {
     private Uri imageUri;
-    
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
     private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
+    
+    
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         
-        
+        Controller.loadObject(this);
         
       setContentView(R.layout.welcome_view);
       
@@ -62,6 +65,14 @@ public class WelcomeActivity extends Activity {
       };
       viewAlbums.setOnClickListener(viewAlbumsListener);
              
+    }
+    
+    
+    
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
     }
     
 
@@ -101,42 +112,52 @@ public class WelcomeActivity extends Activity {
       
       
       Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);
+      //takePhotoIntent.putExtra  ("Controller", controller);
       takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
       startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
   }
   
   
   @Override                 // if requestCodeis 100 we are good, result code is to see if a picture was actually taken
-  protected void onActivityResult(int requestCode, int resultCode,Intent intent ){
-      /*
-      if(requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST){
+  protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
+      Log.e("onActivityResult", "Got here");
+      if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
+          Log.e("onActivityResult", "requestCode = " + requestCode);
           if(resultCode == RESULT_OK){
-              Intent intent2 = new Intent(getParent(), EditPhotoActivity.class);
+              Log.e("onActivityResult", "resultCode = " + resultCode);
+              Bundle bundle = intent.getExtras();
+              int albumArrayIndex = bundle.getInt("albumArrayIndex");
+              Log.e("albumArrayIndex", "" + albumArrayIndex);
+              
+              Intent galleryActivityIntent = new Intent(this, GalleryActivity.class); // getParent(),
               // set button to look like photo just taken
-              intent2.putExtra("imagePath",imageUri.getPath()); // How do you pass around albums
-              startActivity(intent2);
+             // intent2.putExtra("imagePath",imageUri.getPath()); // How do you pass around albums
+              
+              
+              galleryActivityIntent.putExtras(bundle);
+              startActivity(galleryActivityIntent);
           }
       }
-      */
-      if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
-       if(resultCode == RESULT_OK){
-           Log.d("TEST", "resultCode == RESULT_OK");
-           if (intent != null)
-           {
-               Bitmap BMPphoto = (Bitmap) intent
-                       .getParcelableExtra("BMPphoto");
-               Log.d("intent is", intent.toString());
-               if (BMPphoto != null)
-               {
-                   Log.d("BMPphoto", "BMPphoto is NOT null");
-               } else{
-                   Log.d("BMPhoto", "BMPphoto is null");
-               }
-           } else {
-               Log.d("intent is", "null");
-           }  
-       }
-      }
+      
+//      if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
+//       if(resultCode == RESULT_OK){
+//           Log.d("TEST", "resultCode == RESULT_OK");
+//           if (intent != null)
+//           {
+//               Bitmap BMPphoto = (Bitmap) intent
+//                       .getParcelableExtra("BMPphoto");
+//               Log.d("intent is", intent.toString());
+//               if (BMPphoto != null)
+//               {
+//                   Log.d("BMPphoto", "BMPphoto is NOT null");
+//               } else{
+//                   Log.d("BMPhoto", "BMPphoto is null");
+//               }
+//           } else {
+//               Log.d("intent is", "null");
+//           }  
+//       }
+//      }
   }
     
     

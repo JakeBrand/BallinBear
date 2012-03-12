@@ -1,4 +1,5 @@
 package view;
+import control.Controller;
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,12 +11,15 @@ import android.widget.Spinner;
 
 public class SlideShowActivity extends Activity {
 
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
       setContentView(R.layout.slideshowview);
+      
+      
+      Bundle bundle = getIntent().getExtras();
+      
       // TODO SlideShowActivity: Actually implement slideshow given Album
       
              
@@ -36,6 +40,11 @@ public class SlideShowActivity extends Activity {
       
     }
     
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
+    }
     
     
     

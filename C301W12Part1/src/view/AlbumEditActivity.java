@@ -25,6 +25,8 @@ import android.provider.MediaStore;
 
 import java.io.File;
 
+import control.Controller;
+
 import ca.ualberta.ca.c301.R;
 
 
@@ -45,7 +47,6 @@ import android.view.View.OnClickListener;
 
 //#################################### This activity uses the album_edit layout and is used to edit albums (duh!)
 public class AlbumEditActivity extends Activity {
-    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {       
@@ -55,6 +56,7 @@ public class AlbumEditActivity extends Activity {
       EditText albName = (EditText) findViewById(R.id.albumNameEditText);
 
       Bundle bundle = getIntent().getExtras();
+      
       
       if(bundle.get("Alb") == null)
           albName.setText("Album Name");
@@ -102,4 +104,11 @@ public class AlbumEditActivity extends Activity {
       doneButton.setOnClickListener(doneListener);
       
     }
+    
+    public void onPause(){
+        super.onPause();
+        Controller.saveObject(this);
+        
+    }
+    
 }
