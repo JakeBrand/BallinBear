@@ -282,14 +282,18 @@ public class EditPhotoActivity extends Activity
                     imageUri, comment);
             Log.d("number of alums after adding is:" , ""+Controller.getAlbumNames().length);
         } 
+        // If no need to create a new album,but must revert to previous spinner
+        else if(newAlbumSelected)
+        {
+            
+
+        } 
         // If no need to create a new album, add the photo to the selected
         // spinner position (drop down)
-        else
-        {
+        else{
             albumArrayIndex = albumNameSpinner.getSelectedItemPosition();
             b.putInt("albumArrayIndex", albumArrayIndex);
             Controller.addPhoto(albumArrayIndex, imageUri, comment);
-
         }
         // Put the updated bundle back into the intent Extras and finish the intent
         intent.putExtras(b);
