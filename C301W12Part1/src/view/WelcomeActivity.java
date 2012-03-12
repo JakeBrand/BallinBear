@@ -119,16 +119,23 @@ public class WelcomeActivity extends Activity {
   
   
   @Override                 // if requestCodeis 100 we are good, result code is to see if a picture was actually taken
-  protected void onActivityResult(int requestCode, int resultCode,Intent intent ){
+  protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
       Log.e("onActivityResult", "Got here");
       if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
           Log.e("onActivityResult", "requestCode = " + requestCode);
           if(resultCode == RESULT_OK){
               Log.e("onActivityResult", "resultCode = " + resultCode);
-              Intent intent2 = new Intent(this, GalleryActivity.class); // getParent(),
+              Bundle bundle = intent.getExtras();
+              int albumArrayIndex = bundle.getInt("albumArrayIndex");
+              Log.e("albumArrayIndex", "" + albumArrayIndex);
+              
+              Intent galleryActivityIntent = new Intent(this, GalleryActivity.class); // getParent(),
               // set button to look like photo just taken
              // intent2.putExtra("imagePath",imageUri.getPath()); // How do you pass around albums
-              startActivity(intent2);
+              
+              
+              galleryActivityIntent.putExtras(bundle);
+              startActivity(galleryActivityIntent);
           }
       }
       

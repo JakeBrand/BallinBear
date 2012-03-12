@@ -28,50 +28,64 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 //#################################### This activity uses the albumthumbnail layout and is used to display the photos
 public class GalleryActivity extends Activity{
 
     Album alb;
     ImageView imageView;
+    int albumArrayIndex;
         
         /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        
         super.onCreate(savedInstanceState);
-        Log.e("GalleryActivity", "Got here");
-        Bundle bundle = getIntent().getExtras();
         
-
+        Bundle bundle = getIntent().getExtras();
         
         try
         {
-            alb = (Album) bundle.get("Alb");
+            albumArrayIndex = (Integer) bundle.get("albumArrayIndex");
         } catch (NullPointerException e)
         {
-            alb = new Album("alb1");
+            Log.e("albumArrayIndex", "is null");
         }
         
-        Log.e(null, "got here 3");
+        alb = Controller.getAlbum(albumArrayIndex);
+        
+        Log.e(null, "albName " + alb.getAlbumName());
         
         setContentView(R.layout.galleryview);
         Log.e(null, "got here 4");
         
         Gallery ga = (Gallery)findViewById(R.id.albumGallery);
+        
+        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);
+        Log.e(null, "is gallery null: " + ga.toString());
+        Log.e(null, "is tv null: "  + AlbumName.toString());
+        AlbumName.setText(alb.getAlbumName());
+        
+        
         ga.setAdapter(new ImageAdapter(this));
         
-        
+        final Context ctx  = this.getApplicationContext();
+
         ga.setOnItemClickListener(new OnItemClickListener() {
 
                         @Override 
                         public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                         // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
-                               Intent photoEditIntent = new Intent(getParent(), EditPhotoActivity.class); 
-                               photoEditIntent.putExtra("position", position);
+
+                            Log.e(null, "what is this: "  + toString());
+                          //  Log.e(null, "is parent: "  + getParent().toString());
+                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class); 
+                               editPhotoIntent.putExtra("position", position);
                                
                                int requestCode = 0;
-                               startActivityForResult(photoEditIntent, requestCode);
+                               Log.e("About to go to editPhoto", "request code: " + requestCode);
+                               
+                               startActivityForResult(editPhotoIntent, requestCode);
                                
                                
                         }

@@ -67,6 +67,7 @@ public class EditPhotoActivity extends Activity
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editphotoview);
+        Log.e("ON CREATE IN EDIT PHOTO", "");
        //TODO: instantiate the controller from bundle
         // controller = (Controller) savedInstanceState.get("controller");
        //  albumArrayIndex = (int) savedInstanceState.get("albumArrayIndex");
@@ -157,8 +158,8 @@ public class EditPhotoActivity extends Activity
 
          AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-         alert.setTitle("Title");
-         alert.setMessage("Message");  
+         alert.setTitle("New Album");
+         alert.setMessage("Enter the name of the new Album");  
 
          // Set an EditText view to get user input
          final EditText input = new EditText(this);
@@ -215,18 +216,31 @@ public class EditPhotoActivity extends Activity
 
           //  File intentFile = getPicturePath(intent);
             Uri imageUri = getImageUri(intent);
-            
+            Bundle b = new Bundle();
             //saveBMP(intentFile, BMPphoto);
 
             // if clicked, get the edittext
             EditText commentET = (EditText) findViewById(R.id.commentEditText);
             String comment = commentET.getText().toString();        // get the string inside
 
-            if(albumArrayIndex == -1)
+            if(albumArrayIndex == -1){
                 Controller.addAlbum(albumNameSpinner.getSelectedItem().toString(), imageUri, comment);
-            else
+                b.putInt("albumArrayIndex", 0);
+            }
+            else{
                 Controller.addPhoto(albumArrayIndex, imageUri, comment);
+                b.putInt("albumArrayIndex", albumArrayIndex);
+                
+            }
             //intent.putExtra("BMPphoto", BMPphoto);
+            
+            
+
+            
+
+            intent.putExtras(b);
+
+            
             
             setResult(RESULT_OK, intent);
         
