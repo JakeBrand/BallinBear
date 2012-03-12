@@ -250,7 +250,7 @@ public class EditPhotoActivity extends Activity
         }
 
     }
-*/
+
     private File getPicturePath(Intent intent)
     {
 
@@ -259,6 +259,7 @@ public class EditPhotoActivity extends Activity
 
         return file;
     }
+    */
     private Uri getImageUri(Intent intent)
     {
 
@@ -272,7 +273,7 @@ public class EditPhotoActivity extends Activity
     {
 
         ImageButton button = (ImageButton) findViewById(R.id.generated_pic);
-         BMPphoto = BogoPicGen.generateBitmap(350,350);
+        BMPphoto = BogoPicGen.generateBitmap(350,350);
         button.setImageBitmap(BMPphoto);
     }
 
