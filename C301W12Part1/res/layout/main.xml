@@ -18,20 +18,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ListView
-            android:id="@+id/android:albumlist"
+            android:id="@+id/albumlist"
             android:layout_width="wrap_content"
-            android:layout_height="410dp" >
+            android:layout_height="wrap_content" >
 
         </ListView>
 
-
-
     </LinearLayout>
-
-            <Button
-            android:id="@+id/NewPhotoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Photo" />
 
 </LinearLayout>

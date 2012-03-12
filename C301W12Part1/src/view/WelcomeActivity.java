@@ -59,7 +59,10 @@ public class WelcomeActivity extends Activity {
           public void onClick(View v){
               
             // TODO WelcomeActivity: view Albums
-
+        	  Intent myIntent = new Intent(v.getContext(), AlbumListActivity.class);
+              startActivityForResult(myIntent, 0);
+              
+              
         }
           
       };
