@@ -116,7 +116,7 @@ public class EditPhotoActivity extends Activity
             public void onClick(View v)
             {
 
-                acceptBogoPic(newAlbumSelected);
+                acceptBogoPic();
 
             }
 
@@ -190,7 +190,7 @@ public class EditPhotoActivity extends Activity
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("New Album");
-        alert.setMessage("Enter the name of the new Album");
+        alert.setMessage("Please enter the name a the new Album");
 
         // Set an EditText view to get user input
         final EditText input = new EditText(this);
@@ -259,51 +259,93 @@ public class EditPhotoActivity extends Activity
     
     // Accept button is clicked. Tell controller to save new 
     // photo and/or album
-    protected void acceptBogoPic(boolean newAlbumSelected)
+    private void acceptBogoPic()
     {
 
         Intent intent = getIntent();
-        if (intent == null)
-        {
+        if(intent==null){
             Log.d("acceptBogoPic", "intent is null");
-            return;
+           return;
         }
-
+        // TODO: why is this invalid Uri?
         Uri imageUri = getImageUri(intent);
+        
         Bundle b = new Bundle();
         EditText commentET = (EditText) findViewById(R.id.commentEditText);
-        String comment = commentET.getText().toString(); // get the string
-                                                         // inside
+        String comment = commentET.getText().toString();
+        
+        int validityCode = verifyAccept();
+        
+        switch(validityCode){
+            // TODO: If no image taken... don't make a Photo!
+
+            // If newAlbum has been clicked and is chosen in the spinner (drop down)
+            // create a new album with picture taken
+            case 1:
+                b.putInt("albumArrayIndex", 0);
+                Controller.addAlbum(albumNameSpinner.getSelectedItem().toString(),
+                        imageUri, comment);
+                finishIntent(b, intent);
+                break;
+                
+            // If no need to create a new album, but ignore the spinner[0] (new album)
+            case 2:
+                albumArrayIndex = albumNameSpinner.getSelectedItemPosition()-1;
+                b.putInt("albumArrayIndex", albumArrayIndex);
+                Controller.addPhoto(albumArrayIndex, imageUri, comment);
+                finishIntent(b, intent);
+                break;
+                
+            // There are no albums. Must create one before progressing.
+            case 3:
+                inflatePopup();
+                break;
+                
+            // Use selected album.
+            case 4:
+                albumArrayIndex = albumNameSpinner.getSelectedItemPosition();
+                b.putInt("albumArrayIndex", albumArrayIndex);
+                Controller.addPhoto(albumArrayIndex, imageUri, comment);
+                finishIntent(b, intent);
+                break;
+            default:
+                Log.e("validityCode", "Invalid");
+                break;
+        }
+
+    }
+    
+    // Return a verification code based on state of completion
+    private int verifyAccept(){
+
         // If newAlbum has been clicked and is chosen in the spinner (drop down)
         // create a new album with picture taken
         if (newAlbumSelected && albumNameSpinner.getSelectedItemPosition()==0)
         {
-
-            b.putInt("albumArrayIndex", 0);
-            Controller.addAlbum(albumNameSpinner.getSelectedItem().toString(),
-                    imageUri, comment);
-            Log.d("number of alums after adding is:" , ""+Controller.getAlbumNames().length);
+            return 1;
         } 
-        // If no need to create a new album,but must revert to previous spinner
+        
+        // If no need to create a new album, but ignore spinner[0] (new album)
         else if(newAlbumSelected)
         {
-            albumArrayIndex = albumNameSpinner.getSelectedItemPosition()-1;
-            b.putInt("albumArrayIndex", albumArrayIndex);
-            Controller.addPhoto(albumArrayIndex, imageUri, comment);
+            return 2;
 
         } 
-        // If no need to create a new album, add the photo to the selected
-        // spinner position (drop down)
+        // There are no albums. Must create one.
         else{
-            albumArrayIndex = albumNameSpinner.getSelectedItemPosition();
-            b.putInt("albumArrayIndex", albumArrayIndex);
-            Controller.addPhoto(albumArrayIndex, imageUri, comment);
+            if(albumArrayIndex < 0){
+                return 3;
+            }
+        // No need to create a new album. Use selected album.    
+            return 4;
         }
+    }
+    
+    private void finishIntent(Bundle b, Intent intent){
         // Put the updated bundle back into the intent Extras and finish the intent
         intent.putExtras(b);
         setResult(RESULT_OK, intent);
         finish();
-
     }
 
     // TODO: Save the BMP or create a Photo and save the Photo?
