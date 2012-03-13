@@ -58,7 +58,7 @@ public class GalleryActivity extends Activity{
         
       
         Log.e("Displaying Album", alb.getAlbumName());
-        
+        Log.e("album " + alb.getAlbumName() + " has " + alb.getPhotos().size() + " photos", "####");
         setContentView(R.layout.galleryview);
         
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);
@@ -94,6 +94,58 @@ public class GalleryActivity extends Activity{
         
     }
     
+    
+    protected void onActivityReslt(Intent intent){
+ Bundle bundle = getIntent().getExtras();
+        
+        try
+        {
+            albumArrayIndex = (Integer) bundle.get("albumArrayIndex");
+        } catch (NullPointerException e)
+        {
+            Log.e("albumArrayIndex", "is null");
+        }
+        
+        alb = Controller.getAlbum(albumArrayIndex);
+        
+        
+      
+        Log.e("Displaying Album", alb.getAlbumName());
+        Log.e("album " + alb.getAlbumName() + " has " + alb.getPhotos().size() + " photos", "####");
+        setContentView(R.layout.galleryview);
+        
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);
+        
+        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);
+        
+        AlbumName.setText(alb.getAlbumName());
+        
+        
+        ga.setAdapter(new ImageAdapter(this));
+        
+        final Context ctx  = this.getApplicationContext();
+
+        ga.setOnItemClickListener(new OnItemClickListener() {
+
+                        @Override 
+                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+                        // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
+
+                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class); 
+                               Log.e("Photo clicked", "Position = " + position);
+                               int requestCode = 0;
+                               Log.e("About to go to editPhoto", "request code: " + requestCode);
+                               Bundle bundle = new Bundle();
+                               bundle.putInt("albumArrayIndex", albumArrayIndex);
+                               bundle.putInt("photoIndex", position);
+                               editPhotoIntent.putExtras(bundle);
+                               startActivityForResult(editPhotoIntent, requestCode);
+                               
+                               
+                        }
+        });
+     
+    }
     
     public class ImageAdapter extends BaseAdapter {
 
