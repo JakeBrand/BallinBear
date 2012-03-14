@@ -80,7 +80,6 @@ public class GalleryActivity extends Activity{
                 Bundle bundle = new Bundle();
                 bundle.putInt("albumArrayIndex", albumArrayIndex);
                 editPhotoIntent.putExtras(bundle);
-             // Create Folder in SD Card                                              // folder name = tmp
                 String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
                 File folderF = new File(folder);
                 

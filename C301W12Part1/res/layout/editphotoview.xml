@@ -10,6 +10,13 @@
         android:text="@string/Date" />
 
     <TextView
+        android:id="@+id/photoDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/TakeAPicture" />
