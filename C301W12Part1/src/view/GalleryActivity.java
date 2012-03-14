@@ -2,6 +2,7 @@ package view;
 
 
 
+import java.io.File;
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -20,13 +21,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import ca.ualberta.ca.c301.R;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,14 +65,41 @@ public class GalleryActivity extends Activity{
         Log.e("Displaying Album", alb.getAlbumName());
         Log.e("album " + alb.getAlbumName() + " has " + alb.getPhotos().size() + " photos", "####");
         setContentView(R.layout.galleryview);
-        
-        Gallery ga = (Gallery) findViewById(R.id.albumGallery);
-        
-        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);
-        
+
+        Button newPhotoButton = (Button) findViewById(R.id.NewPhotoButton);
+        newPhotoButton.setOnClickListener(new OnClickListener()
+        {
+            
+            @Override
+            public void onClick(View v)
+            {
+                //TODO: Make this code into a function, not a huge inner class!
+                final Context ctx  = GalleryActivity.this.getApplicationContext();
+                Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
+                int requestCode = 0;
+                Bundle bundle = new Bundle();
+                bundle.putInt("albumArrayIndex", albumArrayIndex);
+                editPhotoIntent.putExtras(bundle);
+             // Create Folder in SD Card                                              // folder name = tmp
+                String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+                File folderF = new File(folder);
+                
+                if(!folderF.exists()){
+                    folderF.mkdir();
+                }
+                // make file path                                       // name                         // type
+                String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+                Uri imageUri = Uri.fromFile(new File(imageFilePath));
+                editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(editPhotoIntent, requestCode);
+                
+            }
+        });
+
+        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);      
         AlbumName.setText(alb.getAlbumName());
         
-        
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);        
         ga.setAdapter(new ImageAdapter(this));
         
         final Context ctx  = this.getApplicationContext();
@@ -86,8 +118,9 @@ public class GalleryActivity extends Activity{
                                bundle.putInt("albumArrayIndex", albumArrayIndex);
                                bundle.putInt("photoIndex", position);
                                editPhotoIntent.putExtras(bundle);
+                               //TODO: This is where the issue was on March 13 at 1:00am
+                               editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getPhoto(albumArrayIndex, position).getPicture());
                                startActivityForResult(editPhotoIntent, requestCode);
-                               
                                
                         }
         });
@@ -108,8 +141,6 @@ public class GalleryActivity extends Activity{
         
         alb = Controller.getAlbum(albumArrayIndex);
         
-        
-      
         Log.e("Displaying Album", alb.getAlbumName());
         Log.e("album " + alb.getAlbumName() + " has " + alb.getPhotos().size() + " photos", "####");
         setContentView(R.layout.galleryview);
