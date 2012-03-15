@@ -47,7 +47,8 @@
         </activity>
                 <activity android:name="view.AlbumEditActivity"></activity>
                 <activity android:name="view.AlbumListActivity"></activity>
-                <activity android:name="view.CompareActivity"></activity>
+                <activity android:name="view.CompareActivity"
+                    android:screenOrientation="landscape"></activity>
                 <activity android:name="view.GalleryActivity"></activity>
                 <activity android:name="view.GeneralListActivity"></activity>
                 <activity android:name="view.SlideShowActivity"></activity>
