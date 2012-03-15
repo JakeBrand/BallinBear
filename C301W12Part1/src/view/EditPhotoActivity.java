@@ -104,6 +104,19 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     {
 
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.editphotoview);
+
+        // TODO EditPhotoActivity: get the id of the current album
+        // albumNameSpinner.get if existing album selected
+        // add this photo to the album and go to the album view after finishing
+        // the current activity
+
+
+    }
+    
+    public void onResume(){
+        super.onResume();
         setContentView(R.layout.editphotoview);
 
         newAlbumCreated = false;
@@ -126,12 +139,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         Button PhotoDelete = (Button) findViewById(R.id.PhotoDelete);
         PhotoDelete.setOnClickListener(this);
-
-        // TODO EditPhotoActivity: get the id of the current album
-        // albumNameSpinner.get if existing album selected
-        // add this photo to the album and go to the album view after finishing
-        // the current activity
-
+        
         if (albumNames.length != 0)
         {
             spinnerAdapter = new ArrayAdapter<String>(EditPhotoActivity.this,
@@ -281,6 +289,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         String comment = commentET.getText().toString();
 
         int validityState = verifyAccept();
+        int offset = 0;
 
         switch (validityState)
         {
@@ -291,10 +300,36 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                 break;
 
             // Transferring photo to new album
+                
+                //TODO: SOMETHING WRONG WITH THE DECREMENTING HERE!
             case MOVING_PHOTO_TO_EXISTING:
+                if(newAlbumCreated){
+                    offset+=1;
+                }
+                if(albumNameSpinner.getSelectedItemPosition() < albumArrayIndex){
+                    offset +=1;
+                }
+                if(newAlbumCreated){
+                    Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
+                    Controller.addPhoto((int) albumNameSpinner.getSelectedItemPosition()-offset,
+                            imageUri, comment);   
+                } else {
                 Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
-                Controller.addPhoto((int) albumNameSpinner.getSelectedItemId(),
-                        imageUri, comment);
+                if(albumArrayIndex == -1){
+                    Log.d("(-1)spinner position","is"+albumNameSpinner.getSelectedItemPosition());
+                    Log.d("(-1)AlbumArrayIndex is", ""+albumArrayIndex);
+      
+                    Controller.addPhoto((int) albumNameSpinner.getSelectedItemPosition()-offset,
+                            imageUri, comment);
+                } else{
+                    Log.d("spinner position","is"+albumNameSpinner.getSelectedItemPosition());
+                    Log.d("AlbumArrayIndex is", ""+albumArrayIndex);
+                  
+                    Controller.addPhoto((int) albumNameSpinner.getSelectedItemPosition()-offset,
+                            imageUri, comment); 
+                }
+
+                }
                 finishIntent(intent, imageUri);
                 break;
 
@@ -369,7 +404,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                 {
                     return UPDATING_PHOTO;
                 }
-                if (albumNameSpinner.getSelectedItemId() == 0)
+                if (albumNameSpinner.getSelectedItemPosition() == 0)
                 {
                     return MOVING_PHOTO_TO_NEW;
                 }

@@ -138,7 +138,7 @@ public class GalleryActivity extends Activity implements OnClickListener{
    
     public void onResume(){
         super.onResume();
-       
+        alb = Controller.getCurrentAlbum();
         if(Controller.getCurrentAlbumIndex() == -1)
             finish();
 
