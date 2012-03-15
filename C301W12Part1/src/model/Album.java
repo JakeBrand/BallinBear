@@ -5,12 +5,11 @@ import java.util.ArrayList;
 
 
 public class Album{
-    private static String albumName;
+    private  String albumName;
     private ArrayList<Photo> photos;
     
     
     // Constructor only needs name
-    @SuppressWarnings("static-access")
     public Album(String albumName) {
         this.albumName = albumName;
         this.photos = new ArrayList<Photo>();
@@ -18,12 +17,12 @@ public class Album{
     
     
     
-    public static String getAlbumName() {
+    public  String getAlbumName() {
         return albumName;
     }
     
-    public void setAlbumName(String albumName)  {
-        Album.albumName = albumName;
+    public void setAlbumName(String newAlbumName)  {
+        this.albumName = newAlbumName;
     }
     
     public ArrayList<Photo> getPhotos() {
@@ -40,15 +39,15 @@ public class Album{
     }
     
     public void addPhoto(Photo p){
-        photos.add(p);
+        this.photos.add(p);
     }
     
     public void deletePhoto(int i){
-        photos.remove(i);
+        this.photos.remove(i);
     }
     
     public void updatePhoto(int i, Photo p){
-        photos.set(i, p);
+        this.photos.set(i, p);
     }
 
 }

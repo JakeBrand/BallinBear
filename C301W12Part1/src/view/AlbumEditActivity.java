@@ -57,11 +57,11 @@ public class AlbumEditActivity extends Activity {
 
       Bundle bundle = getIntent().getExtras();
       
-      
-      if(bundle.get("Alb") == null)
-          albName.setText("Album Name");
-      else
-          albName.setText(Album.getAlbumName());
+//      
+//      if(bundle.get("Alb") == null)
+//          albName.setText("Album Name");
+//      else
+//          albName.setText(Controller.getAlbum(i)getAlbumName());
       
       
       Button deleteButton = (Button) findViewById(R.id.deleteButton);

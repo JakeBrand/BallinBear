@@ -126,6 +126,15 @@ public class GalleryActivity extends Activity{
         
     }
     
+    public void onResume(){
+        super.onResume();
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);        
+        ga.setAdapter(new ImageAdapter(this));
+        
+        if(Controller.getAlbum(albumArrayIndex).getPhotos().size() == 0){
+         //   finish();
+        }
+    }
     
     protected void onActivityReslt(Intent intent){
  Bundle bundle = getIntent().getExtras();

@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
@@ -67,13 +68,20 @@ public class AlbumListActivity extends Activity
         ArrayAdapter<String> albListAdapter = new ArrayAdapter<String>(AlbumListActivity.this, android.R.layout.simple_list_item_1, albumNames);
         albumlistView.setAdapter(albListAdapter);
         
+        if(albumNames.length == 0){
+            TextView title = (TextView) findViewById(R.id.albumTextView);
+            title.setText("No Albums to be Listed");
+        }
+        
         
         albumlistView.setClickable(true);
         
         albumlistView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                 int position, long id) {
+                
             	Intent intent = new Intent (AlbumListActivity.this, GalleryActivity.class);
+            	intent.putExtra("position", position);
             	startActivity(intent);
             }
         });

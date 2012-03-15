@@ -70,6 +70,7 @@ public class Controller
     } 
 
  // get photo j from album i
+    
     public static Photo getPhoto(int i, int j){
         Log.e("getting photo", "get " + j + " photo from album " + i);
       return  albums.get(i).getPhoto(j);
