@@ -11,12 +11,13 @@ import model.Photo;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
@@ -59,19 +60,15 @@ public class AlbumListActivity extends Activity
     {
 
         super.onCreate(savedInstanceState);
-        
-        Bundle bundle = getIntent().getExtras();
-        
+    }
+    
+     public void onResume(){
+         super.onResume();
         setContentView(R.layout.main);
         ListView albumlistView = (ListView) findViewById(R.id.albumlist);
         albumNames = Controller.getAlbumNames();
         ArrayAdapter<String> albListAdapter = new ArrayAdapter<String>(AlbumListActivity.this, android.R.layout.simple_list_item_1, albumNames);
         albumlistView.setAdapter(albListAdapter);
-        
-        if(albumNames.length == 0){
-            TextView title = (TextView) findViewById(R.id.albumTextView);
-            title.setText("No Albums to be Listed");
-        }
         
         
         albumlistView.setClickable(true);
@@ -79,27 +76,30 @@ public class AlbumListActivity extends Activity
         albumlistView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                 int position, long id) {
-                
             	Intent intent = new Intent (AlbumListActivity.this, GalleryActivity.class);
-            	intent.putExtra("position", position);
+            	Controller.setCurrentAlbum(position);
             	startActivity(intent);
             }
         });
-    }
-
-    private ArrayList<Item> toItem(ArrayList<Album> gal)
-    {
-
-        ArrayList<Item> items = new ArrayList<Item>();
-        for (int i = 0; i < gal.size(); i++)
+    
+        albumlistView.setOnItemLongClickListener(new OnItemLongClickListener()
         {
-            items.add(new Item(gal.get(i), gal.get(i).getAlbumName(), ""
-                    + gal.get(i).getPhotos().size()));
 
-        }
-        return items;
-
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                int position, long id) {
+                Intent intent = new Intent (AlbumListActivity.this, AlbumEditActivity.class);
+                Controller.setCurrentAlbum(position);
+                startActivity(intent);
+                return true;
+            }
+        });
+    
+    
+    
     }
+
+
 
 /*     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
      protected void takeAPhoto()

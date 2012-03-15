@@ -15,15 +15,23 @@ public class Album{
         this.photos = new ArrayList<Photo>();
     }
     
+    public void deleteAll(){
+        for(int i = 0; i < size(); i++){
+            deletePhoto(i);
+        }
+    }
     
+    
+    public int size(){
+        return photos.size();
+    }
     
     public  String getAlbumName() {
         return albumName;
-        
     }
     
-    public void setAlbumName(String newAlbumName)  {
-        this.albumName = newAlbumName;
+    public void setAlbumName(String albumName)  {
+        this.albumName = albumName;
     }
     
     public ArrayList<Photo> getPhotos() {
@@ -40,15 +48,16 @@ public class Album{
     }
     
     public void addPhoto(Photo p){
-        this.photos.add(p);
+        photos.add(p);
     }
     
     public void deletePhoto(int i){
-        this.photos.remove(i);
+        
+        photos.remove(i);
     }
     
     public void updatePhoto(int i, Photo p){
-        this.photos.set(i, p);
+        photos.set(i, p);
     }
 
 }

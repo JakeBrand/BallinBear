@@ -6,7 +6,7 @@
     <string name="NewPhoto">New Photo</string>
     <string name="SlideShow">Slideshow View</string>
     <string name="ComparePhotos">Compare Photos</string>
-    <string name="Date"></string>
+    <string name="Date">Date:</string>
     <string name="Comment1">Comment:</string>
     <string name="SaveChanges">Save Changes</string>
     <string name="CancelChanges">Cancel</string>

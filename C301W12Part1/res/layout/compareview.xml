@@ -22,18 +22,6 @@
 	        android:layout_weight="1.40"
 	        android:src="@drawable/ic_launcher" />
 	
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/Comment1" />
-	
-	    <EditText
-	        android:id="@+id/photo1EditText"
-	        android:layout_width="fill_parent"
-	        android:layout_height="35dp"
-	        android:inputType="textMultiLine" >
-	    </EditText>
-	
 
 	</LinearLayout>
 	<LinearLayout 
@@ -54,18 +42,6 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1.40"
 	        android:src="@drawable/ic_launcher" />
-	
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/Comment1" />
-	
-	    <EditText
-	        android:id="@+id/photo2EditText"
-	        android:layout_width="fill_parent"
-	        android:layout_height="35dp"
-	        android:inputType="textMultiLine" >
-	    </EditText>
 	
 	</LinearLayout>
 </LinearLayout>

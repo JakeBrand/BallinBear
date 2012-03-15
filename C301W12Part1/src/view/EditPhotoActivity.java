@@ -96,14 +96,13 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     /**
      * Set view to editphotoview.xml, set global variables, call initIndicies,
      * prepare all buttons, prepare spinner
-     * 
+     *
      * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
 
-        Bundle bundle = getIntent().getExtras();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editphotoview);
 
@@ -112,7 +111,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         albumNames = Controller.getAlbumNames();
         ArrayAdapter<String> spinnerAdapter;
 
-        initIndices(bundle);
 
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
         imageButton.setOnClickListener(this);
@@ -130,8 +128,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         PhotoDelete.setOnClickListener(this);
 
         // TODO EditPhotoActivity: get the id of the current album
-        // albumNameSpinner.get, if (new album) selected go to edit album to
-        // create new album, if existing album selected
+        // albumNameSpinner.get if existing album selected
         // add this photo to the album and go to the album view after finishing
         // the current activity
 
@@ -149,44 +146,15 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         spinnerAdapter
                 .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         albumNameSpinner.setAdapter(spinnerAdapter);
-
+        if(Controller.getCurrentPhotoIndex() != INDEX_NOT_IN_BUNDLE)
+        setProvidedPic();
     }
 
-    /**
-     * Initialize global indices
-     * 
-     * @param bundle
-     */
-    private void initIndices(Bundle bundle)
-    {
 
-        if (bundle.containsKey("albumArrayIndex"))
-        {
-            albumArrayIndex = (int) bundle.getInt("albumArrayIndex");
-        } else
-        {
-            Log.d("EditPhotoActivity:", "albumArrayIndex was not in the bundle");
-            albumArrayIndex = INDEX_NOT_IN_BUNDLE;
-        }
-        if (bundle.containsKey("photoIndex"))
-        {
-            photoIndex = (int) bundle.getInt("photoIndex");
-        } else
-        {
-            Log.d("EditPhotoActivity:", "photoIndex was not in the bundle");
-            photoIndex = INDEX_NOT_IN_BUNDLE;
-        }
-        if (albumArrayIndex != INDEX_NOT_IN_BUNDLE
-                && photoIndex != INDEX_NOT_IN_BUNDLE)
-        {
-            Log.d("EditPhotoActivity", "Setting provided pic");
-            setProvidedPic();
-        }
-    }
 
     /**
      * perform action depending on button clicked
-     * 
+     *
      * @param view V
      */
     @Override
@@ -234,11 +202,13 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * New Album has been clicked. Bring new album dialog to front.
      */
     private void inflateNewAlbumDialog()
+
     {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("New Album");
         alert.setMessage("Please enter the name a the new Album");
+
 
         // Set an EditText view to get user input
         final EditText input = new EditText(this);
@@ -246,6 +216,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         // Accept button clicked. Add new option to spinner (dropdown),
         // set newAlbumSelected flag to true, rebuild spinner, and return
+
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
 
@@ -253,6 +224,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             {
 
                 newAlbumCreated = true;
+
                 Editable value = input.getText();
                 Log.e("value", value.toString());
                 Log.e("InflatePopup", "Button Clicked");
@@ -280,6 +252,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         });
 
         // Dialog (popup) Cancel button clicked. Save nothing. Return.
+
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
         {
 
@@ -287,6 +260,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             {
 
             }
+            //int requestCode = 0;
+            //Log.e("About to go to comparePhoto", "request code: " + requestCode);
         });
 
         alert.show();
@@ -303,7 +278,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         Intent intent = getIntent();
         Uri imageUri = getImageUri(intent);
 
-        Bundle bundle = new Bundle();
         EditText commentET = (EditText) findViewById(R.id.commentEditText);
         String comment = commentET.getText().toString();
 
@@ -313,23 +287,23 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         {
             // Updating photo in same album
             case UPDATING_PHOTO:
-                Controller.updatePhoto(albumArrayIndex, photoIndex, comment);
-                finishIntent(bundle, intent, imageUri);
+                Controller.updatePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex(), comment);
+                finishIntent(intent, imageUri);
                 break;
 
             // Transferring photo to new album
             case MOVING_PHOTO_TO_EXISTING:
-                Controller.deletePhoto(albumArrayIndex, photoIndex);
+                Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
                 Controller.addPhoto((int) albumNameSpinner.getSelectedItemId(),
                         imageUri, comment);
-                finishIntent(bundle, intent, imageUri);
+                finishIntent(intent, imageUri);
                 break;
 
             case MOVING_PHOTO_TO_NEW:
-                Controller.deletePhoto(albumArrayIndex, photoIndex);
+                Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
                 Controller.addAlbum(albumNameSpinner.getSelectedItem()
                         .toString(), imageUri, comment);
-                finishIntent(bundle, intent, imageUri);
+                finishIntent(intent, imageUri);
                 break;
             // No picture has been taken. Must take a picture.
             case NULL_BMP:
@@ -340,19 +314,16 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
             // Use the newly created album name (spinner[0]) and photo taken.
             case NEW_ALBUM_SELECTED:
-                bundle.putInt("albumArrayIndex", 0);
                 Controller.addAlbum(albumNameSpinner.getSelectedItem()
                         .toString(), imageUri, comment);
-                finishIntent(bundle, intent, imageUri);
+                finishIntent(intent, imageUri);
                 break;
 
             // Use selected album which isn't the newly made album, ignore the
             // spinner[0] (new album)
             case NEW_ALBUM_NOT_SELECTED:
-                albumArrayIndex = albumNameSpinner.getSelectedItemPosition() - 1;
-                bundle.putInt("albumArrayIndex", albumArrayIndex);
-                Controller.addPhoto(albumArrayIndex, imageUri, comment);
-                finishIntent(bundle, intent, imageUri);
+                Controller.addPhoto(albumNameSpinner.getSelectedItemPosition() - 1, imageUri, comment);
+                finishIntent(intent, imageUri);
                 break;
 
             // There are no albums. Must create one before progressing.
@@ -362,10 +333,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
             // Use selected album.
             case USE_SELECTED_ALBUM:
-                albumArrayIndex = albumNameSpinner.getSelectedItemPosition();
-                bundle.putInt("albumArrayIndex", albumArrayIndex);
-                Controller.addPhoto(albumArrayIndex, imageUri, comment);
-                finishIntent(bundle, intent, imageUri);
+                Controller.addPhoto(albumNameSpinner.getSelectedItemPosition(), imageUri, comment);
+                finishIntent(intent, imageUri);
                 break;
             default:
                 Log.e("validityCode", "Invalid");
@@ -376,28 +345,28 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
     /**
      * Return a verification code based on state of completion
-     * 
+     *
      * @return validityState
      */
     private int verifyAccept()
     {
 
-        if (photoIndex != INDEX_NOT_IN_BUNDLE)
+        if (Controller.getCurrentPhotoIndex() != INDEX_NOT_IN_BUNDLE)
         {
             if (!newAlbumCreated)
             {
-                if (albumNameSpinner.getSelectedItemPosition() == albumArrayIndex)
+                if (albumNameSpinner.getSelectedItemPosition() == Controller.getCurrentAlbumIndex())
                 {
                     return UPDATING_PHOTO;
                 }
-                if (albumNameSpinner.getSelectedItemPosition() != albumArrayIndex)
+                if (albumNameSpinner.getSelectedItemPosition() != Controller.getCurrentAlbumIndex())
                 {
                     return MOVING_PHOTO_TO_EXISTING;
                 }
             }
             if (newAlbumCreated)
             {
-                if (albumNameSpinner.getSelectedItemPosition() - 1 == albumArrayIndex)
+                if (albumNameSpinner.getSelectedItemPosition() - 1 == Controller.getCurrentAlbumIndex())
                 {
                     return UPDATING_PHOTO;
                 }
@@ -437,7 +406,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
     /**
      * Save the BMP or create a Photo and save the Photo?
-     * 
+     *
      * @param intent
      * @param imageUri
      */
@@ -498,7 +467,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         } else if (Controller.getAlbum(albumArrayIndex).getPhotos().size() == 1)
         {
             Controller.deleteAlbum(albumArrayIndex);
-            
+           
             finish();
         } else
         {
@@ -510,7 +479,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
     /**
      * Return the Uri to the image with the given intent
-     * 
+     *
      * @param intent
      */
     private Uri getImageUri(Intent intent)
@@ -536,7 +505,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
         TextView photoDate = (TextView) findViewById(R.id.photoDate);
-        Photo providedPhoto = Controller.getPhoto(albumArrayIndex, photoIndex);
+        Photo providedPhoto = Controller.getCurrentPhoto();
         Uri uri = providedPhoto.getPicture();
         EditText commentET = (EditText) findViewById(R.id.commentEditText);
         String comment = providedPhoto.getComment();
@@ -566,16 +535,16 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
     /**
      * Put the updated bundle back into the intent Extras and finish the intent
-     * 
+     *
      * @param bundle
      * @param intent
      * @param imageUri
      */
-    private void finishIntent(Bundle bundle, Intent intent, Uri imageUri)
+    private void finishIntent(Intent intent, Uri imageUri)
     {
 
-        intent.putExtras(bundle);
         saveBMP(intent, imageUri);
+        Controller.saveObject(this);
 
         setResult(RESULT_OK, intent);
         finish();
