@@ -187,8 +187,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     /**
      * perform action depending on button clicked
      * 
-     * @param view
-     *            V
+     * @param view V
      */
     @Override
     public void onClick(View v)
@@ -303,9 +302,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         Intent intent = getIntent();
         Uri imageUri = getImageUri(intent);
-        if (imageUri == null)
-        {
-        }
 
         Bundle bundle = new Bundle();
         EditText commentET = (EditText) findViewById(R.id.commentEditText);
@@ -502,7 +498,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         } else if (Controller.getAlbum(albumArrayIndex).getPhotos().size() == 1)
         {
             Controller.deleteAlbum(albumArrayIndex);
-            setResult(-1);
+            
             finish();
         } else
         {

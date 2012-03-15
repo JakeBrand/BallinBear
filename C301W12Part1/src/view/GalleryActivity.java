@@ -3,31 +3,30 @@ package view;
 
 
 import java.io.File;
-import java.sql.Blob;
-import java.sql.SQLException;
-
 import control.Controller;
-
 import model.Album;
-
-
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+
 import ca.ualberta.ca.c301.R;
+
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -128,12 +127,14 @@ public class GalleryActivity extends Activity{
     
     public void onResume(){
         super.onResume();
+        
+        if(Controller.getAlbum(albumArrayIndex) == null){
+            //TODO: if album size == 0. finish();
+            finish();
+        }
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);        
         ga.setAdapter(new ImageAdapter(this));
         
-        if(Controller.getAlbum(albumArrayIndex).getPhotos().size() == 0){
-         //   finish();
-        }
     }
     
     protected void onActivityReslt(Intent intent){

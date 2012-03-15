@@ -19,6 +19,7 @@ public class Album{
     
     public  String getAlbumName() {
         return albumName;
+        
     }
     
     public void setAlbumName(String newAlbumName)  {
