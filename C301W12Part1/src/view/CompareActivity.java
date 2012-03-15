@@ -18,81 +18,71 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
+public class CompareActivity extends Activity implements OnClickListener
+{
 
-public class CompareActivity  extends Activity {
-   
     private Bitmap BMPphoto;
-    String[]       albumNames;
-    Spinner        albumNameSpinner;
-    int            albumArrayIndex;
     int            photo1Index;
-    int               photo2Index;
-    private static final int INDEX_NOT_IN_BUNDLE =     -1;
-    boolean        newAlbumSelected;
+    int            photo2Index;
 
-   
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.compareview);
-       setProvidedPic1();
-       setProvidedPic2();
-        // TODO CompareActivity: SPECIAL Allow for the user to move finger left to right to zoom in on the indicated photo.
-   
-       
-   
+
+        ImageView firstIV = (ImageView) findViewById(R.id.photo1ImageView);
+        firstIV.setOnClickListener(this);
+
+        ImageView secondIV = (ImageView) findViewById(R.id.photo2ImageView);
+        secondIV.setOnClickListener(this);
+
+        setProvidedPic1(firstIV);
+        setProvidedPic2(secondIV);
+        // TODO CompareActivity: SPECIAL Allow for the user to move finger left
+        // to right to zoom in on the indicated photo.
+
     }
-   
-    protected void setProvidedPic1()
+
+    protected void setProvidedPic1(ImageView imageView)
     {
 
-        ImageView imageView = (ImageView) findViewById(R.id.photo1ImageView);
         Photo providedPhoto = Controller.getComparePhoto1();
-        Uri uri = providedPhoto.getPicture();
-        try
-        {
-          
-            Date date = providedPhoto.getpTimeStamp();
-            String formatedDate = DateFormat.getDateInstance().format(date) + " -- " + DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
-            TextView photo1Date = (TextView) findViewById(R.id.photo1DateLabel);
-            photo1Date.setText(formatedDate);
-          
-            String imageFilePath = uri.getPath();
-            FileInputStream inputStream;
-            inputStream = new FileInputStream(imageFilePath);
-            BufferedInputStream bufferedInput = new BufferedInputStream(
-                    inputStream);
-            BMPphoto = BitmapFactory.decodeStream(bufferedInput);
-            imageView.setImageBitmap(BMPphoto);
-        } catch (FileNotFoundException e)
-        {
-            Log.d("FileNotFound", "ComparePhotosActivity");
-        }
+        Date date = providedPhoto.getpTimeStamp();
+        String formatedDate = DateFormat.getDateInstance().format(date)
+                + " -- "
+                + DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
+        TextView photo1Date = (TextView) findViewById(R.id.photo1DateLabel);
+        photo1Date.setText(formatedDate);
+        handlePic(imageView, providedPhoto);
 
     }
-   
-    protected void setProvidedPic2()
+
+    protected void setProvidedPic2(ImageView imageView)
     {
 
-        ImageView imageView = (ImageView) findViewById(R.id.photo1ImageView);
         Photo providedPhoto = Controller.getComparePhoto2();
+        Date date = providedPhoto.getpTimeStamp();
+        String formatedDate = DateFormat.getDateInstance().format(date)
+                + " -- "
+                + DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
+        TextView photo2Date = (TextView) findViewById(R.id.photo2DateLabel);
+        photo2Date.setText(formatedDate);
+        handlePic(imageView, providedPhoto);
+
+    }
+
+    private void handlePic(ImageView imageView, Photo providedPhoto)
+    {
+
         Uri uri = providedPhoto.getPicture();
         try
         {
-          
-            Date date = providedPhoto.getpTimeStamp();
-            String formatedDate = DateFormat.getDateInstance().format(date) + " -- " + DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
 
-            TextView photo2Date = (TextView) findViewById(R.id.photo2DateLabel);
-            photo2Date.setText(formatedDate);
-            
             String imageFilePath = uri.getPath();
             FileInputStream inputStream;
             inputStream = new FileInputStream(imageFilePath);
@@ -104,9 +94,14 @@ public class CompareActivity  extends Activity {
         {
             Log.d("FileNotFound", "ComparePhotosActivity");
         }
-
     }
 
-   
-   
+    @Override
+    public void onClick(View v)
+    {
+
+        setResult(RESULT_OK);
+        finish();
+    }
+
 }

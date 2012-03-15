@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.res.TypedArray;
 
@@ -40,131 +41,72 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //#################################### This activity uses the albumthumbnail layout and is used to display the photos
-public class GalleryActivity extends Activity{
+public class GalleryActivity extends Activity implements OnClickListener{
 
     Album alb;
     ImageView imageView;
-       
     String currentAlbumName;
+    boolean comparing_photo;
+    
         /** Called when the activity is first created. */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       
-        
 
-
-        
-        
-        
-        alb = Controller.getCurrentAlbum();
-       
-
-     
         setContentView(R.layout.galleryview);
+        alb = Controller.getCurrentAlbum();
 
         Button newPhotoButton = (Button) findViewById(R.id.NewPhotoButton);
-        newPhotoButton.setOnClickListener(new OnClickListener()
-
-        {
-           
-            @Override
-            public void onClick(View v)
-            {
-                //TODO: Make this code into a function, not a huge inner class!
-                final Context ctx  = GalleryActivity.this.getApplicationContext();
-                Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
-                int requestCode = 0;
-
-                String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
-                File folderF = new File(folder);
-               
-                if(!folderF.exists()){
-                    folderF.mkdir();
-                }
-                // make file path                                       // name                         // type
-                String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-                Uri imageUri = Uri.fromFile(new File(imageFilePath));
-                editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(editPhotoIntent, requestCode);
-               
-            }
-        });
-
-
-       
+        newPhotoButton.setOnClickListener(this);
+        
+        Button comparePhotosButton = (Button) findViewById(R.id.ComparePhotosButton);
+        comparePhotosButton.setOnClickListener(this);
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
        
-        final Context ctx  = this.getApplicationContext();
 
-        ga.setOnItemClickListener(new OnItemClickListener() {
 
-                        @Override
-                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                        // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
-
-                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
-                               Log.e("Photo clicked", "Position = " + position);
-                               int requestCode = 0;
-                               Log.e("About to go to editPhoto", "request code: " + requestCode);
-
-                                  Controller.setCurrentPhoto(position);
-                               //TODO: This is where the issue was on March 13 at 1:00am
-                               editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getCurrentPhoto().getPicture());
-                               startActivityForResult(editPhotoIntent, requestCode);
-                              
-                        }
-        });
-       
-        Button comparePhotosButton = (Button) findViewById(R.id.ComparePhotosButton);
-        OnClickListener comparePhotosListener = new OnClickListener() {
+    }
+    
+    private void comparePhotos(){
+        Context context = getApplicationContext();
+        CharSequence text = "Please select two photos you wish to compare";
+        int duration = Toast.LENGTH_SHORT;
+        final Toast toast = Toast.makeText(context, text, duration); //Final so that it can be canceled on second click
+        toast.show();
+        Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);      
+        comparegal.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Context context = getApplicationContext();
-                CharSequence text = "Please select two photos you wish to compare";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-                Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);      
-                comparegal.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                    // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
-                           Log.e("Photo clicked", "Position = " + position);
+            public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {toast.cancel();
+                   Controller.setComparePhoto1(position);
+                   Context context2 = getApplicationContext();
+                   CharSequence text2 = "Please select the second photo";
+                   int duration = Toast.LENGTH_SHORT;
+                   Toast toast2 = Toast.makeText(context2, text2, duration);
+                   toast2.show();
+                   Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);
+                   comparegal.setOnItemClickListener(new OnItemClickListener() {
+                       @Override
+                       public void onItemClick(AdapterView<?> arg0, View view, int position2, long id) {
+                           Log.e("Photo clicked", "Position = " + position2);
                            int requestCode = 0;
                            Log.e("About to go to firstSelectPopup", "request code: " + requestCode);
-                           Controller.setComparePhoto1(position);
-                           //TODO: This is where the issue was on March 13 at 1:00am
-                           Context context2 = getApplicationContext();
-                           CharSequence text2 = "Please select the second photo";
-                           int duration = Toast.LENGTH_SHORT;
-                           Toast toast2 = Toast.makeText(context2, text2, duration);
-                           toast2.show();
-                           Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);
-                           comparegal.setOnItemClickListener(new OnItemClickListener() {
-                               @Override
-                               public void onItemClick(AdapterView<?> arg0, View view, int position2, long id) {
-                                   // TODO Auto-generated method stub
-                                   Log.e("Photo clicked", "Position = " + position2);
-                                   int requestCode = 0;
-                                   Log.e("About to go to firstSelectPopup", "request code: " + requestCode);
-                                   Controller.setComparePhoto2(position2);
-                                   confirmPopup();
-                            }
-                        });
+                           Controller.setComparePhoto2(position2);
+                           if(comparing_photo == true){
+                           confirmPopup();
+                           } else{
+                               onResume();
+                           }
+
                     }
                 });
             }
-        };
-        comparePhotosButton.setOnClickListener(comparePhotosListener);
+        });
     }
    
     private void confirmPopup()
     {
-        // TODO Fix the Dialog not cancelling
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Continue?");
         alert.setMessage("Are you sure you wish to continue?");
@@ -172,91 +114,60 @@ public class GalleryActivity extends Activity{
         {
             public void onClick(DialogInterface dialog, int yesButton)
             {
-
+                comparing_photo=false;
                 Intent compareIntent = new Intent(GalleryActivity.this, CompareActivity.class);
                 startActivity(compareIntent);
                     }
             });
+     
         // Dialog (popup) Cancel button clicked. Save nothing. Return.
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Fix the returning to self on cancel. Want it to just end dialog.
-                Intent resetintent = new Intent(GalleryActivity.this, GalleryActivity.class);
-                startActivity(resetintent);
+                comparing_photo = false;
+                onResume();
+                return;
             }
+
         });
         alert.show();
+        
+
     }
+        
    
     public void onResume(){
         super.onResume();
-       
+        alb = Controller.getCurrentAlbum();
         if(Controller.getCurrentAlbumIndex() == -1)
             finish();
-        
-        
-//        if(Controller.getAlbum(Controller.getPreviousAlbum()).getAlbumName() == alb.getAlbumName()) 
-//            finish();
-        
+
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
+        final Context ctx  = this.getApplicationContext();
+
+        ga.setOnItemClickListener(new OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+
+                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
+                               Log.e("Photo clicked", "Position = " + position);
+                               int requestCode = 0;
+                               Log.e("About to go to editPhoto", "request code: " + requestCode);
+
+                               Controller.setCurrentPhoto(position);
+                               editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getCurrentPhoto().getPicture());
+                               startActivityForResult(editPhotoIntent, requestCode);
+                              
+                        }
+        });
+        
        
         TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);     
         AlbumName.setText(Controller.getCurrentAlbum().getAlbumName());
     }
-//   
-//    protected void onActivityReslt(Intent intent){
-// Bundle bundle = getIntent().getExtras();
-//       
-//        try
-//        {
-//            albumArrayIndex = (Integer) bundle.get("albumArrayIndex");
-//        } catch (NullPointerException e)
-//        {
-//            Log.e("albumArrayIndex", "is null");
-//        }
-//       
-//        alb = Controller.getAlbum(albumArrayIndex);
-//       
-//        Log.e("Displaying Album", alb.getAlbumName());
-//        Log.e("album " + alb.getAlbumName() + " has " + alb.getPhotos().size() + " photos", "####");
-//        setContentView(R.layout.galleryview);
-//       
-//        Gallery ga = (Gallery) findViewById(R.id.albumGallery);
-//       
-//        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);
-//       
-//        AlbumName.setText(alb.getAlbumName());
-//       
-//       
-//        ga.setAdapter(new ImageAdapter(this));
-//       
-//        final Context ctx  = this.getApplicationContext();
-//
-//        ga.setOnItemClickListener(new OnItemClickListener() {
-//
-//                        @Override
-//                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-//                        // TODO GalleryActivity: give intent photo object, get result from intent as a cancel or accept photo objects into album
-//
-//                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
-//                               Log.e("Photo clicked", "Position = " + position);
-//                               int requestCode = 0;
-//                               Log.e("About to go to editPhoto", "request code: " + requestCode);
-//
-//                               Bundle bundle = new Bundle();
-//                               bundle.putInt("albumArrayIndex", albumArrayIndex);
-//                               bundle.putInt("photoIndex", position);
-//                               editPhotoIntent.putExtras(bundle);
-//                               startActivityForResult(editPhotoIntent, requestCode);
-//                              
-//                              
-//                        }
-//        });
-//    
-//    }
-   
+
     public class ImageAdapter extends BaseAdapter {
 
         private Context ctx;
@@ -293,13 +204,8 @@ public class GalleryActivity extends Activity{
         @Override
         public View getView(int arg0, View arg1, ViewGroup arg2) {
                 ImageView iv = new ImageView(ctx);
-//                Log.e("In getView", "arg0 = " + arg0);
-//                Log.e(null," arg1 = " + arg1.toString());
-//                Log.e(null," arg2 = " + arg2.toString());
                 Uri pic = alb.getPhotos().get(arg0).getPicture();
                 Log.e("Uri of pic " + arg0,"" + pic );
-                //Bitmap myBitmap = BitmapFactory.decodeFile(pic.getPath());///sdcard/myImages/myImage.jp);
-               
                 iv.setImageURI(pic);//Drawable.createFromPath(pic.getPath()));
                 iv.setScaleType(ImageView.ScaleType.FIT_XY);
                 iv.setLayoutParams(new Gallery.LayoutParams(150,120));
@@ -312,5 +218,40 @@ public class GalleryActivity extends Activity{
     public void onPause(){
         super.onPause();
         Controller.saveObject(this);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            
+            case R.id.NewPhotoButton:
+                final Context ctx  = GalleryActivity.this.getApplicationContext();
+                Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
+                int requestCode = 0;
+                Uri imageUri = generateNewUri();
+                editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                Controller.setCurrentPhoto(-1);
+                startActivityForResult(editPhotoIntent, requestCode);
+            break;
+            
+            case R.id.ComparePhotosButton:
+
+                comparing_photo = true;
+                comparePhotos();
+            break;
+        }
+    }
+    
+    public Uri generateNewUri(){
+        
+        String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+        File folderF = new File(folder);
+        if(!folderF.exists()){
+            folderF.mkdir();
+        }
+        String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        Uri imageUri = Uri.fromFile(new File(imageFilePath));
+        return imageUri;
     }
 }
