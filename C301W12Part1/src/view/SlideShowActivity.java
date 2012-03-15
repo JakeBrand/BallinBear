@@ -18,7 +18,6 @@ public class SlideShowActivity extends Activity {
       setContentView(R.layout.slideshowview);
       
       
-      Bundle bundle = getIntent().getExtras();
       
       // TODO SlideShowActivity: Actually implement slideshow given Album
       

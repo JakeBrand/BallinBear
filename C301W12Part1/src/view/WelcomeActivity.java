@@ -24,17 +24,22 @@ public class WelcomeActivity extends Activity {
     private Uri imageUri;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
     private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
-    
-    
+    String fileName = "fileSave.data"; 
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.e("wecome", "START");
         
-        Controller.loadObject(this);
-        
-      setContentView(R.layout.welcome_view);
+        try
+        {
+            Controller.loadObject(this);
+        } catch (Exception e)
+        {
+            Log.e(null, "NOTHING LOADED FROM FILE");
+        }
+    setContentView(R.layout.welcome_view);
       
       
       Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
@@ -59,10 +64,12 @@ public class WelcomeActivity extends Activity {
           public void onClick(View v){
               
             // TODO WelcomeActivity: view Albums
-        	  Intent myIntent = new Intent(v.getContext(), AlbumListActivity.class);
-              startActivityForResult(myIntent, 0);
+              Intent albumListIntent = new Intent(v.getContext(), AlbumListActivity.class);
+            
               
-              
+             
+              startActivity(albumListIntent);
+              //WelcomeActivity.this.startActivity(albumListIntent);
         }
           
       };
@@ -115,7 +122,12 @@ public class WelcomeActivity extends Activity {
       
       
       Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);
-      //takePhotoIntent.putExtra  ("Controller", controller);
+      
+      Bundle bundle = new Bundle();
+      takePhotoIntent.putExtras(bundle);
+      
+      Controller.setCurrentPhoto(-1);
+      Controller.setCurrentAlbum(-1);
       takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
       startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
   }
@@ -125,42 +137,19 @@ public class WelcomeActivity extends Activity {
   protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
       Log.e("onActivityResult", "Got here");
       if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
-          Log.e("onActivityResult", "requestCode = " + requestCode);
           if(resultCode == RESULT_OK){
-              Log.e("onActivityResult", "resultCode = " + resultCode);
-              Bundle bundle = intent.getExtras();
-              int albumArrayIndex = bundle.getInt("albumArrayIndex");
-              Log.e("albumArrayIndex", "" + albumArrayIndex);
-              
-              Intent galleryActivityIntent = new Intent(this, GalleryActivity.class); // getParent(),
-              // set button to look like photo just taken
-             // intent2.putExtra("imagePath",imageUri.getPath()); // How do you pass around albums
               
               
-              galleryActivityIntent.putExtras(bundle);
+              Intent galleryActivityIntent = new Intent(this, GalleryActivity.class); 
+
+              
+              
+              
               startActivity(galleryActivityIntent);
           }
       }
       
-//      if(requestCode == TAKE_PICTURE_ACTIVITY_REQUEST){
-//       if(resultCode == RESULT_OK){
-//           Log.d("TEST", "resultCode == RESULT_OK");
-//           if (intent != null)
-//           {
-//               Bitmap BMPphoto = (Bitmap) intent
-//                       .getParcelableExtra("BMPphoto");
-//               Log.d("intent is", intent.toString());
-//               if (BMPphoto != null)
-//               {
-//                   Log.d("BMPphoto", "BMPphoto is NOT null");
-//               } else{
-//                   Log.d("BMPhoto", "BMPphoto is null");
-//               }
-//           } else {
-//               Log.d("intent is", "null");
-//           }  
-//       }
-//      }
+
   }
     
     

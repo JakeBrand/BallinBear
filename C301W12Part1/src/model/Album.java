@@ -5,25 +5,33 @@ import java.util.ArrayList;
 
 
 public class Album{
-    private static String albumName;
+    private  String albumName;
     private ArrayList<Photo> photos;
     
     
     // Constructor only needs name
-    @SuppressWarnings("static-access")
     public Album(String albumName) {
         this.albumName = albumName;
         this.photos = new ArrayList<Photo>();
     }
     
+    public void deleteAll(){
+        for(int i = 0; i < size(); i++){
+            deletePhoto(i);
+        }
+    }
     
     
-    public static String getAlbumName() {
+    public int size(){
+        return photos.size();
+    }
+    
+    public  String getAlbumName() {
         return albumName;
     }
     
     public void setAlbumName(String albumName)  {
-        Album.albumName = albumName;
+        this.albumName = albumName;
     }
     
     public ArrayList<Photo> getPhotos() {
@@ -44,6 +52,7 @@ public class Album{
     }
     
     public void deletePhoto(int i){
+        
         photos.remove(i);
     }
     

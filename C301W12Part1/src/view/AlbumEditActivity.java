@@ -48,20 +48,18 @@ import android.view.View.OnClickListener;
 //#################################### This activity uses the album_edit layout and is used to edit albums (duh!)
 public class AlbumEditActivity extends Activity {
 
+    
+    
+    EditText albName;
     @Override
     public void onCreate(Bundle savedInstanceState) {       
       super.onCreate(savedInstanceState);
       setContentView(R.layout.album_edit);
       
-      EditText albName = (EditText) findViewById(R.id.albumNameEditText);
+      albName = (EditText) findViewById(R.id.albumNameEditText);
 
-      Bundle bundle = getIntent().getExtras();
       
-      
-      if(bundle.get("Alb") == null)
-          albName.setText("Album Name");
-      else
-          albName.setText(Album.getAlbumName());
+          albName.setText(Controller.getCurrentAlbum().getAlbumName());
       
       
       Button deleteButton = (Button) findViewById(R.id.deleteButton);
@@ -84,7 +82,7 @@ public class AlbumEditActivity extends Activity {
           @Override
           public void onClick(View v){
 
-           // TODO AlbumEditActivity: back to album
+           finish();
         }
           
       };
@@ -98,6 +96,8 @@ public class AlbumEditActivity extends Activity {
           public void onClick(View v){
               
               // TODO AlbumEditActivity: change album name if edit text has changed
+              Controller.setCurrentAlbumName(albName.getText().toString()); 
+              finish();
         }
           
       };
