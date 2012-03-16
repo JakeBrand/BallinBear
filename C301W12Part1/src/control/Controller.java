@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -22,120 +21,193 @@ import model.Photo;
 // Controller is a static class and can be accessed from both model and view
 public class Controller {
     
+    
+    
+    /**
+     * When moving between Activities, these 4 variables help the Controller
+     * know what Album/Photo(s) it should be passing.
+     */
     private static int currentAlbum;
     private static int currentPhoto;
     private static int comparePhoto1;
     private static int comparePhoto2;
     
-    private static final int ALBUM_EDIT = 1;
-    private static final int ALBUM_LIST = 2;
-    private static final int COMPARE = 3;
-    private static final int EDIT_PHOTO = 4;
-    private static final int GALLERY = 5;
-    private static final int SLIDESHOW = 6;
-    private static final int WELCOME = 7;
     
-
-    static ArrayList<Album> albums = new ArrayList<Album>();
-    private static int previousAlbum;
+    /**
+     * albums holds all of the Albums
+     */
+    private static ArrayList<Album> albums = new ArrayList<Album>();
     private static final String fileName = "albumsfile.data";
     
 
     
-    // get album i
-    public static Album getAlbum(int i)
-    {
-        Log.e("getting Album", "album " + albums.get(i).getAlbumName());
-        return albums.get(i);
-
+    /**
+     *  getAlbum
+     *  
+     * @param albumIndex
+     * @return the Album at index albumIndex
+     */
+    public static Album getAlbum(int albumIndex){
+        return albums.get(albumIndex);
     }
     
+    
+    /**
+     * setCurrentPhoto
+     * 
+     * @param currentP
+     */
     public static void setCurrentPhoto(int currentP){
         currentPhoto = currentP;
     }
     
+    
+    /**
+     * getCurrentPhotoIndex
+     * 
+     * @return currentPhoto
+     */
     public static int getCurrentPhotoIndex(){
         return currentPhoto;
     }
     
     
+    /**
+     * getCurrentPhoto
+     * 
+     * @return Photo in the currentAlbum at the currentPhotoIndex
+     */
     public static Photo getCurrentPhoto(){
         return albums.get(currentAlbum).getPhoto(currentPhoto);
     }
     
+    
+    /**
+     * setComparePhoto1
+     * 
+     * @param photo1
+     */
     public static void setComparePhoto1(int photo1){
         comparePhoto1 = photo1;
     }
     
+    
+    /**
+     * setComparePhoto2
+     * 
+     * @param photo2
+     */
     public static void setComparePhoto2(int photo2){
         comparePhoto2 = photo2;
     }
 
+    
+    /**
+     * getComparePhoto1
+     * 
+     * @return Photo in currentAlbum and comparePhoto1 index
+     */
     public static Photo getComparePhoto1(){
         return albums.get(currentAlbum).getPhoto(comparePhoto1);
     }
     
+    /**
+     * getComparePhoto2
+     * 
+     * @return Photo in currentAlbum and comparePhoto2 index
+     */
     public static Photo getComparePhoto2(){
         return albums.get(currentAlbum).getPhoto(comparePhoto2);
     }
     
+    
+    
+    /**
+     * getCurrentAlbum
+     * 
+     * @return Album at currentAlbum index
+     */
     public static Album getCurrentAlbum(){
         return albums.get(currentAlbum);
     }
     
+    
+    /**
+     * setCurrentAlbum
+     * 
+     * @param newCurrentAlbum
+     */
     public static void setCurrentAlbum(int newCurrentAlbum){
-        previousAlbum = currentAlbum; 
-        currentAlbum = newCurrentAlbum;
-         
+        currentAlbum = newCurrentAlbum;     
     }
     
-    public static int getPreviousAlbum()
-    {
-    
-        return previousAlbum;
-    }
 
+    /**
+     * setCurrentAlbumName
+     * 
+     * @param newName
+     */
     public static void setCurrentAlbumName(String newName){
         albums.get(currentAlbum).setAlbumName(newName);
     }
     
+    /**
+     * getCurrentAlbumIndex
+     * 
+     * @return currentAlbumIndex
+     */
     public static int getCurrentAlbumIndex(){
         return currentAlbum;
     }
     
-    
- // add album i with name s with its first photo p
+    /**
+     * addAlbum
+     * add new album with string albName and add a Photo to it with imageUri and comment
+     * 
+     * @param albName
+     * @param imageUri
+     * @param comment
+     */
     public static void addAlbum(String albName, Uri imageUri, String comment){
-//        if(albums.size() > 0)
-//        Log.e("adding Album", "adding album " + albName + ", other album has name " + albums.get(0).getAlbumName());
         Album temp = new Album(albName);
         temp.addPhoto(new Photo(comment,imageUri));
         albums.add(0,temp); 
         Controller.setCurrentAlbum(0);
-//        if(albums.size() > 1)
-//          Log.e("adding Album", "adding album " + albName + ", other album has name " + albums.get(1).getAlbumName());
-
     } 
 
- // delete album i
-    public static void deleteAlbum(int albumIndex)
-    {
+    /**
+     * deleteAlbum
+     * 
+     * @param albumIndex
+     */
+    public static void deleteAlbum(int albumIndex){
         Log.e("Deleting Album", "album " + albumIndex);
         albums.get(albumIndex).deleteAll();
         albums.remove(albumIndex);
         Controller.setCurrentAlbum(-1);
     } 
 
- // change the name of album i to s
-    public static void updateAlbum(int albumIndex, String newName)
-    {   
-        Log.e("updating Album", "album " + albumIndex + " changing name from " + albums.get(albumIndex).getAlbumName() + " to " + newName);
+    
+    /**
+     * updateAlbum 
+     * changes the name of the Album at albumIndex with newName
+     * 
+     * @param albumIndex
+     * @param newName
+     */
+    public static void updateAlbum(int albumIndex, String newName){   
         Album temp = albums.get(albumIndex);
         temp.setAlbumName(newName);
         albums.set(albumIndex, temp);
     } 
 
- // get photo j from album i
+    
+    /**
+     * getPhoto
+     * @param albumIndex
+     * @param photoIndex
+     * @return
+     */
     public static Photo getPhoto(int albumIndex, int photoIndex){
         Log.e("getting photo", "get " + photoIndex + " photo from album " + albumIndex);
       return  albums.get(albumIndex).getPhoto(photoIndex);

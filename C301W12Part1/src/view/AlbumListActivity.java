@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import model.Album;
-import model.Item;
 import model.Photo;
 
 import android.util.Log;
@@ -48,7 +47,6 @@ import android.view.View.OnClickListener;
 //#################################### This activity uses the main layout and is used to display the albums
 public class AlbumListActivity extends Activity
 {
-    ArrayList<Item>  items;
     ArrayList<Album> albs;
     String[] albumNames;
     // TODO AlbumListActivity: setup android:albumlist with current data, items

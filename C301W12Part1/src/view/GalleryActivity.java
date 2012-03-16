@@ -129,10 +129,12 @@ public class GalleryActivity extends Activity implements OnClickListener{
    
     public void onResume(){
         super.onResume();
-        alb = Controller.getCurrentAlbum();
-        if(Controller.getCurrentAlbumIndex() == -1)
-            finish();
 
+        if(Controller.getCurrentAlbumIndex() == -1){
+            finish();
+            return;
+        }
+        alb = Controller.getCurrentAlbum();
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
         final Context ctx  = this.getApplicationContext();
@@ -144,12 +146,10 @@ public class GalleryActivity extends Activity implements OnClickListener{
 
                             Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
                                Log.e("Photo clicked", "Position = " + position);
-                               int requestCode = 0;
-                               Log.e("About to go to editPhoto", "request code: " + requestCode);
 
                                Controller.setCurrentPhoto(position);
                                editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getCurrentPhoto().getPicture());
-                               startActivityForResult(editPhotoIntent, requestCode);
+                               startActivity(editPhotoIntent);
                               
                         }
         });
@@ -219,11 +219,10 @@ public class GalleryActivity extends Activity implements OnClickListener{
             case R.id.NewPhotoButton:
                 final Context ctx  = GalleryActivity.this.getApplicationContext();
                 Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
-                int requestCode = 0;
                 Uri imageUri = generateNewUri();
                 editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 Controller.setCurrentPhoto(-1);
-                startActivityForResult(editPhotoIntent, requestCode);
+                startActivity(editPhotoIntent);
             break;
             
             case R.id.ComparePhotosButton:
@@ -245,4 +244,5 @@ public class GalleryActivity extends Activity implements OnClickListener{
         Uri imageUri = Uri.fromFile(new File(imageFilePath));
         return imageUri;
     }
+
 }

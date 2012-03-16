@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +12,7 @@ import android.net.Uri;
 // TODO Photo: Changed comments to String instead of ArrayList
 // TODO dont have blobs, they should have paths to the pictures they represent.
 
-public class Photo {
+public class Photo implements Serializable{
 
    private Date pTimeStamp;
  //  private ArrayList<Comment> comments;
