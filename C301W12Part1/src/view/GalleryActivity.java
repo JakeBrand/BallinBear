@@ -31,7 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import control.Controller;
 
-//#################################### This activity uses the albumthumbnail layout and is used to display the photos
+/**
+ * This activity uses galleryview.xml to display all Photos in an album
+ * 
+ * @author ching
+ *
+ */
 public class GalleryActivity extends Activity implements OnClickListener{
 
     Album alb;
@@ -39,8 +44,11 @@ public class GalleryActivity extends Activity implements OnClickListener{
     String currentAlbumName;
     boolean comparing_photo;
     
-        /** Called when the activity is first created. */
-
+/**
+ * Set content view and initialize UI components
+ * 
+ * @param savedInstanceState
+ */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +64,46 @@ public class GalleryActivity extends Activity implements OnClickListener{
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
        
-
-
     }
     
+    /**
+     * Update altered UI components
+     */
+    public void onResume(){
+        super.onResume();
+
+        if(Controller.getCurrentAlbumIndex() == -1){
+            finish();
+            return;
+        }
+        alb = Controller.getCurrentAlbum();
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
+        ga.setAdapter(new ImageAdapter(this));
+        final Context ctx  = this.getApplicationContext();
+
+        ga.setOnItemClickListener(new OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+
+                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
+                               Log.e("Photo clicked", "Position = " + position);
+
+                               Controller.setCurrentPhoto(position);
+                               editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getCurrentPhoto().getPicture());
+                               startActivity(editPhotoIntent);
+                              
+                        }
+        });
+        
+       
+        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);     
+        AlbumName.setText(Controller.getCurrentAlbum().getAlbumName());
+    }
+    
+    /**
+     * Prepare and exicute the comparison of two selected Photos
+     */
     private void comparePhotos(){
         Context context = getApplicationContext();
         CharSequence text = "Please select two photos you wish to compare";
@@ -96,6 +140,11 @@ public class GalleryActivity extends Activity implements OnClickListener{
         });
     }
    
+    /**
+     * Inflate the confirm AlertDialog
+     * If positive button pushed, start CompareActivity
+     * If negative button pushed, do nothing 
+     */
     private void confirmPopup()
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -111,7 +160,6 @@ public class GalleryActivity extends Activity implements OnClickListener{
                     }
             });
      
-        // Dialog (popup) Cancel button clicked. Save nothing. Return.
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -125,40 +173,12 @@ public class GalleryActivity extends Activity implements OnClickListener{
         
 
     }
-        
-   
-    public void onResume(){
-        super.onResume();
 
-        if(Controller.getCurrentAlbumIndex() == -1){
-            finish();
-            return;
-        }
-        alb = Controller.getCurrentAlbum();
-        Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
-        ga.setAdapter(new ImageAdapter(this));
-        final Context ctx  = this.getApplicationContext();
-
-        ga.setOnItemClickListener(new OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-
-                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
-                               Log.e("Photo clicked", "Position = " + position);
-
-                               Controller.setCurrentPhoto(position);
-                               editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getCurrentPhoto().getPicture());
-                               startActivity(editPhotoIntent);
-                              
-                        }
-        });
-        
-       
-        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);     
-        AlbumName.setText(Controller.getCurrentAlbum().getAlbumName());
-    }
-
+/**
+ * Set the Gallery with the currently selected album
+ * @author ching
+ *
+ */
     public class ImageAdapter extends BaseAdapter {
 
         private Context ctx;
@@ -191,7 +211,14 @@ public class GalleryActivity extends Activity implements OnClickListener{
        
        
   
-       
+       /**
+        * Return the ImageView with the current element Uri
+        * 
+        * @param arg0 (int)
+        * @param arg1 (View)
+        * @param arg2 (ViewGroup)
+        * @return ImageView
+        */
         @Override
         public View getView(int arg0, View arg1, ViewGroup arg2) {
                 ImageView iv = new ImageView(ctx);
@@ -206,11 +233,19 @@ public class GalleryActivity extends Activity implements OnClickListener{
 
     }
    
+    /**
+     * When GalleryActivity paused after update, save current state
+     */
     public void onPause(){
         super.onPause();
         Controller.saveObject();
     }
 
+    /**
+     * Execute desired code depending on button clicked
+     * 
+     * @param v (View)
+     */
     @Override
     public void onClick(View v)
     {
@@ -233,6 +268,11 @@ public class GalleryActivity extends Activity implements OnClickListener{
         }
     }
     
+    /**
+     * Generate a new imageUri based on current timestamp
+     * 
+     * @return imageUri
+     */
     public Uri generateNewUri(){
         
         String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
