@@ -157,7 +157,7 @@ public class Controller {
     public static void deletePhoto(int albumIndex, int photoIndex)
     {
         Log.e("deletePhoto", "delete photo " + photoIndex + " from album " + albumIndex);
-        Album temp = albums.get(albumIndex);
+        Album temp =       albums.get(albumIndex);
         temp.deletePhoto(photoIndex);
         Log.d("tempSize", "temp=" + temp.size() + "from deletephoto from album" + albumIndex);
         if(temp.size() == 0){
@@ -198,6 +198,23 @@ public class Controller {
         }
         return albNames;
     }
+    
+    
+    
+    public static int checkAlbumNames(String s){
+        int i = 0;
+       while (i<albums.size() && albums.get(i).getAlbumName() != s) {
+        i++;
+    }
+       if(albums.get(i).getAlbumName() == s){
+           return i;
+       }
+       else
+           return -1;
+       
+    }
+    
+    
     
  // Save the ArrayList<HashMap<String,String>> to a file
     public static void saveObject(Context c)

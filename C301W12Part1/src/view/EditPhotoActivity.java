@@ -68,6 +68,7 @@ import android.view.View.OnClickListener;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -80,8 +81,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     private Bitmap           BMPphoto;
     String[]                 albumNames;
     Spinner                  albumNameSpinner;
-    int                      albumArrayIndex;
-    int                      photoIndex;
     boolean                  newAlbumCreated;
     private static final int INDEX_NOT_IN_BUNDLE      = -1;
     private static final int NULL_BMP                 = 0;
@@ -107,10 +106,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         setContentView(R.layout.editphotoview);
 
-        // TODO EditPhotoActivity: get the id of the current album
-        // albumNameSpinner.get if existing album selected
-        // add this photo to the album and go to the album view after finishing
-        // the current activity
+
 
 
     }
@@ -156,6 +152,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         albumNameSpinner.setAdapter(spinnerAdapter);
         if(Controller.getCurrentPhotoIndex() != INDEX_NOT_IN_BUNDLE)
         setProvidedPic();
+      //  albumNameSpinner.setSelection(Controller.getCurrentAlbumIndex()); //TODO
     }
 
 
@@ -301,35 +298,13 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
             // Transferring photo to new album
                 
-                //TODO: SOMETHING WRONG WITH THE DECREMENTING HERE!
             case MOVING_PHOTO_TO_EXISTING:
-                if(newAlbumCreated){
-                    offset+=1;
-                }
-                if(albumNameSpinner.getSelectedItemPosition() < albumArrayIndex){
-                    offset +=1;
-                }
-                if(newAlbumCreated){
-                    Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
-                    Controller.addPhoto((int) albumNameSpinner.getSelectedItemPosition()-offset,
-                            imageUri, comment);   
-                } else {
                 Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
-                if(albumArrayIndex == -1){
-                    Log.d("(-1)spinner position","is"+albumNameSpinner.getSelectedItemPosition());
-                    Log.d("(-1)AlbumArrayIndex is", ""+albumArrayIndex);
-      
-                    Controller.addPhoto((int) albumNameSpinner.getSelectedItemPosition()-offset,
-                            imageUri, comment);
-                } else{
-                    Log.d("spinner position","is"+albumNameSpinner.getSelectedItemPosition());
-                    Log.d("AlbumArrayIndex is", ""+albumArrayIndex);
-                  
-                    Controller.addPhoto((int) albumNameSpinner.getSelectedItemPosition()-offset,
-                            imageUri, comment); 
-                }
-
-                }
+                Log.e("Current Album index", "" + Controller.getCurrentAlbumIndex());
+                Controller.addPhoto(Controller.checkAlbumNames(albumNameSpinner.getSelectedItem().toString()),  imageUri, comment);   
+              
+                
+ 
                 finishIntent(intent, imageUri);
                 break;
 
@@ -493,19 +468,19 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     public void deletePhoto()
     {
 
-        if (albumArrayIndex == -1)
+        if (Controller.getCurrentAlbumIndex() == -1)
         {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "This picture is not in an album", Toast.LENGTH_SHORT);
             toast.show();
-        } else if (Controller.getAlbum(albumArrayIndex).getPhotos().size() == 1)
+        } else if (Controller.getCurrentAlbum().getPhotos().size() == 1)
         {
-            Controller.deleteAlbum(albumArrayIndex);
+            Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
            
             finish();
         } else
         {
-            Controller.deletePhoto(albumArrayIndex, photoIndex);
+            Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
             setResult(RESULT_CANCELED);
             finish();
         }

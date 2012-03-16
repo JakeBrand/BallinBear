@@ -3,34 +3,22 @@ package view;
 
 
 import java.io.File;
-import control.Controller;
-import model.Album;
 
+import model.Album;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.res.TypedArray;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-
-import ca.ualberta.ca.c301.R;
-
-
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -39,6 +27,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import control.Controller;
 
 //#################################### This activity uses the albumthumbnail layout and is used to display the photos
 public class GalleryActivity extends Activity implements OnClickListener{
