@@ -68,23 +68,23 @@
 
         <Button
             android:id="@+id/PhotoViewSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SaveChanges" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="90dp"
+            />
         
         <Button
             android:id="@+id/PhotoDelete"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.333"
-            android:text="@string/DeletePhoto" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            />
 
         <Button
             android:id="@+id/PhotoViewCancel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.333"
-            android:text="@string/CancelChanges" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="90dp"
+            />
     </LinearLayout>
 
 </LinearLayout>

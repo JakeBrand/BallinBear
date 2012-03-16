@@ -57,6 +57,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -128,12 +129,15 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         newAlbumButton.setOnClickListener(this);
 
         Button acceptButton = (Button) findViewById(R.id.PhotoViewSave);
+        acceptButton.setBackgroundResource(R.drawable.accept);
         acceptButton.setOnClickListener(this);
 
         Button backButton = (Button) findViewById(R.id.PhotoViewCancel);
+        backButton.setBackgroundResource(R.drawable.cancel);
         backButton.setOnClickListener(this);
 
         Button PhotoDelete = (Button) findViewById(R.id.PhotoDelete);
+        PhotoDelete.setBackgroundResource(R.drawable.delete);
         PhotoDelete.setOnClickListener(this);
         
         if (albumNames.length != 0)
