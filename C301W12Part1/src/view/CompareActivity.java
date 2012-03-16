@@ -7,7 +7,6 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import control.Controller;
-import model.Album;
 import model.Photo;
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
@@ -21,26 +20,31 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CompareActivity extends Activity implements OnClickListener
-{
 /**
  * @author J-Tesseract
  * 
- * These are constants used througout CompareActivity
- * These constants help store the bitmap of the images we are comparing
+ *         CompareActivity
+ * 
+ *         These are constants used througout CompareActivity These constants
+ *         help store the bitmap of the images we are comparing
  */
+public class CompareActivity extends Activity implements OnClickListener
+{
+
     private Bitmap BMPphoto;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-/**
- * On Create where we load the layout we are using as well
- * as set on click listeners to the 2 photoviews
- * These on click listeners will allow user to go back to 
- * gallery view once clicked.
- * Once these on click listeners are set they will set
- * the two images selected from gallery view 
- */
+
+        /**
+         * On Create
+         * 
+         * Load the layout and set on click listeners to the 2 photoviews. These
+         * on click listeners will allow user to go back to gallery view once
+         * clicked. Once these on click listeners are set they will set the two
+         * images selected from gallery view
+         */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.compareview);
 
@@ -57,14 +61,15 @@ public class CompareActivity extends Activity implements OnClickListener
 
     }
 
+    /**
+     * SetProvidedPic1
+     * 
+     * Here it sets the first image you selected into the first slot for the
+     * photo setting its date (from getpTimeStamp) then sending it to handlePic
+     * to display the image. The date is in the format "Month Day, -- Time"
+     */
     protected void setProvidedPic1(ImageView imageView)
     {
-    	/**
-    	 * Here it sets the first image you selected into the first
-    	 * slot for the photo setting its date (from getpTimeStamp)
-    	 * then sending it to handlePic to display the image.
-    	 * The date is in the format "Month Day, -- Time"
-    	 */
 
         Photo providedPhoto = Controller.getComparePhoto1();
         Date date = providedPhoto.getpTimeStamp();
@@ -77,14 +82,15 @@ public class CompareActivity extends Activity implements OnClickListener
 
     }
 
+    /**
+     * SetProvidedPic2
+     * 
+     * Sets the second photos date from the getpTimeStamp() call of the provided
+     * photo then send it to handlePic to display the correct image. The date is
+     * in the format "Month Day, -- Time"
+     */
     protected void setProvidedPic2(ImageView imageView)
     {
-    	/**
-    	 * Sets the second photos date from the
-    	 * getpTimeStamp() call of the provided photo
-    	 * then send it to handlePic to display the correct image.
-    	 * The date is in the format "Month Day, -- Time"
-    	 */
 
         Photo providedPhoto = Controller.getComparePhoto2();
         Date date = providedPhoto.getpTimeStamp();
@@ -97,18 +103,16 @@ public class CompareActivity extends Activity implements OnClickListener
 
     }
 
+    /**
+     * handlePic
+     * 
+     * Take the URI from the provided photo and get the FilePath and File Input
+     * Stream from the image path then set imageView.
+     * 
+     * @exception FileNotFoundexception e
+     */
     private void handlePic(ImageView imageView, Photo providedPhoto)
     {
-    	/**
-    	 * Whenever handlePic is called, it will take the provided URI
-    	 * from the provided photo then it will try to get the FilePath
-    	 * and get the File Input Stream from the image path
-    	 * (uri.getPath())
-    	 * It will then take the BMPphoto and set the image View.
-    	 * If there is a File Not Found Exception then the catch will
-    	 * print out the error into logcat Tagged "FileNotFound" 
-    	 * with the string "ComparePhotosActivity"
-    	 */
 
         Uri uri = providedPhoto.getPicture();
         try
@@ -127,13 +131,18 @@ public class CompareActivity extends Activity implements OnClickListener
         }
     }
 
+    /**
+     * onClick
+     * 
+     * Sets the result for the on click listeners to RESULT_OK then finishes the
+     * activity
+     * 
+     * @param v
+     */
     @Override
     public void onClick(View v)
     {
-    	/**
-    	 * Sets the result for the on click listeners to RESULT_OK
-    	 * then finishes the activity
-    	 */
+
         setResult(RESULT_OK);
         finish();
     }
