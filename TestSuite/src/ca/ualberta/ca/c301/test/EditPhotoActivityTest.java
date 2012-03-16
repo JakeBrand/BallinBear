@@ -7,8 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 public class EditPhotoActivityTest extends ActivityInstrumentationTestCase2<EditPhotoActivity>
 {
 
-    public EditPhotoActivityTest(String pkg,
-            Class<EditPhotoActivity> activityClass)
+    public EditPhotoActivityTest()
     {
 
         super("view", EditPhotoActivity.class);
