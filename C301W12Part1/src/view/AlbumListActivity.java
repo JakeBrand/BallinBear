@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
@@ -47,8 +48,14 @@ import android.view.View.OnClickListener;
 //#################################### This activity uses the main layout and is used to display the albums
 public class AlbumListActivity extends Activity
 {
-    ArrayList<Album> albs;
+	/**
+	 * declares two globals
+	 * String[] albumNames is used to store the current albumNames from the controller
+	 * It is used to set array adapter albListAdapter
+	 * albcounter is an album counter to set empty list string
+	 */
     String[] albumNames;
+    int albcounter;
     // TODO AlbumListActivity: setup android:albumlist with current data, items
     // have album name, sub items could have album length, the most current
     // photo could be as a thumbnail, last updated?
@@ -56,18 +63,35 @@ public class AlbumListActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-
+    	/**
+    	 * On Create
+    	 */
         super.onCreate(savedInstanceState);
     }
     
      public void onResume(){
-         super.onResume();
+    	 /**
+    	  * Resumes the activity
+    	  * Sets the layout to the main.xml
+    	  * Loads the list view into albumlistView and finds its ID in R.
+    	  * Gets the count on the number of albums we currently have
+    	  * if albcounter is 0 then change the string to show that we have no albums
+    	  * Create an adapter for our albumList
+    	  * Set the clickability of our albums to true and make so if you click 
+    	  * you will open the album in gallery view, but if you hold (long click) then it will
+    	  * open the Album Edit View to allow you to delete and change the album name
+    	  */
+    	super.onResume();
         setContentView(R.layout.main);
         ListView albumlistView = (ListView) findViewById(R.id.albumlist);
+        albcounter = Controller.getAlbumNames().length;
         albumNames = Controller.getAlbumNames();
         ArrayAdapter<String> albListAdapter = new ArrayAdapter<String>(AlbumListActivity.this, android.R.layout.simple_list_item_1, albumNames);
         albumlistView.setAdapter(albListAdapter);
-        
+        if (albcounter == 0){
+        	TextView albumsText = (TextView) findViewById(R.id.albumTextView);
+        	albumsText.setText("No Albums Available");
+        }
         
         albumlistView.setClickable(true);
         
@@ -93,87 +117,5 @@ public class AlbumListActivity extends Activity
             }
         });
     
-    
-    
-    }
-
-
-
-/*     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
-     protected void takeAPhoto()
-     {
-     // Create intent instance to be used to take photo
-     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    
-     // Create Folder in SD Card // folder name = tmp
-     String folder =
-     Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
-    
-    
-     // give file the folder (wtf)?
-     File folderF = new File(folder);
-    
-     if(!folderF.exists()){ // if folder doesnt exist
-     folderF.mkdir(); // make it bloody exist
-     }
-    
-     // make file path // name // type
-     String imageFilePath = folder + "/" +
-     String.valueOf(System.currentTimeMillis()) + ".jpg";
-    
-    
-     File imageFile = new File(imageFilePath);
-    
-     // Create URI
-     imageUri = Uri.fromFile(imageFile);
-    
-    
-     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-    
-     // start intent to take picture
-     startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);
-     }
-    
-    
-    
-    //TODO: Find out how to access (non-null) Bitmap from bundle...
-    //NOTE: intent that is passed IS NULL
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-            Intent intent)
-    {
-
-      if(requestCode == 0){
-        if (resultCode == RESULT_OK)
-        {
-            Log.d("TEST", "resultCode == RESULT_OK");
-            if (intent != null)
-            {
-                Bitmap BMPphoto = (Bitmap) intent
-                        .getParcelableExtra("BMPphoto");
-                Log.d("intent is", intent.toString());
-                if (BMPphoto != null)
-                {
-                    Log.d("BMPphoto", "BMPphoto is NOT null");
-                } else{
-                    Log.d("BMPhoto", "BMPphoto is null");
-                }
-            } else {
-                Log.d("intent is", "null");
-            }
-            // Intent intent2 = new Intent(getParent(),
-            // PhotoEditActivity.class);
-            // set button to look like photo just taken
-            // intent2.putExtra("imagePath",imageUri.getPath());
-
-            // startActivity(intent2);
-             }
-        }
-    }
-    public void onPause(){
-        super.onPause();
-        Controller.saveObject(this);
-        
-    }*/
-    
+    }    
 }

@@ -41,17 +41,24 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-
-
-
 //#################################### This activity uses the album_edit layout and is used to edit albums (duh!)
 public class AlbumEditActivity extends Activity {
-
-    
+	/**
+	 *  Album Editting Activity (Displays the album name and
+	 *  allows you to change it, delete the album, or do nothing)
+	 */
     
     EditText albName;
     @Override
-    public void onCreate(Bundle savedInstanceState) {       
+    public void onCreate(Bundle savedInstanceState) {
+    	/**
+    	 * On Create
+    	 * Loads the layout of the album_edit
+    	 * Sets the on click listener for the 3 buttons available
+    	 * deleteButton allows you to delete an album
+    	 * backToAlbumButton returns you to the list of albums (main.xml)
+    	 * and done button allows you to save any changes made to the album name
+    	 */
       super.onCreate(savedInstanceState);
       setContentView(R.layout.album_edit);
       
@@ -69,6 +76,8 @@ public class AlbumEditActivity extends Activity {
 
             // TODO AlbumEditActivity: delete album; show a warning of all the photos that will be deleted
               // if only album go to welcome, else go to albumlist
+        	  Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+        	  finish();
         }
           
       };
@@ -105,9 +114,11 @@ public class AlbumEditActivity extends Activity {
     }
     
     public void onPause(){
+    	/**
+    	 * on Pause
+    	 * On pause saves current object using the controller
+    	 */
         super.onPause();
         Controller.saveObject(this);
-        
     }
-    
 }
