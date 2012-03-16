@@ -48,7 +48,7 @@ import android.view.View.OnClickListener;
 /**
  * This activity uses layout.main to display albums
  * 
- * @author ching
+ * @author J-Tesseract
  *
  */
 public class AlbumListActivity extends Activity

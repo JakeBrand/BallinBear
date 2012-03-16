@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 
 public class Album implements Serializable{
-    
+	/**
+	 *  @author J-Tesseract
+	 */
     
 
     private static final long serialVersionUID = 2277251080502459333L;

@@ -22,6 +22,7 @@ public class Controller {
     
     
     /**
+     * @author J-Tesseract
      * When moving between Activities, these 4 variables help the Controller
      * know what Album/Photo(s) it should be passing.
      */

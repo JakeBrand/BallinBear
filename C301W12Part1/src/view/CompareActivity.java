@@ -24,6 +24,8 @@ import android.widget.TextView;
 public class CompareActivity extends Activity implements OnClickListener
 {
 /**
+ * @author J-Tesseract
+ * 
  * These are constants used througout CompareActivity
  * These constants help store the bitmap of the images we are comparing
  */
