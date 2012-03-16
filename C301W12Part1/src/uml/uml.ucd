@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="1202,613" id="uml" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledX="331" tag="1000" key="32303037303533312D31303030204333303157313250617274312F64657469616E">
+  <children xsi:type="editmodel:PackageEditModel" name="control" location="479,29" size="373,284" id="control">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.2" name="BogoPicGen" location="226,196" size="131,67" id="control/BogoPicGen" runTimeClassModel="generateBitmap(II)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="108,18">
+        <children xsi:type="editmodel:MethodEditModel" name="generateBitmap" id="control/BogoPicGen#generateBitmap(II)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.2/@sourceConnections.0" name="model" location="2565,64" size="764,817" id="model">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.1/@sourceConnections.0 //@children.2/@children.3/@sourceConnections.1" name="ArrayList" location="138,312" size="141,477" id="java.util/ArrayList" runTimeClassModel="ensureCapacity(I),addAll(Ljava.util.Collection;),toArray([LT;),lastIndexOf(Ljava.lang.Object;),indexOf(Ljava.lang.Object;),contains(Ljava.lang.Object;),size(),trimToSize(),removeRange(II),set(ILE;),add(ILE;),addAll(ILjava.util.Collection;),toArray(),get(I),clear(),add(LE;),clone(),isEmpty(),ArrayList(),remove(I),ArrayList(Ljava.util.Collection;),remove(Ljava.lang.Object;),ArrayList(I)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="106,414">
+        <children xsi:type="editmodel:MethodEditModel" name="ArrayList" id="java.util/ArrayList#ArrayList()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ArrayList" id="java.util/ArrayList#ArrayList(I)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ArrayList" id="java.util/ArrayList#ArrayList(Ljava.util.Collection;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="add" id="java.util/ArrayList#add(LE;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="add" id="java.util/ArrayList#add(ILE;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addAll" id="java.util/ArrayList#addAll(ILjava.util.Collection;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addAll" id="java.util/ArrayList#addAll(Ljava.util.Collection;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="clear" id="java.util/ArrayList#clear()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="clone" id="java.util/ArrayList#clone()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="contains" id="java.util/ArrayList#contains(Ljava.lang.Object;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ensureCapacity" id="java.util/ArrayList#ensureCapacity(I)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="get" id="java.util/ArrayList#get(I)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="indexOf" id="java.util/ArrayList#indexOf(Ljava.lang.Object;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="isEmpty" id="java.util/ArrayList#isEmpty()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="lastIndexOf" id="java.util/ArrayList#lastIndexOf(Ljava.lang.Object;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="remove" id="java.util/ArrayList#remove(I)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="remove" id="java.util/ArrayList#remove(Ljava.lang.Object;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="removeRange" id="java.util/ArrayList#removeRange(II)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="set" id="java.util/ArrayList#set(ILE;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="size" id="java.util/ArrayList#size()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="toArray" id="java.util/ArrayList#toArray()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="toArray" id="java.util/ArrayList#toArray([LT;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="trimToSize" id="java.util/ArrayList#trimToSize()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.0/@sourceConnections.0 //@children.2/@children.4/@sourceConnections.0 //@children.2/@children.3/@sourceConnections.0" name="Album" location="362,60" size="166,265" id="model/Album" runTimeClassModel="addPhoto(Lmodel.Photo;),albumName,updatePhoto(ILmodel.Photo;),getAlbumName(),getPhotos(),Album(Ljava.lang.String;),size(),photos,deleteAll(),deletePhoto(I),getPhoto(I),setAlbumName(Ljava.lang.String;),setPhotos(Ljava.util.ArrayList;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="143,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="albumName" id="model/Album#albumName"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="photos" id="model/Album#photos"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="103,180">
+        <children xsi:type="editmodel:MethodEditModel" name="Album" id="model/Album#Album(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getPhotos" id="model/Album#getPhotos()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setAlbumName" id="model/Album#setAlbumName(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deleteAll" id="model/Album#deleteAll()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deletePhoto" id="model/Album#deletePhoto(I)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="updatePhoto" id="model/Album#updatePhoto(ILmodel.Photo;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addPhoto" id="model/Album#addPhoto(Lmodel.Photo;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setPhotos" id="model/Album#setPhotos(Ljava.util.ArrayList;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="size" id="model/Album#size()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getPhoto" id="model/Album#getPhoto(I)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="model/Album-Standard::Instantiate->java.util/ArrayList*model/Album-Soyatec::Import->java.util/ArrayList*model/Album-Standard::Call->java.util/ArrayList" source="//@children.1/@children.1" target="//@children.1/@children.0" targetEnd="//@children.1/@children.1/@sourceConnections.0/@children.2" label="//@children.1/@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import, Instantiate»" size="127,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,258" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="141,6"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" name="view" location="1275,91" size="1231,1187" id="view">
+    <children xsi:type="editmodel:ClassEditModel" name="AlbumEditActivity" location="626,64" size="165,103" id="view/AlbumEditActivity" runTimeClassModel="onPause(),onCreate(Landroid.os.Bundle;),albName">
+      <children xsi:type="editmodel:CompartmentEditModel" size="106,18">
+        <children xsi:type="editmodel:AttributeEditModel" name="albName" id="view/AlbumEditActivity#albName"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="74,36">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" location="-10,43" id="view/AlbumEditActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onPause" id="view/AlbumEditActivity#onPause()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="view/AlbumEditActivity-Standard::Call->model/Album" source="//@children.2/@children.0" target="//@children.1/@children.1" targetEnd="//@children.2/@children.0/@sourceConnections.0/@children.2" label="//@children.2/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="30,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="165,51" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,82"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="AlbumListActivity" location="119,230" size="176,121" id="view/AlbumListActivity" runTimeClassModel="albcounter,albumNames,onCreate(Landroid.os.Bundle;),onResume()">
+      <children xsi:type="editmodel:CompartmentEditModel" size="153,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="albumNames" id="view/AlbumListActivity#albumNames"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="albcounter" id="view/AlbumListActivity#albcounter"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="80,36">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="view/AlbumListActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onResume" id="view/AlbumListActivity#onResume()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="CompareActivity" location="77,874" size="155,85" id="view/CompareActivity" runTimeClassModel="onCreate(Landroid.os.Bundle;),onClick(Landroid.view.View;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="74,36">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="view/CompareActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onClick" id="view/CompareActivity#onClick(Landroid.view.View;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="EditPhotoActivity" location="561,200" size="180,157" id="view/EditPhotoActivity" runTimeClassModel="deletePhoto(),newAlbumCreated,onCreate(Landroid.os.Bundle;),albumNameSpinner,onResume(),onClick(Landroid.view.View;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="157,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="newAlbumCreated" id="view/EditPhotoActivity#newAlbumCreated"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="albumNameSpinner" id="view/EditPhotoActivity#albumNameSpinner"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="88,72">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="view/EditPhotoActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onClick" id="view/EditPhotoActivity#onClick(Landroid.view.View;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onResume" id="view/EditPhotoActivity#onResume()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deletePhoto" id="view/EditPhotoActivity#deletePhoto()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="view/EditPhotoActivity-Standard::Call->model/Album" source="//@children.2/@children.3" target="//@children.1/@children.1" targetEnd="//@children.2/@children.3/@sourceConnections.0/@children.2" label="//@children.2/@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="30,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="180,49" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,216"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="view/EditPhotoActivity-Standard::Call->java.util/ArrayList" source="//@children.2/@children.3" target="//@children.1/@children.0" targetEnd="//@children.2/@children.3/@sourceConnections.1/@children.2" label="//@children.2/@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.2/@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="30,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="180,120" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,35"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="view/EditPhotoActivity-Standard::Call->control/BogoPicGen" source="//@children.2/@children.3" target="//@children.0/@children.0" targetEnd="//@children.2/@children.3/@sourceConnections.2/@children.2" label="//@children.2/@children.3/@sourceConnections.2/@children.0" sourceEnd="//@children.2/@children.3/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="30,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="131,66"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="GalleryActivity" location="1044,768" size="171,380" id="view/GalleryActivity" runTimeClassModel="comparing_photo,view.GalleryActivity.ImageAdapter,onPause(),onCreate(Landroid.os.Bundle;),imageView,currentAlbumName,alb,onResume(),onClick(Landroid.view.View;),generateNewUri()">
+      <children xsi:type="editmodel:CompartmentEditModel" size="148,72">
+        <children xsi:type="editmodel:AttributeEditModel" name="imageView" id="view/GalleryActivity#imageView"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="alb" id="view/GalleryActivity#alb"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="comparing_photo" id="view/GalleryActivity#comparing_photo"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="currentAlbumName" id="view/GalleryActivity#currentAlbumName"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="108,90">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="view/GalleryActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onPause" id="view/GalleryActivity#onPause()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="generateNewUri" id="view/GalleryActivity#generateNewUri()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onClick" id="view/GalleryActivity#onClick(Landroid.view.View;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onResume" id="view/GalleryActivity#onResume()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="147,159">
+        <children xsi:type="editmodel:ClassEditModel" name="ImageAdapter" location="232,666" size="147,157" id="view/GalleryActivity$ImageAdapter" runTimeClassModel="imageBackground,getView(ILandroid.view.View;Landroid.view.ViewGroup;),getItem(I),getCount(),getItemId(I),ImageAdapter(Landroid.content.Context;)">
+          <children xsi:type="editmodel:CompartmentEditModel" size="124,18">
+            <children xsi:type="editmodel:AttributeEditModel" name="imageBackground" id="view/GalleryActivity$ImageAdapter#imageBackground"/>
+          </children>
+          <children xsi:type="editmodel:CompartmentEditModel" size="98,90">
+            <children xsi:type="editmodel:MethodEditModel" name="ImageAdapter" id="view/GalleryActivity$ImageAdapter#ImageAdapter(Landroid.content.Context;)"/>
+            <children xsi:type="editmodel:MethodEditModel" name="getCount" id="view/GalleryActivity$ImageAdapter#getCount()"/>
+            <children xsi:type="editmodel:MethodEditModel" name="getItem" id="view/GalleryActivity$ImageAdapter#getItem(I)"/>
+            <children xsi:type="editmodel:MethodEditModel" name="getItemId" id="view/GalleryActivity$ImageAdapter#getItemId(I)"/>
+            <children xsi:type="editmodel:MethodEditModel" name="getView" id="view/GalleryActivity$ImageAdapter#getView(ILandroid.view.View;Landroid.view.ViewGroup;)"/>
+          </children>
+          <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+          <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+        </children>
+      </children>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="view/GalleryActivity-Soyatec::Import->model/Album*view/GalleryActivity-Standard::Call->model/Album" source="//@children.2/@children.4" target="//@children.1/@children.1" targetEnd="//@children.2/@children.4/@sourceConnections.0/@children.2" label="//@children.2/@children.4/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@children.4/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="68,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="171,147" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="86,264"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="SlideShowActivity" location="323,402" size="165,85" id="view/SlideShowActivity" runTimeClassModel="onPause(),onCreate(Landroid.os.Bundle;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="74,36">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="view/SlideShowActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onPause" id="view/SlideShowActivity#onPause()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="WelcomeActivity" location="719,864" size="214,175" id="view/WelcomeActivity" runTimeClassModel="onPause(),onCreate(Landroid.os.Bundle;),fileName">
+      <children xsi:type="editmodel:CompartmentEditModel" size="191,54">
+        <children xsi:type="editmodel:AttributeEditModel" name="imageUri" id="view/WelcomeActivity#imageUri"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="cAPTURE_IMAGE_ACTIVITY_REQUEST"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="fileName" id="view/WelcomeActivity#fileName"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="107,72">
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="view/WelcomeActivity#onCreate(Landroid.os.Bundle;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="takeAPhoto" id="view/WelcomeActivity#takeAPhoto()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onActivityResult" id="view/WelcomeActivity#onActivityResult(IILandroid.content.Intent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onPause" id="view/WelcomeActivity#onPause()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="view-Standard::Call->model*view-Soyatec::Import->model" source="//@children.2" target="//@children.1" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="68,10" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="1231,394" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,421"/>
+    </sourceConnections>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=7;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler>
+      <guides position="-102"/>
+    </topRuler>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
