@@ -119,6 +119,6 @@ public class AlbumEditActivity extends Activity {
     	 * On pause saves current object using the controller
     	 */
         super.onPause();
-        Controller.saveObject(this);
+        Controller.saveObject();
     }
 }

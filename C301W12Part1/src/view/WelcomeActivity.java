@@ -81,7 +81,7 @@ public class WelcomeActivity extends Activity {
     
     public void onPause(){
         super.onPause();
-        Controller.saveObject(this);
+        Controller.saveObject();
         
     }
     

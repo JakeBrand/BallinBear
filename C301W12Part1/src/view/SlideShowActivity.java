@@ -41,7 +41,7 @@ public class SlideShowActivity extends Activity {
     
     public void onPause(){
         super.onPause();
-        Controller.saveObject(this);
+        Controller.saveObject();
         
     }
     

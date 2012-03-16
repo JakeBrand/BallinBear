@@ -592,7 +592,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     {
 
         saveBMP(intent, imageUri);
-        Controller.saveObject(this);
+        Controller.saveObject();
 
         setResult(RESULT_OK, intent);
         finish();

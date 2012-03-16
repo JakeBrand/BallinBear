@@ -208,7 +208,7 @@ public class GalleryActivity extends Activity implements OnClickListener{
    
     public void onPause(){
         super.onPause();
-        Controller.saveObject(this);
+        Controller.saveObject();
     }
 
     @Override

@@ -1,99 +1,93 @@
 package model;
-import java.io.Serializable;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.Date;
 
-import android.graphics.Bitmap;
+import java.io.Serializable;
+import java.util.Date;
 import android.net.Uri;
 
+public class Photo implements Serializable
+{
 
 
-// TODO Photo: Changed comments to String instead of ArrayList
-// TODO dont have blobs, they should have paths to the pictures they represent.
+    /**
+     * fields
+     */
+    private static final long serialVersionUID = -2561097008925968276L;
+    private Date              pTimeStamp;
+    private String            comment;
+    private Uri               imageUri;
 
-public class Photo implements Serializable{
-
-   private Date pTimeStamp;
- //  private ArrayList<Comment> comments;
-   private String comments;
-   private Uri imageUri;
-
-   
-   
-   public Photo(String comments, Uri imageU)
-   {
-
-       super();
-       this.pTimeStamp = new Date(System.currentTimeMillis());
-       this.comments = comments;
-       this.imageUri = imageU;
-   }
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-public Date getpTimeStamp(){
-
-    return pTimeStamp;
-}
-
-public void setpTimeStamp(Date pTimeStamp){
-
-    this.pTimeStamp = pTimeStamp;
-}
-
-
-public String getComment(){
-  return  this.comments;
-}
-
-
-public void setComment(String com){
-    this.comments = com;
-}
-
-
-//public ArrayList<Comment> getComments(){
-//
-//    return comments;
-//}
-
-
-
-public void setPicture(Uri imageU){
-    this.imageUri = imageU;
     
-}
+    /**
+     * constructor
+     * 
+     * @param comments
+     * @param imageU
+     */
+    public Photo(String comm, Uri imageU){
+        this.pTimeStamp = new Date(System.currentTimeMillis());
+        this.comment = comm;
+        this.imageUri = imageU;
+    }
 
-public Uri getPicture(){
-
-    return this.imageUri;
-}
-
-
-
-
-
-
-//public void addComment(String value){
-//    Date cd = new Date();
-//    Comment c = new Comment(cd, value);
-//    comments.add(c);
-//}
-//
-//public void removeComment(Comment c){
-//    comments.remove(c);
-//}
-//   
-   
     
+    /**
+     * getpTimeStamp
+     * 
+     * @return pTimeStamp
+     */
+    public Date getpTimeStamp()  {
+        return pTimeStamp;
+    }
+
+    /**
+     * setpTimeStamp
+     * 
+     * @param pTimeStamp
+     */
+    public void setpTimeStamp(Date pTimeStamp) {
+        this.pTimeStamp = pTimeStamp;
+    }
+
     
+    /**
+     * getComent
+     * 
+     * @return comment
+     */
+    public String getComment(){
+        return this.comment;
+    }
+
+    /**
+     * setComment
+     * 
+     * @param com
+     */
+    public void setComment(String com){
+        this.comment = com;
+    }
+
+
+    /**
+     * setPicture
+     * 
+     * @param imageU
+     */
+    public void setPicture(Uri imageU){
+        this.imageUri = imageU;
+    }
+
+    
+    /**
+     * getPicture
+     * 
+     * @return imageUri
+     */
+    public Uri getPicture(){
+
+        return this.imageUri;
+    }
+
+
+
 }

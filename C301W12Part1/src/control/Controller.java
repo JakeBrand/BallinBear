@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import model.Album;
@@ -37,6 +35,7 @@ public class Controller {
      * albums holds all of the Albums
      */
     private static ArrayList<Album> albums = new ArrayList<Album>();
+    private static Context ctx;
     private static final String fileName = "albumsfile.data";
     
 
@@ -204,6 +203,7 @@ public class Controller {
     
     /**
      * getPhoto
+     * 
      * @param albumIndex
      * @param photoIndex
      * @return
@@ -213,11 +213,16 @@ public class Controller {
       return  albums.get(albumIndex).getPhoto(photoIndex);
     } 
 
- // add photo p to i
-    public static void addPhoto(int albumIndex, Uri imageUri, String comment)
-    {
-        
-        Log.e("addPhoto", "add photo with comment " + comment + " to album " + albumIndex);
+    
+    /**
+     * addPhoto
+     * add a Photo with Uri imageUri and String comment to the album at albumIndex
+     * 
+     * @param albumIndex
+     * @param imageUri
+     * @param comment
+     */
+    public static void addPhoto(int albumIndex, Uri imageUri, String comment) {
         Album temp = albums.get(albumIndex);
         temp.addPhoto(new Photo(comment, imageUri));
         setCurrentPhoto(temp.size());
@@ -225,23 +230,36 @@ public class Controller {
         albums.set(albumIndex, temp);
     } 
 
- // delete photo j
+
+    /**
+     * deletePhoto
+     * delete photo at photoIndex from album at albumIndex
+     * 
+     * @param albumIndex
+     * @param photoIndex
+     */
     public static void deletePhoto(int albumIndex, int photoIndex)
     {
-        Log.e("deletePhoto", "delete photo " + photoIndex + " from album " + albumIndex);
-        Album temp =       albums.get(albumIndex);
+        Album temp = albums.get(albumIndex);
+        
         temp.deletePhoto(photoIndex);
-        Log.d("tempSize", "temp=" + temp.size() + "from deletephoto from album" + albumIndex);
+        
         if(temp.size() == 0){
-            deleteAlbum(albumIndex);
-            
+            deleteAlbum(albumIndex);   
         }
         else
-        albums.set(albumIndex, temp);
+          albums.set(albumIndex, temp);
         
     } 
 
- // update the comments on this photo
+    
+    /**
+     * updatePhoto
+     * 
+     * @param albumIndex
+     * @param photoIndex
+     * @param newComment
+     */
     public static void updatePhoto(int albumIndex, int photoIndex, String newComment)
     {
         Log.e("updatePhoto", "update photo " + photoIndex + " in album " + albumIndex + " with comment " + newComment);
@@ -253,50 +271,63 @@ public class Controller {
     } 
 
     
+    
+    /**
+     * getAlbumNames
+     * 
+     * 
+     * @return String[] of all the album names in Controller
+     */
     public static String[] getAlbumNames(){
         
-        
-        
-        Log.e("getting album names", "albums.size " + albums.size());
-        
-        if(albums.size() == 0) // Cant cast albums to string[] using .toArray because albums isnt an arraylist of strings
+        if(albums.size() == 0) 
             return new String[] {};
         
         String[] albNames = new String[albums.size()];
         
         for (int i = 0; i < albums.size(); i++){
-            Log.e("", "album " + i + " has name " + albums.get(i).getAlbumName());
             albNames[i] = albums.get(i).getAlbumName();
         }
         return albNames;
     }
     
     
-    
+    /**
+     * checkAlbumNames
+     * Given a String s, returns the albumIndex that represents the Album with that name
+     * or returns -1 otherwise. 
+     * 
+     * @param s
+     * @return
+     */
     public static int checkAlbumNames(String s){
         int i = 0;
        while (i<albums.size() && albums.get(i).getAlbumName() != s) {
         i++;
-    }
+        }
        if(albums.get(i).getAlbumName() == s){
            return i;
        }
        else
-           return -1;
-       
+           return -1;  
     }
     
     
     
- // Save the ArrayList<HashMap<String,String>> to a file
-    public static void saveObject(Context c)
+    /**
+     * saveObject 
+     * saves the ArrayList albums to file
+     * 
+     * @param c
+     */
+    public static void saveObject()
     {
 
         FileOutputStream stream = null;
         try
         {
             
-            stream = c.openFileOutput(fileName, Context.MODE_PRIVATE);
+            stream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream out = new ObjectOutputStream(stream);
             out.writeObject(albums);
             out.flush();
@@ -311,11 +342,16 @@ public class Controller {
 
 
 
-    // Load the previously stored ArrayList (logsList)
+    /**
+     * loadObject 
+     * loads the ArrayList albums from file
+     * 
+     * @param c
+     */
     @SuppressWarnings("unchecked")
     public static void loadObject(Context c)
     {
-
+        ctx = c;
         FileInputStream stream = null;
 
         try
