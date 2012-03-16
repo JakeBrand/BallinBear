@@ -112,13 +112,7 @@ public class WelcomeActivity extends Activity {
       File imageFile = new File(imageFilePath);
       
       // Create URI
-      imageUri = Uri.fromFile(imageFile);
-      
-      
-      //intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-      
-      // start intent to take picture
-     // startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST);    
+      imageUri = Uri.fromFile(imageFile);  
       
       
       Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);

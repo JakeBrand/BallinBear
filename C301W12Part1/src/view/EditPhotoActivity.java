@@ -1,36 +1,36 @@
 /*
-* Code pertaining to the random generation of a Bitmap (BogoPic) are based on the below cited source.
+ * Code pertaining to the random generation of a Bitmap (BogoPic) are based on the below cited source.
  */
 
 /*
-* Copyright 2012 Bryan Liles <iam@smartic.us> and Abram Hindle <abram.hindle@softwareprocess.es> . All rights reserved.
+ * Copyright 2012 Bryan Liles <iam@smartic.us> and Abram Hindle <abram.hindle@softwareprocess.es> . All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are
-permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are
+ permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of
-conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of
+ conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list
-of conditions and the following disclaimer in the documentation and/or other materials
-provided with the distribution.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list
+ of conditions and the following disclaimer in the documentation and/or other materials
+ provided with the distribution.
 
-THIS SOFTWARE IS PROVIDED BY Bryan Liles <iam@smartic.us> and Abram Hindle <abram.hindle@softwareprocess.es> ''AS IS'' AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
-CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY Bryan Liles <iam@smartic.us> and Abram Hindle <abram.hindle@softwareprocess.es> ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-The views and conclusions contained in the software and documentation are those of the
-authors and should not be interpreted as representing official policies, either expressed
-or implied, of Bryan Liles <iam@smartic.us> and Abram Hindle <abram.hindle@softwareprocess.es>.
+ The views and conclusions contained in the software and documentation are those of the
+ authors and should not be interpreted as representing official policies, either expressed
+ or implied, of Bryan Liles <iam@smartic.us> and Abram Hindle <abram.hindle@softwareprocess.es>.
 
-*
-*/
+ *
+ */
 
 package view;
 
@@ -58,7 +58,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -70,7 +69,6 @@ import android.view.View.OnClickListener;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -80,24 +78,31 @@ import android.widget.Spinner;
 public class EditPhotoActivity extends Activity implements OnClickListener
 {
 
+    /**
+     * Global Variables: Created only when passing or recreating is too expensive 
+     */
     private Bitmap           BMPphoto;
-    String[]                 albumNames;
     Spinner                  albumNameSpinner;
     boolean                  newAlbumCreated;
-    private static final int INDEX_NOT_IN_BUNDLE      = -1;
-    private static final int NULL_BMP                 = 0;
-    private static final int NEW_ALBUM_SELECTED       = 1;
-    private static final int NEW_ALBUM_NOT_SELECTED   = 2;
-    private static final int NO_ALBUM_SELECTED        = 3;
-    private static final int USE_SELECTED_ALBUM       = 4;
-    private static final int UPDATING_PHOTO           = 5;
-    private static final int MOVING_PHOTO_TO_EXISTING = 6;
-    private static final int MOVING_PHOTO_TO_NEW      = 7;
+    /**
+     * static final values used to determine how valid the state of the activity is before saving a photo
+     * Clearly indicates state and reduces code to simple switch statements
+     */
+    private static final int INDEX_NOT_IN_BUNDLE                 = -1;
+    private static final int NULL_BMP                            = 0;
+    private static final int NEW_ALBUM_SELECTED                  = 1;
+    private static final int NEW_ALBUM_NOT_SELECTED              = 2;
+    private static final int NO_ALBUM_SELECTED                   = 3;
+    private static final int USE_SELECTED_ALBUM                  = 4;
+    private static final int UPDATING_PHOTO                      = 5;
+    private static final int MOVING_PHOTO_TO_EXISTING            = 6;
+    private static final int MOVING_PHOTO_TO_NEW                 = 7;
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
     /**
      * Set view to editphotoview.xml, set global variables, call initIndicies,
      * prepare all buttons, prepare spinner
-     *
+     * 
      * @param savedInstanceState
      */
     @Override
@@ -108,20 +113,18 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         setContentView(R.layout.editphotoview);
 
-
-
-
     }
-    
-    public void onResume(){
+
+    public void onResume()
+    {
+
         super.onResume();
         setContentView(R.layout.editphotoview);
 
         newAlbumCreated = false;
         albumNameSpinner = (Spinner) findViewById(R.id.albumNameSpinner);
-        albumNames = Controller.getAlbumNames();
+        String[] albumNames = Controller.getAlbumNames();
         ArrayAdapter<String> spinnerAdapter;
-
 
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
         imageButton.setBackgroundColor(Color.BLACK);
@@ -141,7 +144,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         Button PhotoDelete = (Button) findViewById(R.id.PhotoDelete);
         PhotoDelete.setBackgroundResource(R.drawable.delete);
         PhotoDelete.setOnClickListener(this);
-        
+
         if (albumNames.length != 0)
         {
             spinnerAdapter = new ArrayAdapter<String>(EditPhotoActivity.this,
@@ -156,17 +159,15 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         spinnerAdapter
                 .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         albumNameSpinner.setAdapter(spinnerAdapter);
-        if(Controller.getCurrentPhotoIndex() != INDEX_NOT_IN_BUNDLE)
-        setProvidedPic();
-      //  albumNameSpinner.setSelection(Controller.getCurrentAlbumIndex()); //TODO
+        if (Controller.getCurrentPhotoIndex() != INDEX_NOT_IN_BUNDLE)
+            setProvidedPic();
     }
-
-
 
     /**
      * perform action depending on button clicked
-     *
-     * @param view V
+     * 
+     * @param view
+     *            v
      */
     @Override
     public void onClick(View v)
@@ -197,11 +198,18 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     }
 
     /**
-     * Set the imageButton to the generated picture
+     * Start the Android capture intent
      */
     protected void setBogoPic()
     {
 
+        // TODO: If possible, generate picture while in camera view
+        // TODO: Use camera intent?
+
+        // Intent cameraViewIntent = new
+        // Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // startActivityForResult(cameraViewIntent,
+        // CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         ImageButton button = (ImageButton) findViewById(R.id.generated_pic);
         BMPphoto = BogoPicGen.generateBitmap(350, 350);
         button.setImageBitmap(BMPphoto);
@@ -219,8 +227,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         alert.setTitle("New Album");
         alert.setMessage("Please enter the name a the new Album");
 
-
-        // Set an EditText view to get user input
         final EditText input = new EditText(this);
         alert.setView(input);
 
@@ -233,8 +239,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             public void onClick(DialogInterface dialog, int whichButton)
             {
 
+                String[] albumNames = Controller.getAlbumNames();
                 newAlbumCreated = true;
-
                 Editable value = input.getText();
                 Log.e("value", value.toString());
                 Log.e("InflatePopup", "Button Clicked");
@@ -261,8 +267,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             }
         });
 
-        // Dialog (popup) Cancel button clicked. Save nothing. Return.
-
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
         {
 
@@ -270,8 +274,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             {
 
             }
-            //int requestCode = 0;
-            //Log.e("About to go to comparePhoto", "request code: " + requestCode);
         });
 
         alert.show();
@@ -291,31 +293,32 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         EditText commentET = (EditText) findViewById(R.id.commentEditText);
         String comment = commentET.getText().toString();
 
-        int validityState = verifyAccept();
-        int offset = 0;
-
+        int validityState = validateAcceptState();
         switch (validityState)
         {
             // Updating photo in same album
             case UPDATING_PHOTO:
-                Controller.updatePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex(), comment);
+                Controller.updatePhoto(Controller.getCurrentAlbumIndex(),
+                        Controller.getCurrentPhotoIndex(), comment);
                 finishIntent(intent, imageUri);
                 break;
 
             // Transferring photo to new album
-                
+
             case MOVING_PHOTO_TO_EXISTING:
-                Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
-                Log.e("Current Album index", "" + Controller.getCurrentAlbumIndex());
-                Controller.addPhoto(Controller.checkAlbumNames(albumNameSpinner.getSelectedItem().toString()),  imageUri, comment);   
-              
-                
- 
+                Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
+                        Controller.getCurrentPhotoIndex());
+                Log.e("Current Album index",
+                        "" + Controller.getCurrentAlbumIndex());
+                Controller.addPhoto(Controller.checkAlbumNames(albumNameSpinner
+                        .getSelectedItem().toString()), imageUri, comment);
+
                 finishIntent(intent, imageUri);
                 break;
 
             case MOVING_PHOTO_TO_NEW:
-                Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
+                Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
+                        Controller.getCurrentPhotoIndex());
                 Controller.addAlbum(albumNameSpinner.getSelectedItem()
                         .toString(), imageUri, comment);
                 finishIntent(intent, imageUri);
@@ -337,7 +340,9 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             // Use selected album which isn't the newly made album, ignore the
             // spinner[0] (new album)
             case NEW_ALBUM_NOT_SELECTED:
-                Controller.addPhoto(albumNameSpinner.getSelectedItemPosition() - 1, imageUri, comment);
+                Controller.addPhoto(
+                        albumNameSpinner.getSelectedItemPosition() - 1,
+                        imageUri, comment);
                 finishIntent(intent, imageUri);
                 break;
 
@@ -348,7 +353,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
             // Use selected album.
             case USE_SELECTED_ALBUM:
-                Controller.addPhoto(albumNameSpinner.getSelectedItemPosition(), imageUri, comment);
+                Controller.addPhoto(albumNameSpinner.getSelectedItemPosition(),
+                        imageUri, comment);
                 finishIntent(intent, imageUri);
                 break;
             default:
@@ -360,28 +366,31 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
     /**
      * Return a verification code based on state of completion
-     *
+     * 
      * @return validityState
      */
-    private int verifyAccept()
+    private int validateAcceptState()
     {
 
         if (Controller.getCurrentPhotoIndex() != INDEX_NOT_IN_BUNDLE)
         {
             if (!newAlbumCreated)
             {
-                if (albumNameSpinner.getSelectedItemPosition() == Controller.getCurrentAlbumIndex())
+                if (albumNameSpinner.getSelectedItemPosition() == Controller
+                        .getCurrentAlbumIndex())
                 {
                     return UPDATING_PHOTO;
                 }
-                if (albumNameSpinner.getSelectedItemPosition() != Controller.getCurrentAlbumIndex())
+                if (albumNameSpinner.getSelectedItemPosition() != Controller
+                        .getCurrentAlbumIndex())
                 {
                     return MOVING_PHOTO_TO_EXISTING;
                 }
             }
             if (newAlbumCreated)
             {
-                if (albumNameSpinner.getSelectedItemPosition() - 1 == Controller.getCurrentAlbumIndex())
+                if (albumNameSpinner.getSelectedItemPosition() - 1 == Controller
+                        .getCurrentAlbumIndex())
                 {
                     return UPDATING_PHOTO;
                 }
@@ -420,8 +429,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     }
 
     /**
-     * Save the BMP or create a Photo and save the Photo?
-     *
+     * Save the Bitmap to the porvided Uri
+     * 
      * @param intent
      * @param imageUri
      */
@@ -482,11 +491,12 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         } else if (Controller.getCurrentAlbum().getPhotos().size() == 1)
         {
             Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
-           
+
             finish();
         } else
         {
-            Controller.deletePhoto(Controller.getCurrentAlbumIndex(), Controller.getCurrentPhotoIndex());
+            Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
+                    Controller.getCurrentPhotoIndex());
             setResult(RESULT_CANCELED);
             finish();
         }
@@ -494,7 +504,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
     /**
      * Return the Uri to the image with the given intent
-     *
+     * 
      * @param intent
      */
     private Uri getImageUri(Intent intent)
@@ -549,8 +559,31 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     }
 
     /**
+     * If intent was to take a photo, display the generated photo
+     * 
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent intent)
+    {
+
+        Log.d("REQUESTCODE", "IS  " + requestCode);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
+            // ImageButton button = (ImageButton)
+            // findViewById(R.id.generated_pic);
+            // BMPphoto = BogoPicGen.generateBitmap(350, 350);
+            // button.setImageBitmap(BMPphoto);
+            // generatePhoto();
+        }
+    }
+
+    /**
      * Put the updated bundle back into the intent Extras and finish the intent
-     *
+     * 
      * @param bundle
      * @param intent
      * @param imageUri
