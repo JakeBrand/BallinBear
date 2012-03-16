@@ -36,7 +36,7 @@ public class Album implements Serializable{
      * deletes all Photos in album
      */
     public void deleteAll(){
-        for(int i = 0; i < size(); i++){
+        for(int i=size()-1;i>=0;i--){
             deletePhoto(i);
         }
     }
