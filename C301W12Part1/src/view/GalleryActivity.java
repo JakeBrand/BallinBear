@@ -4,6 +4,8 @@ package view;
 
 import java.io.File;
 
+import ca.ualberta.ca.c301.R;
+
 import model.Album;
 import android.app.Activity;
 import android.app.AlertDialog;
