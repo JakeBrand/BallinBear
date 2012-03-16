@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="1202,613" id="uml" metadata="uml2-1.0" initialized="true" zoom="0.5" scrolledX="280" tag="1000" key="32303037303533312D31303030204333303157313250617274312F64657469616E">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="1202,613" id="uml" metadata="uml2-1.0" initialized="true" zoom="0.25" tag="1000" key="32303037303533312D31303030204333303157313250617274312F6A616272616E64">
   <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.2/@sourceConnections.0" name="control" location="660,14" size="391,766" id="control">
     <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.1" name="BogoPicGen" location="224,639" size="131,67" id="control/BogoPicGen" runTimeClassModel="generateBitmap(II)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -9,7 +9,7 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.1/@sourceConnections.0 //@children.2/@children.3/@sourceConnections.0 //@children.2/@children.2/@sourceConnections.0 //@children.2/@children.5/@sourceConnections.0 //@children.2/@children.4/@sourceConnections.0 //@children.2/@children.6/@sourceConnections.0 //@children.2/@children.0/@sourceConnections.0" name="Controller" location="43,130" size="171,445" id="control/Controller" runTimeClassModel="checkAlbumNames(Ljava.lang.String;),deletePhoto(II),getCurrentPhoto(),setCurrentAlbum(I),setCurrentAlbumName(Ljava.lang.String;),getCurrentAlbum(),addPhoto(ILandroid.net.Uri;Ljava.lang.String;),getPhoto(II),deleteAlbum(I),addAlbum(Ljava.lang.String;Landroid.net.Uri;Ljava.lang.String;),updatePhoto(IILjava.lang.String;),saveObject(),getAlbum(I),getCurrentAlbumIndex(),setComparePhoto1(I),getAlbumNames(),getComparePhoto2(),setCurrentPhoto(I),setComparePhoto2(I),loadObject(Landroid.content.Context;),getCurrentPhotoIndex(),getComparePhoto1(),updateAlbum(ILjava.lang.String;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.1/@sourceConnections.0 //@children.2/@children.3/@sourceConnections.0 //@children.2/@children.2/@sourceConnections.0 //@children.2/@children.5/@sourceConnections.0 //@children.2/@children.4/@sourceConnections.0 //@children.2/@children.6/@sourceConnections.0 //@children.2/@children.0/@sourceConnections.0" name="Controller" location="43,130" size="171,445" id="control/Controller" runTimeClassModel="checkAlbumNames(Ljava.lang.String;),getCurrentPhoto(),deletePhoto(II),setCurrentAlbum(I),setCurrentAlbumName(Ljava.lang.String;),addPhoto(ILandroid.net.Uri;Ljava.lang.String;),getCurrentAlbum(),getPhoto(II),deleteAlbum(I),addAlbum(Ljava.lang.String;Landroid.net.Uri;Ljava.lang.String;),updatePhoto(IILjava.lang.String;),saveObject(),getAlbum(I),getCurrentAlbumIndex(),setComparePhoto1(I),getAlbumNames(),getComparePhoto2(),setCurrentPhoto(I),setComparePhoto2(I),updateAlbum(ILjava.lang.String;),getComparePhoto1(),loadObject(Landroid.content.Context;),getCurrentPhotoIndex()">
       <children xsi:type="editmodel:CompartmentEditModel" size="148,126">
         <children xsi:type="editmodel:AttributeEditModel" name="currentAlbum" id="control/Controller#currentAlbum"/>
         <children xsi:type="editmodel:AttributeEditModel" name="currentPhoto" id="control/Controller#currentPhoto"/>
@@ -38,25 +38,25 @@
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="control/Controller-Standard::Call->model/Album*control/Controller-Standard::Instantiate->model/Album*control/Controller-Soyatec::Import->model/Album" source="//@children.0/@children.1" target="//@children.1/@children.0" targetEnd="//@children.0/@children.1/@sourceConnections.0/@children.2" label="//@children.0/@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
-        <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="127,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Instantiate, Call»" size="127,10" anchorKind="MiddlePart"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="171,238" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="0,150"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:DependencyEditModel" id="control/Controller-Standard::Call->model/Photo*control/Controller-Standard::Instantiate->model/Photo*control/Controller-Soyatec::Import->model/Photo" source="//@children.0/@children.1" target="//@children.1/@children.1" targetEnd="//@children.0/@children.1/@sourceConnections.1/@children.2" label="//@children.0/@children.1/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@children.1/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="127,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Instantiate, Call»" size="127,10" anchorKind="MiddlePart"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="140,-1" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="37,0"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
     <sourceConnections xsi:type="editmodel:DependencyEditModel" id="control-Standard::Call->model*control-Standard::Instantiate->model*control-Soyatec::Import->model" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="127,10" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Instantiate, Call»" size="127,10" anchorKind="MiddlePart"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="390,432" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="-1,372"/>
     </sourceConnections>
   </children>
   <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.2/@sourceConnections.1 //@children.0/@sourceConnections.0" name="model" location="2069,48" size="544,695" id="model">
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.2 //@children.0/@children.1/@sourceConnections.0 //@children.2/@children.0/@sourceConnections.1 //@children.2/@children.4/@sourceConnections.1 //@children.2/@children.4/@sourceConnections.2" name="Album" location="74,184" size="166,301" id="model/Album" runTimeClassModel="addPhoto(Lmodel.Photo;),albumName,updatePhoto(ILmodel.Photo;),getAlbumName(),getPhotos(),size(),Album(Ljava.lang.String;),photos,deleteAll(),deletePhoto(I),getPhoto(I),setAlbumName(Ljava.lang.String;),setPhotos(Ljava.util.ArrayList;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.2 //@children.0/@children.1/@sourceConnections.0 //@children.2/@children.0/@sourceConnections.1 //@children.2/@children.4/@sourceConnections.1 //@children.2/@children.4/@sourceConnections.2" name="Album" location="74,184" size="166,301" id="model/Album" runTimeClassModel="addPhoto(Lmodel.Photo;),albumName,updatePhoto(ILmodel.Photo;),getAlbumName(),getPhotos(),Album(Ljava.lang.String;),size(),photos,deleteAll(),deletePhoto(I),getPhoto(I),setAlbumName(Ljava.lang.String;),setPhotos(Ljava.util.ArrayList;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="143,54">
         <children xsi:type="editmodel:AttributeEditModel" name="serialVersionUID" id="model/Album#serialVersionUID"/>
         <children xsi:type="editmodel:AttributeEditModel" name="albumName" id="model/Album#albumName"/>
@@ -161,7 +161,7 @@
         <bendpoints secondRelativeDimension="2,119" firstRelativeDimension="-423,0"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:DependencyEditModel" id="view/CompareActivity-Standard::Call->model/Photo*view/CompareActivity-Soyatec::Import->model/Photo" source="//@children.2/@children.2" target="//@children.1/@children.1" targetEnd="//@children.2/@children.2/@sourceConnections.1/@children.2" label="//@children.2/@children.2/@sourceConnections.1/@children.0" sourceEnd="//@children.2/@children.2/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="68,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="68,10" anchorKind="MiddlePart"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="154,127" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="87,246"/>
       </sourceConnections>
@@ -216,7 +216,7 @@
         <children xsi:type="editmodel:AssociationEndEditModel" location="0,291"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:DependencyEditModel" id="view/EditPhotoActivity-Standard::Call->model/Photo*view/EditPhotoActivity-Soyatec::Import->model/Photo" source="//@children.2/@children.3" target="//@children.1/@children.1" targetEnd="//@children.2/@children.3/@sourceConnections.3/@children.2" label="//@children.2/@children.3/@sourceConnections.3/@children.0" sourceEnd="//@children.2/@children.3/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="68,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="68,10" anchorKind="MiddlePart"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="136,535" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="10,247"/>
       </sourceConnections>
@@ -267,12 +267,12 @@
           <children xsi:type="editmodel:LabelEditModel" location="1747,1571" size="0,10" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="alb" location="107,300" multiplicityLabel="//@children.2/@children.4/@sourceConnections.1/@children.2/@children.1" roleLabel="//@children.2/@children.4/@sourceConnections.1/@children.2/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" ~ alb" location="2257,539" size="29,10" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="2225,539" size="18,10" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" ~ alb" location="2255,539" size="29,10" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="2223,539" size="18,10" anchorKind="LastPart"/>
         </children>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:DependencyEditModel" id="view/GalleryActivity-Standard::Call->model/Album*view/GalleryActivity-Soyatec::Import->model/Album" source="//@children.2/@children.4" target="//@children.1/@children.0" targetEnd="//@children.2/@children.4/@sourceConnections.2/@children.2" label="//@children.2/@children.4/@sourceConnections.2/@children.0" sourceEnd="//@children.2/@children.4/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="68,10" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="68,10" anchorKind="MiddlePart"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="170,250" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="165,276"/>
       </sourceConnections>
@@ -318,7 +318,7 @@
       <children xsi:type="editmodel:AssociationEndEditModel" location="391,756"/>
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:DependencyEditModel" id="view-Standard::Call->model*view-Soyatec::Import->model" source="//@children.2" target="//@children.1" targetEnd="//@children.2/@sourceConnections.1/@children.2" label="//@children.2/@sourceConnections.1/@children.0" sourceEnd="//@children.2/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="68,10" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="68,10" anchorKind="MiddlePart"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="1075,-1" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="25,694"/>
     </sourceConnections>
