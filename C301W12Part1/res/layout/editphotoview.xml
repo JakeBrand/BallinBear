@@ -20,7 +20,7 @@
         android:layout_width="320dp"
         android:layout_height="300dp"
         android:layout_weight="1.47"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/camera" />
 
 <LinearLayout
     android:id="@+id/chooseAlbumLinearLayout"

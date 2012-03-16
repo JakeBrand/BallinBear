@@ -57,6 +57,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -123,6 +124,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
 
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
+        imageButton.setBackgroundColor(Color.BLACK);
         imageButton.setOnClickListener(this);
 
         Button newAlbumButton = (Button) findViewById(R.id.newAlbumButton);
