@@ -21,7 +21,7 @@ import android.widget.Button;
  * First called activity using the welcome_view.xml to redirect the user to
  * either take a new photo or view all albums
  * 
- * @author ching
+ * @author J-Tesseract
  * 
  */
 public class WelcomeActivity extends Activity {

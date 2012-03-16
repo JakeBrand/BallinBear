@@ -44,6 +44,7 @@ import android.view.View.OnClickListener;
 //#################################### This activity uses the album_edit layout and is used to edit albums (duh!)
 public class AlbumEditActivity extends Activity {
 	/**
+	 *  @author J-Tesseract
 	 *  Album Editting Activity (Displays the album name and
 	 *  allows you to change it, delete the album, or do nothing)
 	 */

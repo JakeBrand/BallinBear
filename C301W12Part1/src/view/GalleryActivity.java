@@ -34,7 +34,7 @@ import control.Controller;
 /**
  * This activity uses galleryview.xml to display all Photos in an album
  * 
- * @author ching
+ * @author J-Tesseract
  *
  */
 public class GalleryActivity extends Activity implements OnClickListener{

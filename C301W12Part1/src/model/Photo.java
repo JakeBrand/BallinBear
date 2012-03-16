@@ -7,8 +7,8 @@ import android.net.Uri;
 public class Photo implements Serializable
 {
 
-
-    /**
+	/**
+	 *  @author J-Tesseract
      * fields
      */
     private static final long serialVersionUID = -2561097008925968276L;

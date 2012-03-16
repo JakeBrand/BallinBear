@@ -80,6 +80,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener {
 	/**
 	 * Global Variables: Created only when passing or recreating is too
 	 * expensive
+	 * @author J-Tesseract
 	 */
 	private Bitmap BMPphoto;
 	Spinner albumNameSpinner;
