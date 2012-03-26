@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -227,7 +228,7 @@ public class GalleryActivity extends Activity implements OnClickListener{
                 ImageView iv = new ImageView(ctx);
                 Uri pic = alb.getPhotos().get(arg0).getPicture();
                 Log.e("Uri of pic " + arg0,"" + pic );
-                iv.setImageURI(pic);//Drawable.createFromPath(pic.getPath()));
+                iv.setImageDrawable(Drawable.createFromPath(pic.getPath()));
                 iv.setScaleType(ImageView.ScaleType.FIT_XY);
                 iv.setLayoutParams(new Gallery.LayoutParams(150,120));
                 iv.setBackgroundResource(imageBackground);

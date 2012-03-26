@@ -55,11 +55,7 @@ public class SlideShowActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO SlideShowActivity: just go back to album
-				final Context ssctx = SlideShowActivity.this.getApplicationContext();
-				Intent ssIntent = new Intent(ssctx, GalleryActivity.class);
-
-				startActivity(ssIntent);
+			    finish();
 			}
 
 		};
