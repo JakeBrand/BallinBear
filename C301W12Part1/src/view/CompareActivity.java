@@ -67,6 +67,9 @@ public class CompareActivity extends Activity implements OnClickListener
      * Here it sets the first image you selected into the first slot for the
      * photo setting its date (from getpTimeStamp) then sending it to handlePic
      * to display the image. The date is in the format "Month Day, -- Time"
+     * 
+     * @param imageView
+     *            The ImageView to set the first picture to
      */
     protected void setProvidedPic1(ImageView imageView)
     {
@@ -88,6 +91,9 @@ public class CompareActivity extends Activity implements OnClickListener
      * Sets the second photos date from the getpTimeStamp() call of the provided
      * photo then send it to handlePic to display the correct image. The date is
      * in the format "Month Day, -- Time"
+     * 
+     * @param imageView
+     *            The ImageView to set the second picture to
      */
     protected void setProvidedPic2(ImageView imageView)
     {
@@ -109,7 +115,12 @@ public class CompareActivity extends Activity implements OnClickListener
      * Take the URI from the provided photo and get the FilePath and File Input
      * Stream from the image path then set imageView.
      * 
-     * @exception FileNotFoundexception e
+     * @param imageView
+     *            The imageView to set the provided picture to
+     * @param providedPhoto
+     *            the Photo containing the Uri with the picture to set
+     * @exception FileNotFoundexception
+     *                e
      */
     private void handlePic(ImageView imageView, Photo providedPhoto)
     {
@@ -138,6 +149,7 @@ public class CompareActivity extends Activity implements OnClickListener
      * activity
      * 
      * @param v
+     *            The View that has just been clicked
      */
     @Override
     public void onClick(View v)

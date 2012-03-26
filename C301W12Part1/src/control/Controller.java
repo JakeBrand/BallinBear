@@ -26,6 +26,10 @@ public class Controller
 {
 
     /**
+     * The saved password required to enter the application.
+     */
+    private static String           password;
+    /**
      * When moving between Activities, these 4 variables help the Controller
      * know what Album/Photo(s) it should be passing.
      */
@@ -42,10 +46,31 @@ public class Controller
     private static final String     fileName = "albumsfile.data";
 
     /**
+     * Set the password required to continue in the appication
+     */
+    public static void setPassword(String pass)
+    {
+
+        password = pass;
+    }
+
+    /**
+     * getPassword
+     * 
+     * @return password The stored password required to enter the application
+     */
+    public static String getPassword()
+    {
+
+        return password;
+    }
+
+    /**
      * getAlbum
      * 
      * @param albumIndex
-     * @return the Album at index albumIndex
+     *            Index of the album to retrieve
+     * @return The Album at index albumIndex
      */
     public static Album getAlbum(int albumIndex)
     {
@@ -57,6 +82,7 @@ public class Controller
      * setCurrentPhoto
      * 
      * @param currentP
+     *            The index of the Photo to be set
      */
     public static void setCurrentPhoto(int currentP)
     {
@@ -67,7 +93,7 @@ public class Controller
     /**
      * getCurrentPhotoIndex
      * 
-     * @return currentPhoto
+     * @return currentPhoto The index of the current Photo
      */
     public static int getCurrentPhotoIndex()
     {
@@ -90,6 +116,7 @@ public class Controller
      * setComparePhoto1
      * 
      * @param photo1
+     *            The Photo to be set as the first of two to be compared
      */
     public static void setComparePhoto1(int photo1)
     {
@@ -101,6 +128,7 @@ public class Controller
      * setComparePhoto2
      * 
      * @param photo2
+     *            The Photo to be set at the second of two to be compared
      */
     public static void setComparePhoto2(int photo2)
     {
@@ -145,6 +173,7 @@ public class Controller
      * setCurrentAlbum
      * 
      * @param newCurrentAlbum
+     *            The index of the Album to be set as the current album
      */
     public static void setCurrentAlbum(int newCurrentAlbum)
     {
@@ -156,6 +185,7 @@ public class Controller
      * setCurrentAlbumName
      * 
      * @param newName
+     *            The name to set in the new current Album
      */
     public static void setCurrentAlbumName(String newName)
     {
@@ -166,7 +196,7 @@ public class Controller
     /**
      * getCurrentAlbumIndex
      * 
-     * @return currentAlbumIndex
+     * @return currentAlbumIndex The index of the current Album
      */
     public static int getCurrentAlbumIndex()
     {
@@ -175,12 +205,17 @@ public class Controller
     }
 
     /**
-     * addAlbum add new album with string albName and add a Photo to it with
+     * AddAlbum
+     * 
+     * Add new album with string albName and add a Photo to it with provided
      * imageUri and comment
      * 
      * @param albName
+     *            The name of the new Album
      * @param imageUri
+     *            The Uri of the picture to add to the Album
      * @param comment
+     *            The comment to add with the picture
      */
     public static void addAlbum(String albName, Uri imageUri, String comment)
     {
@@ -195,6 +230,7 @@ public class Controller
      * deleteAlbum
      * 
      * @param albumIndex
+     *            The index of the album to be deleted
      */
     public static void deleteAlbum(int albumIndex)
     {
@@ -206,10 +242,14 @@ public class Controller
     }
 
     /**
-     * updateAlbum changes the name of the Album at albumIndex with newName
+     * updateAlbum
+     * 
+     * Changes the name of the Album at albumIndex with newName
      * 
      * @param albumIndex
+     *            The index of the album to be updated
      * @param newName
+     *            The new name of the Album
      */
     public static void updateAlbum(int albumIndex, String newName)
     {
@@ -223,8 +263,10 @@ public class Controller
      * getPhoto
      * 
      * @param albumIndex
+     *            The index of the Album with the Photo in it
      * @param photoIndex
-     * @return
+     *            The index of the Photo in the Album
+     * @return The Photo desired from the Album
      */
     public static Photo getPhoto(int albumIndex, int photoIndex)
     {
@@ -239,8 +281,11 @@ public class Controller
      * albumIndex
      * 
      * @param albumIndex
+     *            Album index to add photo
      * @param imageUri
+     *            Image Uri picture is stored at
      * @param comment
+     *            Comment associated to the Photo
      */
     public static void addPhoto(int albumIndex, Uri imageUri, String comment)
     {
@@ -256,7 +301,9 @@ public class Controller
      * deletePhoto delete photo at photoIndex from album at albumIndex
      * 
      * @param albumIndex
+     *            Album index photo should be deleted from
      * @param photoIndex
+     *            Photo index in album to be deleted
      */
     public static void deletePhoto(int albumIndex, int photoIndex)
     {
@@ -277,8 +324,11 @@ public class Controller
      * updatePhoto
      * 
      * @param albumIndex
+     *            Album index photo should be updated in
      * @param photoIndex
+     *            Photo index to be updated in the Album
      * @param newComment
+     *            Comment to be updated in the Album
      */
     public static void updatePhoto(int albumIndex, int photoIndex,
             String newComment)
@@ -319,6 +369,7 @@ public class Controller
      * the Album with that name or returns -1 otherwise.
      * 
      * @param s
+     *            The name of the album to check
      * @return index of album if exists, else returns -1
      */
     public static int checkAlbumNames(String s)
@@ -337,7 +388,9 @@ public class Controller
     }
 
     /**
-     * saveObject saves the ArrayList albums to file
+     * saveObject
+     * 
+     * Saves the ArrayList albums to file from specified Context
      * 
      */
     public static void saveObject()
@@ -360,9 +413,10 @@ public class Controller
     }
 
     /**
-     * loadObject loads the ArrayList albums from file
+     * loadObject loads the ArrayList Albums from file
      * 
      * @param c
+     *            The Context the Albums are saved from
      */
     @SuppressWarnings("unchecked")
     public static void loadObject(Context c)

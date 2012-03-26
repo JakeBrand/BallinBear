@@ -184,7 +184,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * 
      * perform action depending on button clicked
      * 
-     * @param view v
+     * @param v
+     *            The View that has just been clicked
      */
     @Override
     public void onClick(View v)
@@ -387,7 +388,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * 
      * Return a verification code based on state of completion
      * 
-     * @return validityState
+     * @return validityState The state of the Photo being edited
      */
     private int validateAcceptState()
     {
@@ -453,10 +454,10 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * 
      * Save the Bitmap to the provided Uri
      * 
-     * @param intent
      * @param imageUri
+     *            The Uri to save the picture at
      */
-    private void saveBMP(Intent intent, Uri imageUri)
+    private void saveBMP(Uri imageUri)
     {
 
         OutputStream stream;
@@ -529,6 +530,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * Return the Uri to the image with the given intent
      * 
      * @param intent
+     *            The intent to retrieve the Uri from
      */
     private Uri getImageUri(Intent intent)
     {
@@ -582,8 +584,11 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * If intent was to take a photo, display the generated photo
      * 
      * @param requestCode
+     *            The code that requested starting a new activity
      * @param resultCode
+     *            The code of the resulting activity
      * @param intent
+     *            The intent of the resulting activity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
@@ -605,14 +610,15 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * 
      * Put the updated bundle back into the intent Extras and finish the intent
      * 
-     * @param bundle
      * @param intent
+     *            The intent to finish
      * @param imageUri
+     *            The Uri the photo is going to be saved at
      */
     private void finishIntent(Intent intent, Uri imageUri)
     {
 
-        saveBMP(intent, imageUri);
+        saveBMP(imageUri);
         Controller.saveObject();
 
         setResult(RESULT_OK, intent);

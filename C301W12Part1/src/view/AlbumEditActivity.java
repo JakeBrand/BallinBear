@@ -92,7 +92,7 @@ public class AlbumEditActivity extends Activity
     }
 
     /**
-     * on Pause
+     * onPause
      * 
      * On pause saves current object using the controller
      */

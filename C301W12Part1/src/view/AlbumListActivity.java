@@ -26,7 +26,7 @@ public class AlbumListActivity extends Activity
 {
 
     /**
-     * declares two globals String[] albumNames is used to store the current
+     * Declares two globals String[] albumNames is used to store the current
      * albumNames from the controller It is used to set array adapter
      * albListAdapter albcounter is an album counter to set empty list string
      */
