@@ -64,6 +64,9 @@ public class GalleryActivity extends Activity implements OnClickListener{
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
        
+        
+        Button SlideShowButton = (Button) findViewById(R.id.SlideShowButton);
+        SlideShowButton.setOnClickListener(this);
     }
     
     /**
@@ -264,6 +267,12 @@ public class GalleryActivity extends Activity implements OnClickListener{
 
                 comparing_photo = true;
                 comparePhotos();
+            break;
+            
+            case R.id.SlideShowButton:
+                final Context ssctx  = GalleryActivity.this.getApplicationContext();
+                Intent SlideShowIntent = new Intent(ssctx, SlideShowActivity.class);
+                startActivity(SlideShowIntent);
             break;
         }
     }
