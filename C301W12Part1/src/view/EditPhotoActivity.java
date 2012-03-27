@@ -320,7 +320,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         });
 
         alert.show();
-
     }
 
     /**
