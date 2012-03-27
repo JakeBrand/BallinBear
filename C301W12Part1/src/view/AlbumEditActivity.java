@@ -16,7 +16,7 @@ import android.app.Activity;
  *         Album Editing Activity (Displays the album name and allows you to
  *         change it, delete the album, or do nothing)
  */
-public class AlbumEditActivity extends Activity
+public class AlbumEditActivity extends Activity implements OnClickListener
 {
 
     EditText albName;
@@ -41,53 +41,53 @@ public class AlbumEditActivity extends Activity
         albName.setText(Controller.getCurrentAlbum().getAlbumName());
 
         Button deleteButton = (Button) findViewById(R.id.deleteButton);
-        OnClickListener deleteListener = new OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                // TODO AlbumEditActivity: delete album; show a warning of all
-                // the photos that will be deleted
-                // if only album go to welcome, else go to albumlist
-                Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
-                finish();
-            }
-
-        };
-        deleteButton.setOnClickListener(deleteListener);
+//        OnClickListener deleteListener = new OnClickListener()
+//        {
+//
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                // TODO AlbumEditActivity: delete album; show a warning of all
+//                // the photos that will be deleted
+//                // if only album go to welcome, else go to albumlist
+//                Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+//                finish();
+//            }
+//
+//        };
+        deleteButton.setOnClickListener(this);
 
         Button backToAlbumButton = (Button) findViewById(R.id.backToAlbumButton);
-        OnClickListener backToAlbumButtonListener = new OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                finish();
-            }
-
-        };
-        backToAlbumButton.setOnClickListener(backToAlbumButtonListener);
+//        OnClickListener backToAlbumButtonListener = new OnClickListener()
+//        {
+//
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                finish();
+//            }
+//
+//        };
+        backToAlbumButton.setOnClickListener(this);
 
         Button doneButton = (Button) findViewById(R.id.doneButton);
-        OnClickListener doneListener = new OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                // TODO AlbumEditActivity: change album name if edit text has
-                // changed
-                Controller.setCurrentAlbumName(albName.getText().toString());
-                finish();
-            }
-
-        };
-        doneButton.setOnClickListener(doneListener);
+//        OnClickListener doneListener = new OnClickListener()
+//        {
+//
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                // TODO AlbumEditActivity: change album name if edit text has
+//                // changed
+//                Controller.setCurrentAlbumName(albName.getText().toString());
+//                finish();
+//            }
+//
+//        };
+        doneButton.setOnClickListener(this);
 
     }
 
@@ -101,5 +101,39 @@ public class AlbumEditActivity extends Activity
 
         super.onPause();
         Controller.saveObject();
+    }
+
+    /**
+     * onClick
+     * 
+     * Perform action depending on the UI clicked
+     * 
+     * @param v The View that has just been clicked
+     */
+    @Override
+    public void onClick(View v)
+    {
+        switch(v.getId()){
+            case R.id.deleteButton:
+                // TODO AlbumEditActivity: delete album; show a warning of all
+                // the photos that will be deleted
+                // if only album go to welcome, else go to albumlist
+                Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+                finish();
+                break;
+                
+            case R.id.doneButton:
+                // TODO AlbumEditActivity: change album name if edit text has
+                // changed
+                Controller.setCurrentAlbumName(albName.getText().toString());
+                finish();
+                break;
+                
+            case R.id.backToAlbumButton:
+                finish();
+                break;
+                
+        }
+        
     }
 }

@@ -366,7 +366,7 @@ public class Controller
 
     /**
      * checkAlbumNames Given a String s, returns the albumIndex that represents
-     * the Album with that name or returns -1 otherwise.
+     * the Album with that name or returns -1 if no album exists.
      * 
      * @param s
      *            The name of the album to check
@@ -376,15 +376,17 @@ public class Controller
     {
 
         int i = 0;
-        while (i < albums.size() && albums.get(i).getAlbumName() != s)
+        while (i < albums.size())
         {
+            String name = albums.get(i).getAlbumName().trim();
+            if (name.equals(s.trim()))
+            {
+                return i;
+            }
             i++;
         }
-        if (albums.get(i).getAlbumName() == s)
-        {
-            return i;
-        } else
-            return -1;
+        return -1;
+
     }
 
     /**

@@ -120,7 +120,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.editphotoview);
 
     }
@@ -172,6 +171,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                     android.R.layout.simple_spinner_item,
                     new String[] { "No Albums" });
         }
+
         spinnerAdapter
                 .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         albumNameSpinner.setAdapter(spinnerAdapter);
@@ -247,7 +247,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("New Album");
-        alert.setMessage("Please enter the name a the new Album");
+        alert.setMessage("Please enter the name of the new Album");
 
         final EditText input = new EditText(this);
         alert.setView(input);
@@ -262,27 +262,51 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             {
 
                 String[] albumNames = Controller.getAlbumNames();
+                boolean validName = true;
                 newAlbumCreated = true;
                 Editable value = input.getText();
                 String newAlbumName = value.toString();
 
-                String[] temp = new String[albumNames.length + 1];
-                temp[0] = newAlbumName;
-                for (int i = 0; i < albumNames.length; i++)
+                if (albumNames.length != 0)
                 {
-                    temp[i + 1] = albumNames[i];
+                    int index = Controller.checkAlbumNames(newAlbumName);
+                    if (index != -1)
+                    {
+                        Toast toast = Toast
+                                .makeText(
+                                        getApplicationContext(),
+                                        "Can not have multiple albums with the same name",
+                                        Toast.LENGTH_SHORT);
+                        toast.show();
+                        validName = false;
+                        newAlbumCreated = false;
+                        return;
+                    }
 
+                } else
+                {
+                    validName = true;
                 }
-                albumNames = temp;
-                temp = null;
+                if (validName)
+                {
+                    String[] temp = new String[albumNames.length + 1];
+                    temp[0] = newAlbumName;
+                    for (int i = 0; i < albumNames.length; i++)
+                    {
+                        temp[i + 1] = albumNames[i];
 
-                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(
-                        EditPhotoActivity.this,
-                        android.R.layout.simple_spinner_item, albumNames);
-                spinnerAdapter
-                        .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                albumNameSpinner.setAdapter(spinnerAdapter);
-                albumNameSpinner.setSelection(0, false);
+                    }
+                    albumNames = temp;
+                    temp = null;
+
+                    ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(
+                            EditPhotoActivity.this,
+                            android.R.layout.simple_spinner_item, albumNames);
+                    spinnerAdapter
+                            .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    albumNameSpinner.setAdapter(spinnerAdapter);
+                    albumNameSpinner.setSelection(0, false);
+                }
             }
         });
 
@@ -408,9 +432,12 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                     return MOVING_PHOTO_TO_EXISTING;
                 }
             }
-            if (newAlbumCreated)
+
+            else
             {
-                if (albumNameSpinner.getSelectedItemPosition() - 1 == Controller
+                int offset = 1;
+
+                if (albumNameSpinner.getSelectedItemPosition() - offset == Controller
                         .getCurrentAlbumIndex())
                 {
                     return UPDATING_PHOTO;
