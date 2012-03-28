@@ -40,6 +40,7 @@
     <string name="addAlarm">Add an Alarm</string>
     <string name="alarmStartTime">Select Alarm Start Time</string>
     <string name="alarmFrequency">Select Alarm Frequency</string>
+    <string name="removeAlarm">Remove Alarm</string>
 
 
 </resources>

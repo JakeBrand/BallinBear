@@ -40,8 +40,8 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -49,32 +49,44 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/addAlarmButton"
+            android:id="@+id/backToAlbumButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/addAlarm" />
-
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/deleteAlbumLabelText" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/backToAlbumText" />
 
         <Button
             android:id="@+id/doneButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_above="@+id/backToAlbumButton"
+            android:layout_alignParentLeft="true"
             android:text="@string/doneText" />
 
         <Button
-            android:id="@+id/backToAlbumButton"
+            android:id="@+id/deleteButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/backToAlbumText" />
-    </LinearLayout>
+            android:layout_above="@+id/doneButton"
+            android:layout_alignParentLeft="true"
+            android:text="@string/deleteAlbumLabelText" />
+
+        <Button
+            android:id="@+id/addAlarmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/deleteButton"
+            android:text="@string/addAlarm" />
+
+        <Button
+            android:id="@+id/removeAlarmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/deleteButton"
+            android:layout_alignParentRight="true"
+            android:text="@string/removeAlarm" />
+
+    </RelativeLayout>
 
 </LinearLayout>
