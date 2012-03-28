@@ -1,50 +1,100 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import android.net.Uri;
+import java.util.StringTokenizer;
 
-/**
- * 
- * @author J-Tesseract
- * 
- */
+import control.Controller;
+
+import android.net.Uri;
+import android.util.Log;
+
 public class Photo implements Serializable
 {
 
-    /**
+	/**
+	 *  @author J-Tesseract
      * fields
      */
     private static final long serialVersionUID = -2561097008925968276L;
     private Date              pTimeStamp;
     private String            comment;
     private Uri               imageUri;
+    private ArrayList<String> tags;
+    
+    
 
+    /**
+     * hasTag 
+     * 
+     * given a String s, determines if the Photo has been 'auto-tagged' with the String
+     * 
+     * @param s
+     * @return
+     */
+    public boolean hasTag(String s){
+        int i = 0;
+        boolean hasT = false;
+        while(i < tags.size() && !hasT){
+            hasT = (tags.get(i).equals(s));
+            i++;
+        }
+        return hasT;
+   
+    }
+
+    
     /**
      * constructor
      * 
      * @param comm
-     *            String of comments associated to the Photo
      * @param imageU
-     *            Uri that the picture is stored at
      */
-    public Photo(String comm, Uri imageU)
-    {
-
+    public Photo(String comm, Uri imageU){
         this.pTimeStamp = new Date(System.currentTimeMillis());
         this.comment = comm;
         this.imageUri = imageU;
+        this.tags = generateTags(comm);
+        
     }
+
+    /**
+     * generateTags
+     * 
+     * generates an ArrayList of Strings using the comment and common words to 'auto-tag' the photo.
+     * 
+     * @param comm
+     * @return
+     */
+    private ArrayList<String> generateTags(String comm){
+        StringTokenizer token = new StringTokenizer(comm);
+        String str;
+        int count = 0;
+        ArrayList<String> tags = new ArrayList<String>();
+        while (token.hasMoreTokens()){
+        count++;
+        
+        str = token.nextToken();
+        if(Controller.inTags(str)){
+            Log.e(null,str);
+        tags.add(str);
+        }
+        
+        //Log.e(null,str);
+        }
+        
+        
+        return tags;
+    }
+
 
     /**
      * getpTimeStamp
      * 
-     * @return pTimeStamp The Date object representing the timestamp of the
-     *         Photo
+     * @return pTimeStamp
      */
-    public Date getpTimeStamp()
-    {
-
+    public Date getpTimeStamp()  {
         return pTimeStamp;
     }
 
@@ -52,22 +102,18 @@ public class Photo implements Serializable
      * setpTimeStamp
      * 
      * @param pTimeStamp
-     *            The Date object representing the timestamp of the Photo
      */
-    public void setpTimeStamp(Date pTimeStamp)
-    {
-
+    public void setpTimeStamp(Date pTimeStamp) {
         this.pTimeStamp = pTimeStamp;
     }
 
+    
     /**
      * getComent
      * 
-     * @return comment The String comment associated with the Photo
+     * @return comment
      */
-    public String getComment()
-    {
-
+    public String getComment(){
         return this.comment;
     }
 
@@ -75,35 +121,33 @@ public class Photo implements Serializable
      * setComment
      * 
      * @param com
-     *            The String comment associated with the Photo
      */
-    public void setComment(String com)
-    {
-
+    public void setComment(String com){
         this.comment = com;
+        this.tags = generateTags(com);
     }
+
 
     /**
      * setPicture
      * 
      * @param imageU
-     *            The Uri that the picture is saved at
      */
-    public void setPicture(Uri imageU)
-    {
-
+    public void setPicture(Uri imageU){
         this.imageUri = imageU;
     }
 
+    
     /**
      * getPicture
      * 
-     * @return imageUri the Uri that the picture is saved at
+     * @return imageUri
      */
-    public Uri getPicture()
-    {
+    public Uri getPicture(){
 
         return this.imageUri;
     }
+
+
 
 }

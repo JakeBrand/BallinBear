@@ -1,5 +1,7 @@
 package view;
 
+
+
 import java.io.File;
 
 import ca.ualberta.ca.c301.R;
@@ -34,25 +36,25 @@ import control.Controller;
  * This activity uses galleryview.xml to display all Photos in an album
  * 
  * @author J-Tesseract
- * 
+ *
  */
-public class GalleryActivity extends Activity implements OnClickListener
-{
+public class GalleryActivity extends Activity implements OnClickListener{
 
-    Album     alb;
+
+    Album alb;
     ImageView imageView;
-    String    currentAlbumName;
-    boolean   comparing_photo;
-
-    /**
-     * Set content view and initialize UI components
-     * 
-     * @param savedInstanceState
-     */
+    String currentAlbumName;
+    boolean comparing_photo;
+    
+/**
+ * onCreate
+ * 
+ * Set content view and initialize UI components
+ * 
+ * @param savedInstanceState
+ */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.galleryview);
@@ -60,149 +62,118 @@ public class GalleryActivity extends Activity implements OnClickListener
 
         Button newPhotoButton = (Button) findViewById(R.id.NewPhotoButton);
         newPhotoButton.setOnClickListener(this);
-
+        
         Button comparePhotosButton = (Button) findViewById(R.id.ComparePhotosButton);
         comparePhotosButton.setOnClickListener(this);
-        Gallery ga = (Gallery) findViewById(R.id.albumGallery);
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
-
+        
         Button SlideShowButton = (Button) findViewById(R.id.SlideShowButton);
         SlideShowButton.setOnClickListener(this);
+       
     }
-
+    
     /**
+     * onResume
+     * 
      * Update altered UI components
      */
-    public void onResume()
-    {
-
+    public void onResume(){
         super.onResume();
 
-        if (Controller.getCurrentAlbumIndex() == -1)
-        {
+        if(Controller.getCurrentAlbumIndex() == -1){
             finish();
             return;
         }
         alb = Controller.getCurrentAlbum();
-        Gallery ga = (Gallery) findViewById(R.id.albumGallery);
+        Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
-        final Context ctx = this.getApplicationContext();
+        final Context ctx  = this.getApplicationContext();
 
-        ga.setOnItemClickListener(new OnItemClickListener()
-        {
+        ga.setOnItemClickListener(new OnItemClickListener() { // if a photo is selected, open it in editPhoto
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View view,
-                    int position, long id)
-            {
+                        @Override
+                        public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
 
-                Intent editPhotoIntent = new Intent(ctx,
-                        EditPhotoActivity.class);
-                Log.e("Photo clicked", "Position = " + position);
+                            Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
 
-                Controller.setCurrentPhoto(position);
-                editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller
-                        .getCurrentPhoto().getPicture());
-                startActivity(editPhotoIntent);
-
-            }
+                               Controller.setCurrentPhoto(position);
+                               editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Controller.getCurrentPhoto().getPicture());
+                               startActivity(editPhotoIntent);
+                              
+                        }
         });
-
-        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);
+        
+       
+        TextView AlbumName = (TextView) findViewById(R.id.AlbumNameLabel);     
         AlbumName.setText(Controller.getCurrentAlbum().getAlbumName());
     }
-
+    
     /**
-     * Prepare and exicute the comparison of two selected Photos
+     * comparePhotos
+     * 
+     * Prepare and execute the comparison of two selected Photos
      */
-    private void comparePhotos()
-    {
-
+    private void comparePhotos(){
         Context context = getApplicationContext();
         CharSequence text = "Please select two photos you wish to compare";
         int duration = Toast.LENGTH_SHORT;
-        final Toast toast = Toast.makeText(context, text, duration); // Final so
-                                                                     // that it
-                                                                     // can be
-                                                                     // canceled
-                                                                     // on
-                                                                     // second
-                                                                     // click
+        final Toast toast = Toast.makeText(context, text, duration); //Final so that it can be canceled on second click
         toast.show();
-        Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);
-        comparegal.setOnItemClickListener(new OnItemClickListener()
-        {
-
+        Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);      
+        comparegal.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View view,
-                    int position, long id)
-            {
-
-                toast.cancel();
-                Controller.setComparePhoto1(position);
-                Context context2 = getApplicationContext();
-                CharSequence text2 = "Please select the second photo";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast2 = Toast.makeText(context2, text2, duration);
-                toast2.show();
-                Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);
-                comparegal.setOnItemClickListener(new OnItemClickListener()
-                {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> arg0, View view,
-                            int position2, long id)
-                    {
-
-                        Log.e("Photo clicked", "Position = " + position2);
-                        int requestCode = 0;
-                        Log.e("About to go to firstSelectPopup",
-                                "request code: " + requestCode);
-                        Controller.setComparePhoto2(position2);
-                        if (comparing_photo == true)
-                        {
-                            confirmPopup();
-                        } else
-                        {
-                            onResume();
-                        }
+            public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {toast.cancel();
+                   Controller.setComparePhoto1(position);
+                   Context context2 = getApplicationContext();
+                   CharSequence text2 = "Please select the second photo";
+                   int duration = Toast.LENGTH_SHORT;
+                   Toast toast2 = Toast.makeText(context2, text2, duration);
+                   toast2.show();
+                   Gallery comparegal = (Gallery) findViewById(R.id.albumGallery);
+                   comparegal.setOnItemClickListener(new OnItemClickListener() {
+                       @Override
+                       public void onItemClick(AdapterView<?> arg0, View view, int position2, long id) {
+                           Log.e("Photo clicked", "Position = " + position2);
+                           Controller.setComparePhoto2(position2);
+                           if(comparing_photo == true){
+                           confirmPopup();
+                           } else{
+                               onResume();
+                           }
 
                     }
                 });
             }
         });
     }
-
+    
+   
     /**
-     * Inflate the confirm AlertDialog If positive button pushed, start
-     * CompareActivity If negative button pushed, do nothing
+     * confirmPopup
+     * 
+     * Inflate the confirm AlertDialog
+     * If positive button pushed, start CompareActivity
+     * If negative button pushed, do nothing 
      */
     private void confirmPopup()
     {
-
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Continue?");
         alert.setMessage("Are you sure you wish to continue?");
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
         {
-
             public void onClick(DialogInterface dialog, int yesButton)
             {
-
-                comparing_photo = false;
-                Intent compareIntent = new Intent(GalleryActivity.this,
-                        CompareActivity.class);
+                comparing_photo=false;
+                Intent compareIntent = new Intent(GalleryActivity.this, CompareActivity.class);
                 startActivity(compareIntent);
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-        {
-
+                    }
+            });
+     
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-
+            public void onClick(DialogInterface dialog, int which) {
                 comparing_photo = false;
                 onResume();
                 return;
@@ -210,146 +181,128 @@ public class GalleryActivity extends Activity implements OnClickListener
 
         });
         alert.show();
+        
 
     }
 
-    /**
-     * Set the Gallery with the currently selected album
-     * 
-     */
-    public class ImageAdapter extends BaseAdapter
-    {
+/**
+ * ImageAdapter Class
+ * 
+ * Is used to set the Gallery with the currently selected album
+ *
+ */
+    public class ImageAdapter extends BaseAdapter {
 
         private Context ctx;
-        int             imageBackground;
+        int imageBackground;
+       
+        public ImageAdapter(Context c) {
+                        ctx = c;
+                        TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
+                        imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
+                        ta.recycle();
+                }
 
-        public ImageAdapter(Context c)
-        {
-
-            ctx = c;
-            TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
-            imageBackground = ta.getResourceId(
-                    R.styleable.Gallery1_android_galleryItemBackground, 1);
-            ta.recycle();
+                @Override
+        public int getCount() {
+               
+                return alb.getPhotos().size();
         }
 
         @Override
-        public int getCount()
-        {
-
-            return alb.getPhotos().size();
+        public Object getItem(int arg0) {
+               
+                return alb.getPhotos().get(arg0);
         }
 
         @Override
-        public Object getItem(int arg0)
-        {
-
-            return alb.getPhotos().get(arg0);
+        public long getItemId(int arg0) {
+               
+                return arg0;
         }
-
+       
+       
+  
+       /**
+        * Return the ImageView with the current element Uri
+        * 
+        * @param arg0 (int)
+        * @param arg1 (View)
+        * @param arg2 (ViewGroup)
+        * @return ImageView
+        */
         @Override
-        public long getItemId(int arg0)
-        {
-
-            return arg0;
-        }
-
-        /**
-         * Return the ImageView with the current element Uri Note: Minimal
-         * understanding. It works, be careful about editing it before you
-         * understand it
-         * 
-         * @param arg0
-         *            int required to produce picture
-         * @param arg1
-         *            View required in default getView parameters
-         * @param arg2
-         *            ViewGroup required in default getView parameters
-         * @return iv ImageView with updated picture
-         */
-        @Override
-        public View getView(int arg0, View arg1, ViewGroup arg2)
-        {
-
-            ImageView iv = new ImageView(ctx);
-            Uri pic = alb.getPhotos().get(arg0).getPicture();
-            Log.e("Uri of pic " + arg0, "" + pic);
-            iv.setImageDrawable(Drawable.createFromPath(pic.getPath()));
-            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            iv.setLayoutParams(new Gallery.LayoutParams(150, 120));
-            iv.setBackgroundResource(imageBackground);
-            return iv;
+        public View getView(int arg0, View arg1, ViewGroup arg2) {
+                ImageView iv = new ImageView(ctx);
+                Uri pic = alb.getPhotos().get(arg0).getPicture();
+                iv.setImageDrawable(Drawable.createFromPath(pic.getPath()));
+                iv.setScaleType(ImageView.ScaleType.FIT_XY);
+                iv.setLayoutParams(new Gallery.LayoutParams(150,120));
+                iv.setBackgroundResource(imageBackground);
+                return iv;
         }
 
     }
-
+   
     /**
+     * onPause
+     * 
      * When GalleryActivity paused after update, save current state
      */
-    public void onPause()
-    {
-
+    public void onPause(){
         super.onPause();
         Controller.saveObject();
     }
 
     /**
+     * onClick
+     * 
      * Execute desired code depending on button clicked
      * 
-     * @param v
-     *            View that has been clicked
+     * @param v (View)
      */
     @Override
     public void onClick(View v)
     {
-
-        switch (v.getId())
-        {
-
+        switch (v.getId()){
+            
             case R.id.NewPhotoButton:
-                final Context ctx = GalleryActivity.this
-                        .getApplicationContext();
-                Intent editPhotoIntent = new Intent(ctx,
-                        EditPhotoActivity.class);
+                final Context ctx  = GalleryActivity.this.getApplicationContext();
+                Intent editPhotoIntent = new Intent(ctx, EditPhotoActivity.class);
                 Uri imageUri = generateNewUri();
                 editPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 Controller.setCurrentPhoto(-1);
                 startActivity(editPhotoIntent);
-                break;
-
+            break;
+            
             case R.id.ComparePhotosButton:
 
                 comparing_photo = true;
                 comparePhotos();
-                break;
-
+            break;
             case R.id.SlideShowButton:
-                final Context ssctx = GalleryActivity.this
-                        .getApplicationContext();
-                Intent SlideShowIntent = new Intent(ssctx,
-                        SlideShowActivity.class);
+                final Context ssctx  = GalleryActivity.this.getApplicationContext();
+                Intent SlideShowIntent = new Intent(ssctx, SlideShowActivity.class);
                 startActivity(SlideShowIntent);
-                break;
+            break;
         }
     }
-
+    
     /**
+     * generateNewUri
+     * 
      * Generate a new imageUri based on current timestamp
      * 
-     * @return imageUri Uri for new image to be stored at
+     * @return imageUri
      */
-    public Uri generateNewUri()
-    {
-
-        String folder = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/tmp";
+    public Uri generateNewUri(){
+        
+        String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
         File folderF = new File(folder);
-        if (!folderF.exists())
-        {
+        if(!folderF.exists()){
             folderF.mkdir();
         }
-        String imageFilePath = folder + "/"
-                + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
         Uri imageUri = Uri.fromFile(new File(imageFilePath));
         return imageUri;
     }

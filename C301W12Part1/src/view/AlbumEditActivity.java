@@ -54,7 +54,10 @@ public class AlbumEditActivity extends Activity implements OnClickListener
      */
     private static final int       CICATRIX_ID = 1;
     final ScheduledExecutorService scheduler   = Executors
-                                                       .newScheduledThreadPool(Controller.getCurrentAlbumIndex());
+                                                       .newScheduledThreadPool(1);
+    // TODO: Must hold this ScheduledFuture in the Album.
+    // Do not leave static or you can only run one at a time!
+    private static ScheduledFuture notifyerHandle;
 
     /**
      * On Create
@@ -121,7 +124,7 @@ public class AlbumEditActivity extends Activity implements OnClickListener
 
         // TODO: Make Controller do this!
         String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(ns);
 
         int icon = R.drawable.camera;
         CharSequence tickerText = "CT";
@@ -132,15 +135,15 @@ public class AlbumEditActivity extends Activity implements OnClickListener
         CharSequence contentTitle = "Cicatrix Tracker";
         CharSequence contentText = "Reminder: Take your " + albName.getText()
                 + " picture!";
-        // TODO: Make NOT WelcomeActivity.class! Make Password check first!
         finish();
-        Intent notificationIntent = new Intent(this, WelcomeActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                notificationIntent, 0);
+        Intent notificationIntent = new Intent(this, PasswordActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,
+                Controller.getCurrentAlbumIndex(), notificationIntent,
+                268435456);
         notification.setLatestEventInfo(context, contentTitle, contentText,
                 contentIntent);
 
-        mNotificationManager.notify(CICATRIX_ID, notification);
+        notificationManager.notify(CICATRIX_ID, notification);
 
     }
 
@@ -154,7 +157,6 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     {
 
         // TODO: Make Controller do this!
-
         final Runnable codeToRun = new Runnable()
         {
 
@@ -166,11 +168,12 @@ public class AlbumEditActivity extends Activity implements OnClickListener
             }
         };
 
-        // TODO:
+        // TODO: V
         // alarmDay = Controller.getAlarmDay();
         // alarmHour = Controller.getAlarmHour();
         // alarmMin = Controller.getAlarmMin();
         int initialDelay = getInitialDelaySeconds(alarmDay, alarmHour, alarmMin);
+        Log.d("Initial Delay", "" + initialDelay);
         int selection = 1;
         int repeatedDelay = 0;
         if (alarmFrequency == 0)
@@ -183,24 +186,12 @@ public class AlbumEditActivity extends Activity implements OnClickListener
         {
             repeatedDelay = getRepeatedDelaySeconds(0, 0, selection);
         }
-
-        @SuppressWarnings("rawtypes")
-        // final ScheduledFuture notifyerHandle = scheduler
-        // .scheduleWithFixedDelay(codeToRun, initialDelay, repeatedDelay,
-        // SECONDS);
-        // TODO: Remove once tested!
-        final ScheduledFuture notifyerHandle = scheduler
-                .scheduleWithFixedDelay(codeToRun, initialDelay, 20, SECONDS);
-        scheduler.schedule(new Runnable()
-        {
-
-            public void run()
-            {
-
-                notifyerHandle.cancel(true);
-            }
-        }, 60 * 60, SECONDS);
-        notifyerHandle.cancel(true);
+        // TODO: USE TOP VERSION
+        // TODO: BOTTOM VERSION TESTING ONLY
+        // notifyerHandle = scheduler.scheduleWithFixedDelay(codeToRun,
+        // initialDelay, repeatedDelay, SECONDS);
+        notifyerHandle = scheduler.scheduleWithFixedDelay(codeToRun,
+                initialDelay, 15, SECONDS);
     }
 
     /**
@@ -229,12 +220,14 @@ public class AlbumEditActivity extends Activity implements OnClickListener
         SimpleDateFormat HOUR = new SimpleDateFormat("HH");
         int currentHour = Integer.parseInt(HOUR.format(today));
         SimpleDateFormat MIN = new SimpleDateFormat("mm");
-
         int currentMin = Integer.parseInt(MIN.format(today));
+        SimpleDateFormat SEC = new SimpleDateFormat("ss");
+        int currentSec = Integer.parseInt(SEC.format(today));
+        
         int secInDay = ((day - currentDay) % 7) * 60 * 60 * 24 * 7;
         int secInHour = ((hour - currentHour) % 24) * 60 * 60;
         int secInMin = ((min - currentMin) % 60) * 60;
-        int delaySeconds = secInDay + secInHour + secInMin;
+        int delaySeconds = secInDay + secInHour + secInMin - currentSec;
 
         return delaySeconds;
     }
@@ -426,8 +419,11 @@ public class AlbumEditActivity extends Activity implements OnClickListener
                 break;
 
             case R.id.removeAlarmButton:
-                scheduler.shutdownNow();
-
+                // scheduler.shutdownNow();
+                if (notifyerHandle != null)
+                {
+                    notifyerHandle.cancel(true);
+                }
                 Log.d("ShutDown?", "" + scheduler.isShutdown());
                 Log.d("Terminated?", "" + scheduler.isTerminated());
                 break;

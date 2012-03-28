@@ -24,142 +24,149 @@ import android.widget.Button;
  * @author J-Tesseract
  * 
  */
-public class WelcomeActivity extends Activity
-{
+public class WelcomeActivity extends Activity {
+    
+        /**
+         * Constants
+         */
+	private Uri imageUri;
+	private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
+	String fileName = "fileSave.data";
 
-    /**
-     * Fields called in too
-     */
+	/**
+	 * onCreate
+	 * Initialize UI components
+	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
 
-    private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
-    String                   fileName                      = "fileSave.data";
+		super.onCreate(savedInstanceState);
 
-    /**
-     * Initialize UI components
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+		try {
+			Controller.loadObject(this);
+		} catch (Exception e) {
+			Log.e(null, "NOTHING LOADED FROM FILE");
+		}
+		
+		
+		Controller.setTags();
+		
+		
+		
+		setContentView(R.layout.welcome_view);
 
-        super.onCreate(savedInstanceState);
-        Log.e("wecome", "START");
+		Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
+		newPhoto.setBackgroundColor(Color.GREEN);
 
-        try
-        {
-            Controller.loadObject(this);
-        } catch (Exception e)
-        {
-            Log.e(null, "NOTHING LOADED FROM FILE");
-        }
-        setContentView(R.layout.welcome_view);
+		OnClickListener newPhotoListener = new OnClickListener() {
 
-        Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
-        newPhoto.setBackgroundColor(Color.GREEN);
+			@Override
+			public void onClick(View v) {
+				takeAPhoto();       // if new photo button clicked, take a photo
+			}
 
-        OnClickListener newPhotoListener = new OnClickListener()
-        {
+		};
+		newPhoto.setOnClickListener(newPhotoListener);
 
-            @Override
-            public void onClick(View v)
-            {
+		Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
+		viewAlbums.setBackgroundColor(Color.CYAN);
 
-                takeAPhoto();
-            }
+		OnClickListener viewAlbumsListener = new OnClickListener() {
 
-        };
-        newPhoto.setOnClickListener(newPhotoListener);
+			@Override
+			public void onClick(View v) { 
 
-        Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
-        viewAlbums.setBackgroundColor(Color.CYAN);
+				Intent albumListIntent = new Intent(v.getContext(),
+						AlbumListActivity.class);
 
-        OnClickListener viewAlbumsListener = new OnClickListener()
-        {
+				startActivity(albumListIntent); // if albums button clicked, go to album activity
+			}
 
-            @Override
-            public void onClick(View v)
-            {
+		};
+		viewAlbums.setOnClickListener(viewAlbumsListener);
+		
+		
+		Button searchPhotos = (Button) findViewById(R.id.searchButton);
+		searchPhotos.setBackgroundColor(Color.RED);
+		
+		OnClickListener searchListener = new OnClickListener()
+                {
+                    
+                    @Override
+                    public void onClick(View v)
+                    {
+                
+                        Intent searchIntent = new Intent(v.getContext(), SearchActivity.class);
+                        startActivity(searchIntent);
+                        
+                    }
+                };
+                searchPhotos.setOnClickListener(searchListener);
+		
 
-                // TODO WelcomeActivity: view Albums
-                Intent albumListIntent = new Intent(v.getContext(),
-                        AlbumListActivity.class);
+	}
+/**
+ * onPause
+ * 
+ * Save state before taking a new photo
+ */
+	public void onPause() {
+		super.onPause();
+		Controller.saveObject();
 
-                startActivity(albumListIntent);
-                // WelcomeActivity.this.startActivity(albumListIntent);
-            }
+	}
 
-        };
-        viewAlbums.setOnClickListener(viewAlbumsListener);
+	/**
+	 * takeAPhoto
+	 * 
+	 * Start intent to take a new picture and save it at the designated Uri
+	 */
+	protected void takeAPhoto() {
 
-    }
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
 
-    /**
-     * Save state before taking a new photo
-     */
-    public void onPause()
-    {
+		File folderF = new File(folder);
+		if (!folderF.exists()) {
+			folderF.mkdir();
+		}
+		
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		imageUri = Uri.fromFile(imageFile);
 
-        super.onPause();
-        Controller.saveObject();
+		Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);
 
-    }
+		Bundle bundle = new Bundle();
+		takePhotoIntent.putExtras(bundle);
 
-    /**
-     * Start intent to take a new picture and save it at the designated Uri
-     * 
-     */
-    protected void takeAPhoto()
-    {
+		Controller.setCurrentPhoto(-1);
+		Controller.setCurrentAlbum(-1);
+		takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+		startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
+	}
 
-        String folder = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/tmp";
+	@Override
+	/**
+	 * onActivityResult
+	 * after returning from editphoto go to the gallery where the photo was placed
+	 * 
+	 * @param requestCode
+	 * 
+	 */
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
+		if (requestCode == TAKE_PICTURE_ACTIVITY_REQUEST) {
+			if (resultCode == RESULT_OK) {
 
-        File folderF = new File(folder);
-        if (!folderF.exists())
-        {
-            folderF.mkdir();
-        }
+				Intent galleryActivityIntent = new Intent(this,
+						GalleryActivity.class);
 
-        String imageFilePath = folder + "/"
-                + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        File imageFile = new File(imageFilePath);
-        Uri imageUri = Uri.fromFile(imageFile);
+				startActivity(galleryActivityIntent);
+			}
+		}
 
-        Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);
-
-        Bundle bundle = new Bundle();
-        takePhotoIntent.putExtras(bundle);
-
-        Controller.setCurrentPhoto(-1);
-        Controller.setCurrentAlbum(-1);
-        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(takePhotoIntent, TAKE_PICTURE_ACTIVITY_REQUEST);
-    }
-
-    @Override
-    /**
-     * OnResult confirm the result is ok and start intent to switch to gallery view
-     * 
-     * @param requestCode The code indicating what called the Activity for result
-     * @param resultCode The code indicating how the calling activity resulted
-     * @param intent The intent that started the activity for result
-     */
-    protected void onActivityResult(int requestCode, int resultCode,
-            Intent intent)
-    {
-
-        Log.e("onActivityResult", "Got here");
-        if (requestCode == TAKE_PICTURE_ACTIVITY_REQUEST)
-        {
-            if (resultCode == RESULT_OK)
-            {
-
-                Intent galleryActivityIntent = new Intent(this,
-                        GalleryActivity.class);
-
-                startActivity(galleryActivityIntent);
-            }
-        }
-
-    }
+	}
 
 }

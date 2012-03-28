@@ -37,10 +37,18 @@
     <string name="deleteAlbumLabelText">Delete Album</string>
     <string name="BogoPrompt">Click to take new Photo</string>
     <string name="welcomeLabelText">Welcome</string>
-    <string name="addAlarm">Add an Alarm</string>
-    <string name="alarmStartTime">Select Alarm Start Time</string>
-    <string name="alarmFrequency">Select Alarm Frequency</string>
+    <string name="resetPasswordText">Reset Password</string>
+    <string name="changePasswordText">Change Password</string>
+    <string name="oldPasswordText">Enter Old Password</string>
+    <string name="newPasswordText1">Enter New Password</string>
+    <string name="newPasswordText2">Confirm New Password</string>
+    <string name="searchText">Search</string>
+    <string name="enterTagText">Enter Tag</string>
+    <string name="searchPhotosText">Search Photos</string>
+    <string name="addAlarm">Add Alarm</string>
     <string name="removeAlarm">Remove Alarm</string>
+    <string name="alarmStartTime">Alarm Start Time</string>
+    <string name="alarmFrequency">Alarm Frequency</string>
 
 
 </resources>

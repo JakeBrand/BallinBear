@@ -15,6 +15,7 @@ import android.util.Log;
 
 import model.Album;
 import model.Photo;
+import model.SearchItem;
 
 /**
  * Controller is a static singleton that provides the views with the model and
@@ -24,11 +25,28 @@ import model.Photo;
  */
 public class Controller
 {
+    
+    
 
     /**
-     * The saved password required to enter the application.
+     * the password that lets the user into the app
      */
-    private static String           password;
+    private static String password;
+    
+    
+    public static String getPassword()
+    {
+    
+        return password;
+    }
+
+    
+    public static void setPassword(String password)
+    {
+    
+        Controller.password = password;
+    }
+
     /**
      * When moving between Activities, these 4 variables help the Controller
      * know what Album/Photo(s) it should be passing.
@@ -45,32 +63,18 @@ public class Controller
     private static Context          ctx;
     private static final String     fileName = "albumsfile.data";
 
-    /**
-     * Set the password required to continue in the appication
-     */
-    public static void setPassword(String pass)
-    {
-
-        password = pass;
-    }
-
-    /**
-     * getPassword
-     * 
-     * @return password The stored password required to enter the application
-     */
-    public static String getPassword()
-    {
-
-        return password;
-    }
-
+    
+    private static ArrayList<String> tags = new ArrayList<String>();
+    
+    
+    
+    
+    
     /**
      * getAlbum
      * 
      * @param albumIndex
-     *            Index of the album to retrieve
-     * @return The Album at index albumIndex
+     * @return the Album at index albumIndex
      */
     public static Album getAlbum(int albumIndex)
     {
@@ -80,9 +84,8 @@ public class Controller
 
     /**
      * setCurrentPhoto
-     * 
-     * @param currentP
-     *            The index of the Photo to be set
+     * @param  currentP
+     * @uml.property  name="currentPhoto"
      */
     public static void setCurrentPhoto(int currentP)
     {
@@ -93,7 +96,7 @@ public class Controller
     /**
      * getCurrentPhotoIndex
      * 
-     * @return currentPhoto The index of the current Photo
+     * @return currentPhoto
      */
     public static int getCurrentPhotoIndex()
     {
@@ -103,8 +106,8 @@ public class Controller
 
     /**
      * getCurrentPhoto
-     * 
-     * @return Photo in the currentAlbum at the currentPhotoIndex
+     * @return  Photo in the currentAlbum at the currentPhotoIndex
+     * @uml.property  name="currentPhoto"
      */
     public static Photo getCurrentPhoto()
     {
@@ -114,9 +117,8 @@ public class Controller
 
     /**
      * setComparePhoto1
-     * 
-     * @param photo1
-     *            The Photo to be set as the first of two to be compared
+     * @param  photo1
+     * @uml.property  name="comparePhoto1"
      */
     public static void setComparePhoto1(int photo1)
     {
@@ -126,9 +128,8 @@ public class Controller
 
     /**
      * setComparePhoto2
-     * 
-     * @param photo2
-     *            The Photo to be set at the second of two to be compared
+     * @param  photo2
+     * @uml.property  name="comparePhoto2"
      */
     public static void setComparePhoto2(int photo2)
     {
@@ -138,8 +139,8 @@ public class Controller
 
     /**
      * getComparePhoto1
-     * 
-     * @return Photo in currentAlbum and comparePhoto1 index
+     * @return  Photo in currentAlbum and comparePhoto1 index
+     * @uml.property  name="comparePhoto1"
      */
     public static Photo getComparePhoto1()
     {
@@ -149,8 +150,8 @@ public class Controller
 
     /**
      * getComparePhoto2
-     * 
-     * @return Photo in currentAlbum and comparePhoto2 index
+     * @return  Photo in currentAlbum and comparePhoto2 index
+     * @uml.property  name="comparePhoto2"
      */
     public static Photo getComparePhoto2()
     {
@@ -160,8 +161,8 @@ public class Controller
 
     /**
      * getCurrentAlbum
-     * 
-     * @return Album at currentAlbum index
+     * @return  Album at currentAlbum index
+     * @uml.property  name="currentAlbum"
      */
     public static Album getCurrentAlbum()
     {
@@ -171,9 +172,8 @@ public class Controller
 
     /**
      * setCurrentAlbum
-     * 
-     * @param newCurrentAlbum
-     *            The index of the Album to be set as the current album
+     * @param  newCurrentAlbum
+     * @uml.property  name="currentAlbum"
      */
     public static void setCurrentAlbum(int newCurrentAlbum)
     {
@@ -185,7 +185,6 @@ public class Controller
      * setCurrentAlbumName
      * 
      * @param newName
-     *            The name to set in the new current Album
      */
     public static void setCurrentAlbumName(String newName)
     {
@@ -196,7 +195,7 @@ public class Controller
     /**
      * getCurrentAlbumIndex
      * 
-     * @return currentAlbumIndex The index of the current Album
+     * @return currentAlbumIndex
      */
     public static int getCurrentAlbumIndex()
     {
@@ -205,17 +204,12 @@ public class Controller
     }
 
     /**
-     * AddAlbum
-     * 
-     * Add new album with string albName and add a Photo to it with provided
+     * addAlbum add new album with string albName and add a Photo to it with
      * imageUri and comment
      * 
      * @param albName
-     *            The name of the new Album
      * @param imageUri
-     *            The Uri of the picture to add to the Album
      * @param comment
-     *            The comment to add with the picture
      */
     public static void addAlbum(String albName, Uri imageUri, String comment)
     {
@@ -230,7 +224,6 @@ public class Controller
      * deleteAlbum
      * 
      * @param albumIndex
-     *            The index of the album to be deleted
      */
     public static void deleteAlbum(int albumIndex)
     {
@@ -242,14 +235,10 @@ public class Controller
     }
 
     /**
-     * updateAlbum
-     * 
-     * Changes the name of the Album at albumIndex with newName
+     * updateAlbum changes the name of the Album at albumIndex with newName
      * 
      * @param albumIndex
-     *            The index of the album to be updated
      * @param newName
-     *            The new name of the Album
      */
     public static void updateAlbum(int albumIndex, String newName)
     {
@@ -263,10 +252,8 @@ public class Controller
      * getPhoto
      * 
      * @param albumIndex
-     *            The index of the Album with the Photo in it
      * @param photoIndex
-     *            The index of the Photo in the Album
-     * @return The Photo desired from the Album
+     * @return a_photo
      */
     public static Photo getPhoto(int albumIndex, int photoIndex)
     {
@@ -281,11 +268,8 @@ public class Controller
      * albumIndex
      * 
      * @param albumIndex
-     *            Album index to add photo
      * @param imageUri
-     *            Image Uri picture is stored at
      * @param comment
-     *            Comment associated to the Photo
      */
     public static void addPhoto(int albumIndex, Uri imageUri, String comment)
     {
@@ -301,9 +285,7 @@ public class Controller
      * deletePhoto delete photo at photoIndex from album at albumIndex
      * 
      * @param albumIndex
-     *            Album index photo should be deleted from
      * @param photoIndex
-     *            Photo index in album to be deleted
      */
     public static void deletePhoto(int albumIndex, int photoIndex)
     {
@@ -324,11 +306,8 @@ public class Controller
      * updatePhoto
      * 
      * @param albumIndex
-     *            Album index photo should be updated in
      * @param photoIndex
-     *            Photo index to be updated in the Album
      * @param newComment
-     *            Comment to be updated in the Album
      */
     public static void updatePhoto(int albumIndex, int photoIndex,
             String newComment)
@@ -337,6 +316,7 @@ public class Controller
         Log.e("updatePhoto", "update photo " + photoIndex + " in album "
                 + albumIndex + " with comment " + newComment);
         Album tempAlbum = albums.get(albumIndex);
+        
         Photo tempPhoto = tempAlbum.getPhoto(photoIndex);
         tempPhoto.setComment(newComment);
         tempAlbum.updatePhoto(photoIndex, tempPhoto);
@@ -390,9 +370,7 @@ public class Controller
     }
 
     /**
-     * saveObject
-     * 
-     * Saves the ArrayList albums to file from specified Context
+     * saveObject saves the ArrayList albums to file
      * 
      */
     public static void saveObject()
@@ -415,10 +393,9 @@ public class Controller
     }
 
     /**
-     * loadObject loads the ArrayList Albums from file
+     * loadObject loads the ArrayList albums from file
      * 
      * @param c
-     *            The Context the Albums are saved from
      */
     @SuppressWarnings("unchecked")
     public static void loadObject(Context c)
@@ -458,6 +435,122 @@ public class Controller
         {
             e.printStackTrace();
         }
+    }
+
+    
+    /**
+     * inTags 
+     * 
+     * given a String s, determines if s is one of the given tags
+     * 
+     * @param s
+     * @return inTag
+     */
+    public static boolean inTags(String s){
+        Log.e("In tags", s);
+        boolean inTag = false;
+        int i = 0;
+        while(i< tags.size() && !inTag){
+            inTag = (tags.get(i).equals(s));
+            Log.e(null, "tag: " + tags.get(i) + " is it equal?: " + inTag);
+            i++;
+        }
+        
+        return inTag;
+    }
+
+    
+    /**
+     * setTags
+     * 
+     * updates the Controller with the givens tags
+     */
+    public static void setTags()
+    {
+        tags.add("right");
+        tags.add("left");
+        tags.add("upper");
+        tags.add("lower");
+        tags.add("rash");
+        tags.add("mold");
+        tags.add("red");
+        tags.add("boil");
+        tags.add("scar");
+        tags.add("scab");
+        tags.add("forehead");
+        tags.add("arm");
+        tags.add("wrist");
+        tags.add("ear");
+        tags.add("cheek");
+        tags.add("face");
+        tags.add("neck");
+        tags.add("back");
+        tags.add("front");
+        tags.add("chest");
+        tags.add("armpit");
+        tags.add("elbow");
+        tags.add("hand");
+        tags.add("thumb");
+        tags.add("palm");
+        tags.add("sweat");
+        tags.add("sweaty");
+        tags.add("itch");
+        tags.add("itchy");
+        tags.add("bruise");
+        tags.add("bruised");
+        tags.add("zit");
+        tags.add("whitehead");
+        tags.add("blackhead");
+        tags.add("bum");
+        tags.add("dry");
+        tags.add("hair");
+        tags.add("waist");
+        tags.add("butt");
+        tags.add("crotch");
+        tags.add("knee");
+        tags.add("shin");
+        tags.add("foot");
+        tags.add("toe");
+        tags.add("top");
+        tags.add("crack");
+        tags.add("throb");
+        tags.add("bump");
+        tags.add("lump");
+        tags.add("spot");
+        tags.add("mark");
+        tags.add("blue");
+        tags.add("black");
+        tags.add("yellow");
+        tags.add("green");
+        tags.add("white");
+        tags.add("puss");
+        tags.add("orange");
+    }
+    
+    
+    
+    /**
+     * findPhotos
+     * 
+     * given a tag (s), searches through all Photos and takes the Uris of the Photos that have that tag.
+     * The Uris and their coorosponding Album and Photo indices are placed in a SearchItem and added to the returned ArrayList
+     * 
+     * @param s
+     * @return tagged
+     */
+    public static ArrayList<SearchItem> findPhotos(String s){
+        ArrayList<SearchItem> tagged = new ArrayList<SearchItem>();
+        for(int i = 0; i < albums.size(); i++){
+            for (int j = 0; j < albums.get(i).size(); j++){
+                if(albums.get(i).getPhoto(j).hasTag(s))
+                    tagged.add(new SearchItem(i,j,albums.get(i).getPhoto(j).getPicture()));
+                
+            }
+        }
+        
+        return tagged;
+        
+        
     }
 
 }
