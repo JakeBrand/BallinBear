@@ -69,7 +69,8 @@ public class Controller
     private static ArrayList<Album>  albums         = new ArrayList<Album>();
     private static Context           ctx;
     private static final String      fileName       = "albumsfile.data";
-
+    private static final String      passwordFileName       = "ps.data";
+    
     private static ArrayList<String> tags           = new ArrayList<String>();
 
     /**
@@ -554,12 +555,31 @@ public class Controller
             stream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream out = new ObjectOutputStream(stream);
             out.writeObject(albums);
-            //out.flush();
-            //stream.getFD().sync();
+            out.flush();
+            stream.getFD().sync();
             stream.close();
         } catch (IOException e)
         {
-            //e.printStackTrace();
+            e.printStackTrace();
+        }
+        Controller.savePassword();
+    }
+    
+    public static void savePassword()
+    {
+
+        FileOutputStream stream = null;
+        try
+        {
+            stream = ctx.openFileOutput(passwordFileName, Context.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(stream);
+            out.writeObject(password);
+            out.flush();
+            stream.getFD().sync();
+            stream.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -592,6 +612,44 @@ public class Controller
                 list = (ArrayList<Album>) temp;
                 stream.close();
                 albums = list;
+            }
+
+        } catch (FileNotFoundException e)
+        {
+        } catch (OptionalDataException e)
+        {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        Controller.loadPassword(c);
+    }
+    
+    public static void loadPassword(Context c)
+    {
+
+        FileInputStream stream = null;
+
+        try
+        {
+            stream = c.openFileInput(passwordFileName);
+            if (stream == null)
+            {
+                return;
+            }
+
+            ObjectInputStream in = new ObjectInputStream(stream);
+            Object temp;
+            temp = in.readObject();
+            if (temp != null)
+            {
+            	String tt = (String) temp;
+                stream.close();
+                Controller.setPassword(tt);
             }
 
         } catch (FileNotFoundException e)
