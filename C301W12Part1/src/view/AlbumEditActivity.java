@@ -1,13 +1,5 @@
 package view;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -15,19 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.os.Bundle;
-import static java.util.concurrent.TimeUnit.*;
 
 import control.Controller;
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 
 /**
  * @author J-Tesseract
@@ -41,23 +29,13 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     /**
      * Various fields altered in anonymous methods and used in others.
      */
-    EditText                       albName;
-    boolean                        completedAlarm;
-    int                            alarmWeek;
-    int                            alarmDay;
-    int                            alarmHour;
-    int                            alarmMin;
-    int                            alarmFrequency;
-
-    /**
-     * The ID sent to the Notification Manager
-     */
-    private static final int       CICATRIX_ID = 1;
-    final ScheduledExecutorService scheduler   = Executors
-                                                       .newScheduledThreadPool(1);
-    // TODO: Must hold this ScheduledFuture in the Album.
-    // Do not leave static or you can only run one at a time!
-    private static ScheduledFuture notifyerHandle;
+    private EditText albName;
+    boolean          completedAlarm;
+    private Context  alarmContext = this;
+    int              alarmDay;
+    int              alarmHour;
+    int              alarmMin;
+    int              alarmFrequency;
 
     /**
      * On Create
@@ -98,163 +76,6 @@ public class AlbumEditActivity extends Activity implements OnClickListener
 
         Button removeAlarmButton = (Button) findViewById(R.id.removeAlarmButton);
         removeAlarmButton.setOnClickListener(this);
-
-    }
-
-    /**
-     * onPause
-     * 
-     * On pause saves current object using the controller
-     */
-    public void onPause()
-    {
-
-        super.onPause();
-        // TODO: Save?
-        // Controller.saveObject();
-    }
-
-    /**
-     * sendNotification
-     * 
-     * Sends a status bar notification to remind the user
-     */
-    private void sendNotification()
-    {
-
-        // TODO: Make Controller do this!
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager notificationManager = (NotificationManager) getSystemService(ns);
-
-        int icon = R.drawable.camera;
-        CharSequence tickerText = "CT";
-        long time = System.currentTimeMillis();
-        Notification notification = new Notification(icon, tickerText, time);
-
-        Context context = getApplicationContext();
-        CharSequence contentTitle = "Cicatrix Tracker";
-        CharSequence contentText = "Reminder: Take your " + albName.getText()
-                + " picture!";
-        finish();
-        Intent notificationIntent = new Intent(this, PasswordActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this,
-                Controller.getCurrentAlbumIndex(), notificationIntent,
-                268435456);
-        notification.setLatestEventInfo(context, contentTitle, contentText,
-                contentIntent);
-
-        notificationManager.notify(CICATRIX_ID, notification);
-
-    }
-
-    /**
-     * setAlarm
-     * 
-     * Set an alarm specific to this album to go off at a specific time and
-     * frequency
-     */
-    private void startAlarm()
-    {
-
-        // TODO: Make Controller do this!
-        final Runnable codeToRun = new Runnable()
-        {
-
-            public void run()
-            {
-
-                sendNotification();
-
-            }
-        };
-
-        // TODO: V
-        // alarmDay = Controller.getAlarmDay();
-        // alarmHour = Controller.getAlarmHour();
-        // alarmMin = Controller.getAlarmMin();
-        int initialDelay = getInitialDelaySeconds(alarmDay, alarmHour, alarmMin);
-        Log.d("Initial Delay", "" + initialDelay);
-        int selection = 1;
-        int repeatedDelay = 0;
-        if (alarmFrequency == 0)
-        {
-            repeatedDelay = getRepeatedDelaySeconds(selection, 0, 0);
-        } else if (alarmFrequency == 1)
-        {
-            repeatedDelay = getRepeatedDelaySeconds(0, selection, 0);
-        } else if (alarmFrequency == 2)
-        {
-            repeatedDelay = getRepeatedDelaySeconds(0, 0, selection);
-        }
-        // TODO: USE TOP VERSION
-        // TODO: BOTTOM VERSION TESTING ONLY
-        // notifyerHandle = scheduler.scheduleWithFixedDelay(codeToRun,
-        // initialDelay, repeatedDelay, SECONDS);
-        notifyerHandle = scheduler.scheduleWithFixedDelay(codeToRun,
-                initialDelay, 15, SECONDS);
-    }
-
-    /**
-     * getInitialDelaySeconds
-     * 
-     * Calculate the number of seconds to delay from the current time to initial
-     * notification
-     * 
-     * @param day
-     *            The day of the week to start the initial notification
-     * @param hour
-     *            The hour to start the initial notification
-     * @param min
-     *            The min to start the initial notification
-     * @return delaySeconds The number of seconds to delay between current time
-     *         and
-     */
-    private int getInitialDelaySeconds(int day, int hour, int min)
-    {
-
-        // TODO: Make Controller do this!
-        Date today = Calendar.getInstance().getTime();
-
-        SimpleDateFormat DAY = new SimpleDateFormat("dd");
-        int currentDay = Integer.parseInt(DAY.format(today));
-        SimpleDateFormat HOUR = new SimpleDateFormat("HH");
-        int currentHour = Integer.parseInt(HOUR.format(today));
-        SimpleDateFormat MIN = new SimpleDateFormat("mm");
-        int currentMin = Integer.parseInt(MIN.format(today));
-        SimpleDateFormat SEC = new SimpleDateFormat("ss");
-        int currentSec = Integer.parseInt(SEC.format(today));
-        
-        int secInDay = ((day - currentDay) % 7) * 60 * 60 * 24 * 7;
-        int secInHour = ((hour - currentHour) % 24) * 60 * 60;
-        int secInMin = ((min - currentMin) % 60) * 60;
-        int delaySeconds = secInDay + secInHour + secInMin - currentSec;
-
-        return delaySeconds;
-    }
-
-    /**
-     * getRepeatedDelaySeconds
-     * 
-     * Convert the week, day, or hour into seconds
-     * 
-     * @param week
-     *            The number of weeks to convert to seconds
-     * @param day
-     *            The number of days to convert to seconds
-     * @param hour
-     *            The number of hours to convert to seconds
-     * @return delaySeconds The number of seconds to delay before repetition
-     */
-    private int getRepeatedDelaySeconds(int week, int day, int hour)
-    {
-
-        // TODO: Make Controller do this!
-        int secInWeek = (60 * 60 * 24 * 7 * week);
-        int secInDay = (60 * 60 * 24 * day);
-        int secInHour = (60 * 60 * hour);
-        int delaySeconds = secInWeek + secInDay + secInHour;
-
-        return delaySeconds;
     }
 
     /**
@@ -397,7 +218,44 @@ public class AlbumEditActivity extends Activity implements OnClickListener
         });
 
         alert.show();
+    }
 
+    /**
+     * displayWarning
+     * 
+     * Warn the user that all photos will be deleted
+     * If OK clicked, delete the album
+     * If Cancel clicked, do nothing
+     */
+    public void displayWarning()
+    {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Warning");
+        alert.setMessage("Do you wish to delete the album and all it's photos?");
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+
+                Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+                finish();
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+
+                return;
+            }
+        });
+
+        alert.show();
     }
 
     /**
@@ -419,44 +277,52 @@ public class AlbumEditActivity extends Activity implements OnClickListener
                 break;
 
             case R.id.removeAlarmButton:
-                // scheduler.shutdownNow();
-                if (notifyerHandle != null)
-                {
-                    notifyerHandle.cancel(true);
-                }
-                Log.d("ShutDown?", "" + scheduler.isShutdown());
-                Log.d("Terminated?", "" + scheduler.isTerminated());
+
+                Controller.removeAlarm();
+                Toast alarmRemoved = Toast.makeText(this, "Alarm Removed",
+                        Toast.LENGTH_SHORT);
+                alarmRemoved.show();
                 break;
 
             case R.id.deleteButton:
-                // TODO AlbumEditActivity: delete album; show a warning of all
-                // the photos that will be deleted
-                // if only album go to welcome, else go to albumlist
-                Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
-                finish();
+
+                displayWarning();
                 break;
 
             case R.id.doneButton:
+
                 Controller.setCurrentAlbumName(albName.getText().toString());
                 if (completedAlarm)
                 {
-                    // TODO: This V
-                    // Controller.addAlarm(alarmDay, alarmHour, alarmMin,
-                    // alarmFrequency);
-                    // Controller.startAlarm();
-                    if (!scheduler.isShutdown())
-                    {
-                        startAlarm();
-                    }
+                    Controller.addAlarm(alarmDay, alarmHour, alarmMin,
+                            alarmFrequency, alarmContext);
+
+                    Toast alarmAdded = Toast.makeText(this, "Alarm Added",
+                            Toast.LENGTH_SHORT);
+                    alarmAdded.show();
                 }
                 finish();
                 break;
 
             case R.id.backToAlbumButton:
+                
                 finish();
                 break;
 
         }
 
+    }
+
+    /**
+     * onPause
+     * 
+     * On pause saves current object using the controller
+     */
+    public void onPause()
+    {
+
+        super.onPause();
+        // TODO: Save?
+        // Controller.saveObject();
     }
 }

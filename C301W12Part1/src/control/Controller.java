@@ -7,9 +7,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.ScheduledFuture;
 
+import view.PasswordActivity;
+import ca.ualberta.ca.c301.R;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
@@ -25,24 +36,21 @@ import model.SearchItem;
  */
 public class Controller
 {
-       
 
     /**
      * the password that lets the user into the app
      */
     private static String password;
-    
-    
+
     public static String getPassword()
     {
-    
+
         return password;
     }
 
-    
     public static void setPassword(String password)
     {
-    
+
         Controller.password = password;
     }
 
@@ -50,25 +58,28 @@ public class Controller
      * When moving between Activities, these 4 variables help the Controller
      * know what Album/Photo(s) it should be passing.
      */
-    private static int              currentAlbum;
-    private static int              currentPhoto;
-    private static int              comparePhoto1;
-    private static int              comparePhoto2;
+    private static int               currentAlbum;
+    private static int               currentPhoto;
+    private static int               comparePhoto1;
+    private static int               comparePhoto2;
 
     /**
      * albums holds all of the Albums
      */
-    private static ArrayList<Album> albums   = new ArrayList<Album>();
-    private static Context          ctx;
-    private static final String     fileName = "albumsfile.data";
+    private static ArrayList<Album>  albums         = new ArrayList<Album>();
+    private static Context           ctx;
+    private static final String      fileName       = "albumsfile.data";
 
-    
-    private static ArrayList<String> tags = new ArrayList<String>();
-    
-    
-    
-    
-    
+    private static ArrayList<String> tags           = new ArrayList<String>();
+
+    /**
+     * Final variables needed to set an alarm
+     */
+    private static final int         SECONDSPERMIN  = 60;
+    private static final int         SECONDSPERHOUR = SECONDSPERMIN * 60;
+    private static final int         SECONDSPERDAY  = SECONDSPERHOUR * 24;
+//    private static final int         CICATRIX_ID      = 1;
+
     /**
      * getAlbum
      * 
@@ -83,8 +94,9 @@ public class Controller
 
     /**
      * setCurrentPhoto
-     * @param  currentP
-     * @uml.property  name="currentPhoto"
+     * 
+     * @param currentP
+     * @uml.property name="currentPhoto"
      */
     public static void setCurrentPhoto(int currentP)
     {
@@ -105,8 +117,9 @@ public class Controller
 
     /**
      * getCurrentPhoto
-     * @return  Photo in the currentAlbum at the currentPhotoIndex
-     * @uml.property  name="currentPhoto"
+     * 
+     * @return Photo in the currentAlbum at the currentPhotoIndex
+     * @uml.property name="currentPhoto"
      */
     public static Photo getCurrentPhoto()
     {
@@ -116,8 +129,9 @@ public class Controller
 
     /**
      * setComparePhoto1
-     * @param  photo1
-     * @uml.property  name="comparePhoto1"
+     * 
+     * @param photo1
+     * @uml.property name="comparePhoto1"
      */
     public static void setComparePhoto1(int photo1)
     {
@@ -127,8 +141,9 @@ public class Controller
 
     /**
      * setComparePhoto2
-     * @param  photo2
-     * @uml.property  name="comparePhoto2"
+     * 
+     * @param photo2
+     * @uml.property name="comparePhoto2"
      */
     public static void setComparePhoto2(int photo2)
     {
@@ -138,8 +153,9 @@ public class Controller
 
     /**
      * getComparePhoto1
-     * @return  Photo in currentAlbum and comparePhoto1 index
-     * @uml.property  name="comparePhoto1"
+     * 
+     * @return Photo in currentAlbum and comparePhoto1 index
+     * @uml.property name="comparePhoto1"
      */
     public static Photo getComparePhoto1()
     {
@@ -149,8 +165,9 @@ public class Controller
 
     /**
      * getComparePhoto2
-     * @return  Photo in currentAlbum and comparePhoto2 index
-     * @uml.property  name="comparePhoto2"
+     * 
+     * @return Photo in currentAlbum and comparePhoto2 index
+     * @uml.property name="comparePhoto2"
      */
     public static Photo getComparePhoto2()
     {
@@ -160,8 +177,9 @@ public class Controller
 
     /**
      * getCurrentAlbum
-     * @return  Album at currentAlbum index
-     * @uml.property  name="currentAlbum"
+     * 
+     * @return Album at currentAlbum index
+     * @uml.property name="currentAlbum"
      */
     public static Album getCurrentAlbum()
     {
@@ -171,8 +189,9 @@ public class Controller
 
     /**
      * setCurrentAlbum
-     * @param  newCurrentAlbum
-     * @uml.property  name="currentAlbum"
+     * 
+     * @param newCurrentAlbum
+     * @uml.property name="currentAlbum"
      */
     public static void setCurrentAlbum(int newCurrentAlbum)
     {
@@ -189,6 +208,18 @@ public class Controller
     {
 
         albums.get(currentAlbum).setAlbumName(newName);
+    }
+
+    /**
+     * getCurrentAlbumName
+     * 
+     * @return name of the current album
+     */
+    public static String getCurrentAlbumName()
+    {
+
+        String name = getCurrentAlbum().getAlbumName();
+        return name;
     }
 
     /**
@@ -245,6 +276,147 @@ public class Controller
         Album temp = albums.get(albumIndex);
         temp.setAlbumName(newName);
         albums.set(albumIndex, temp);
+    }
+
+    /**
+     * 
+     * 
+     */
+    public static void addAlarm(int alarmDay, int alarmHour, int alarmMin,
+            int alarmFrequency, final Context sendingContext)
+    {
+        final Runnable codeToRun = new Runnable()
+        {
+
+            public void run()
+            {
+                Log.d("running", "sendnotification");
+                sendNotification(sendingContext);
+
+            }
+        };
+
+        int initialDelay = getInitialDelaySeconds(alarmDay, alarmHour, alarmMin);
+        Log.d("Adding alarm with Initial Delay", "" + initialDelay);
+
+        int selection = 1;
+        int repeatedDelay = 0;
+
+        if (alarmFrequency == 0)
+        {
+            repeatedDelay = getRepeatedDelaySeconds(selection, 0, 0);
+        } else if (alarmFrequency == 1)
+        {
+            repeatedDelay = getRepeatedDelaySeconds(0, selection, 0);
+        } else if (alarmFrequency == 2)
+        {
+            repeatedDelay = getRepeatedDelaySeconds(0, 0, selection);
+        }
+        getCurrentAlbum().setNotifyerHandle(codeToRun, initialDelay, repeatedDelay);
+        
+    }
+    
+    public static void removeAlarm(){
+        ScheduledFuture notifyerHandle = getCurrentAlbum().getNotifyerHandler();
+        if(notifyerHandle!= null){
+            Log.d("NotifyerHandle Not", "Null");
+            getCurrentAlbum().setNotifyerHandle(null,0,0);
+        }
+    }
+    
+    /**
+     * sendNotification
+     * 
+     * Sends a status bar notification to remind the user
+     */
+    private static void sendNotification(Context alarmContext)
+    {
+        Log.d("Sending Notification with", alarmContext.toString());
+        
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager notificationManager = (NotificationManager) alarmContext
+                .getSystemService(ns);
+
+        int icon = R.drawable.camera;
+        CharSequence tickerText = "CT";
+        long time = System.currentTimeMillis();
+        Notification notification = new Notification(icon, tickerText, time);
+        ;
+        CharSequence contentTitle = "Cicatrix Tracker";
+        String albumName = getCurrentAlbumName();
+        CharSequence contentText = "Reminder: Take your " + albumName
+                + " picture!";
+        Intent notificationIntent = new Intent(alarmContext,
+                PasswordActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(alarmContext,
+                Controller.getCurrentAlbumIndex(), notificationIntent,
+                268435456);
+        notification.setLatestEventInfo(ctx, contentTitle, contentText,
+                contentIntent);
+
+        notificationManager.notify(currentAlbum, notification);
+    }
+
+    /**
+     * getInitialDelaySeconds
+     * 
+     * Calculate the number of seconds to delay from the current time to initial
+     * notification
+     * 
+     * @param day
+     *            The day of the week to start the initial notification
+     * @param hour
+     *            The hour to start the initial notification
+     * @param min
+     *            The min to start the initial notification
+     * @return delaySeconds The number of seconds to delay between current time
+     *         and
+     */
+    private static int getInitialDelaySeconds(int day, int hour, int min)
+    {
+
+        Date today = Calendar.getInstance().getTime();
+
+        SimpleDateFormat DAY = new SimpleDateFormat("dd");
+        int currentDay = (Integer.parseInt(DAY.format(today))) % 7;
+        SimpleDateFormat HOUR = new SimpleDateFormat("HH");
+        int currentHour = Integer.parseInt(HOUR.format(today));
+        SimpleDateFormat MIN = new SimpleDateFormat("mm");
+        int currentMin = Integer.parseInt(MIN.format(today));
+        SimpleDateFormat SEC = new SimpleDateFormat("ss");
+        int currentSec = Integer.parseInt(SEC.format(today));
+
+        int secInDay = ((day + 7) % 7 - currentDay) * SECONDSPERDAY;
+        int secInHour = ((hour + 24) % 24 - currentHour) * SECONDSPERHOUR;
+        int secInMin = ((min + 60) % 60 - currentMin) * SECONDSPERMIN;
+        int delaySeconds = secInDay + secInHour + secInMin - currentSec;
+
+        return delaySeconds;
+    }
+
+    /**
+     * getRepeatedDelaySeconds
+     * 
+     * Convert the week, day, or hour into seconds
+     * 
+     * @param week
+     *            The number of weeks to convert to seconds
+     * @param day
+     *            The number of days to convert to seconds
+     * @param hour
+     *            The number of hours to convert to seconds
+     * @return delaySeconds The number of seconds to delay before repetition
+     */
+    private static int getRepeatedDelaySeconds(int week, int day, int hour)
+    {
+
+        // TODO: Make Controller do this!
+        int secInWeek = (SECONDSPERDAY * 7 * week);
+        int secInDay = (SECONDSPERDAY * day);
+        int secInHour = (SECONDSPERHOUR * hour);
+        int delaySeconds = secInWeek + secInDay + secInHour;
+
+        return delaySeconds;
     }
 
     /**
@@ -315,7 +487,7 @@ public class Controller
         Log.e("updatePhoto", "update photo " + photoIndex + " in album "
                 + albumIndex + " with comment " + newComment);
         Album tempAlbum = albums.get(albumIndex);
-        
+
         Photo tempPhoto = tempAlbum.getPhoto(photoIndex);
         tempPhoto.setComment(newComment);
         tempAlbum.updatePhoto(photoIndex, tempPhoto);
@@ -357,7 +529,7 @@ public class Controller
         int i = 0;
         while (i < albums.size())
         {
-            String name = albums.get(i).getAlbumName().trim();
+            String name = albums.get(i).getAlbumName();
             if (name.equals(s.trim()))
             {
                 return i;
@@ -436,29 +608,30 @@ public class Controller
         }
     }
 
-    
     /**
-     * inTags 
+     * inTags
      * 
      * given a String s, determines if s is one of the given tags
      * 
      * @param s
      * @return inTag
      */
-    public static boolean inTags(String s){
+    public static boolean inTags(String s)
+    {
+
         Log.e("In tags", s);
         boolean inTag = false;
         int i = 0;
-        while(i< tags.size() && !inTag){
+        while (i < tags.size() && !inTag)
+        {
             inTag = (tags.get(i).equals(s));
             Log.e(null, "tag: " + tags.get(i) + " is it equal?: " + inTag);
             i++;
         }
-        
+
         return inTag;
     }
 
-    
     /**
      * setTags
      * 
@@ -466,6 +639,7 @@ public class Controller
      */
     public static void setTags()
     {
+
         tags.add("right");
         tags.add("left");
         tags.add("upper");
@@ -525,31 +699,35 @@ public class Controller
         tags.add("puss");
         tags.add("orange");
     }
-    
-    
-    
+
     /**
      * findPhotos
      * 
-     * given a tag (s), searches through all Photos and takes the Uris of the Photos that have that tag.
-     * The Uris and their coorosponding Album and Photo indices are placed in a SearchItem and added to the returned ArrayList
+     * given a tag (s), searches through all Photos and takes the Uris of the
+     * Photos that have that tag. The Uris and their coorosponding Album and
+     * Photo indices are placed in a SearchItem and added to the returned
+     * ArrayList
      * 
      * @param s
      * @return tagged
      */
-    public static ArrayList<SearchItem> findPhotos(String s){
+    public static ArrayList<SearchItem> findPhotos(String s)
+    {
+
         ArrayList<SearchItem> tagged = new ArrayList<SearchItem>();
-        for(int i = 0; i < albums.size(); i++){
-            for (int j = 0; j < albums.get(i).size(); j++){
-                if(albums.get(i).getPhoto(j).hasTag(s))
-                    tagged.add(new SearchItem(i,j,albums.get(i).getPhoto(j).getPicture()));
-                
+        for (int i = 0; i < albums.size(); i++)
+        {
+            for (int j = 0; j < albums.get(i).size(); j++)
+            {
+                if (albums.get(i).getPhoto(j).hasTag(s))
+                    tagged.add(new SearchItem(i, j, albums.get(i).getPhoto(j)
+                            .getPicture()));
+
             }
         }
-        
+
         return tagged;
-        
-        
+
     }
 
 }

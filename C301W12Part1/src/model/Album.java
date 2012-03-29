@@ -1,22 +1,32 @@
 package model;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * @author J-Tesseract
  */
-//TODO: Make better Javadoc. EXPLAIN ALL CLASSES AND PARAMETERS/RETURN
 public class Album implements Serializable
 {
 
-    private static final long serialVersionUID = 2277251080502459333L;
+    private static final long        serialVersionUID = 2277251080502459333L;
 
     /**
      * album name and the list of photos are fields
      */
-    private String            albumName;
-    private ArrayList<Photo>  photos;
+    private String                   albumName;
+    private ArrayList<Photo>         photos;
+    /**
+     * Attributes for Album's alarm
+     */
+    private ScheduledExecutorService scheduler  =  Executors
+                                                 .newScheduledThreadPool(1);
+    private ScheduledFuture         notifyerHandle;
 
     /**
      * Contructor
@@ -32,7 +42,7 @@ public class Album implements Serializable
     }
 
     /**
-     * deleteAll 
+     * deleteAll
      * 
      * Deletes all Photos in this album
      */
@@ -72,7 +82,8 @@ public class Album implements Serializable
     /**
      * setAlbumName
      * 
-     * @param albumName The new name of the Album
+     * @param albumName
+     *            The new name of the Album
      */
     public void setAlbumName(String albumName)
     {
@@ -152,6 +163,27 @@ public class Album implements Serializable
         // photos.remove(photoIndex);
         // photos.add(photo);
         // }
+    }
+    
+    public ScheduledExecutorService geScheduler(){
+        return scheduler;
+    }
+    
+    public void setNotifyerHandle(Runnable codeToRun,
+            int initialDelay, int repeatedDelay){
+        if(codeToRun == null){
+            if(notifyerHandle != null){
+                notifyerHandle.cancel(true);
+                notifyerHandle = null;
+                return;
+            }
+        }
+        notifyerHandle = scheduler.scheduleWithFixedDelay(codeToRun,
+                initialDelay, repeatedDelay, SECONDS);
+    }
+    
+    public ScheduledFuture getNotifyerHandler(){
+        return notifyerHandle;
     }
 
 }
