@@ -25,8 +25,7 @@ import model.SearchItem;
  */
 public class Controller
 {
-    
-    
+       
 
     /**
      * the password that lets the user into the app
