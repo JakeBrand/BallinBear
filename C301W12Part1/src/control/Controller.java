@@ -554,12 +554,12 @@ public class Controller
             stream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream out = new ObjectOutputStream(stream);
             out.writeObject(albums);
-            out.flush();
-            stream.getFD().sync();
+            //out.flush();
+            //stream.getFD().sync();
             stream.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

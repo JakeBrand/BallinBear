@@ -23,8 +23,9 @@ public class Photo implements Serializable
     private static final long serialVersionUID = -2561097008925968276L;
     private Date              pTimeStamp;
     private String            comment;
-    private Uri               imageUri;
+    transient private Uri               imageUri;
     private ArrayList<String> tags;
+    private String uriBackUp;
 
     /**
      * hasTag
@@ -63,6 +64,7 @@ public class Photo implements Serializable
         this.comment = comm;
         this.imageUri = imageU;
         this.tags = generateTags(comm);
+        this.uriBackUp = imageU.toString();
 
     }
 
@@ -156,6 +158,7 @@ public class Photo implements Serializable
     {
 
         this.imageUri = imageU;
+        this.uriBackUp = imageU.toString();
     }
 
     /**
@@ -165,7 +168,7 @@ public class Photo implements Serializable
      */
     public Uri getPicture()
     {
-
+    	this.imageUri = Uri.parse(this.uriBackUp);
         return this.imageUri;
     }
 

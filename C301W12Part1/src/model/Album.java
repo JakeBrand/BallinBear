@@ -24,8 +24,7 @@ public class Album implements Serializable
     /**
      * Attributes for Album's alarm
      */
-    private ScheduledExecutorService scheduler  =  Executors
-                                                 .newScheduledThreadPool(1);
+    private static ScheduledExecutorService scheduler  =  Executors.newScheduledThreadPool(1);
     private ScheduledFuture         notifyerHandle;
 
     /**
