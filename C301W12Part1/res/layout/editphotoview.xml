@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
     <TextView
@@ -11,9 +12,9 @@
         android:text="@string/Date" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TakeAPicture" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TakeAPicture" />
 
     <ImageButton
         android:id="@+id/generated_pic"
@@ -22,37 +23,36 @@
         android:layout_weight="1.47"
         android:src="@drawable/camera" />
 
-<LinearLayout
-    android:id="@+id/chooseAlbumLinearLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
-
-    <TextView
-        android:id="@+id/changeAlbumTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/changeAlbumLabelText"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/albumNameSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.80" >
-    </Spinner>
-
-    <Button
-        android:id="@+id/newAlbumButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/NewAlbum" />
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/chooseAlbumLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
         <TextView
+            android:id="@+id/changeAlbumTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Comment1" />
+            android:text="@string/changeAlbumLabelText"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <Spinner
+            android:id="@+id/albumNameSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.80" >
+        </Spinner>
+
+        <Button
+            android:id="@+id/newAlbumButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/NewAlbum" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Comment1" />
 
     <EditText
         android:id="@+id/commentEditText"
@@ -70,21 +70,18 @@
             android:id="@+id/PhotoViewSave"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginRight="90dp"
-            />
-        
+            android:layout_marginRight="90dp" />
+
         <Button
             android:id="@+id/PhotoDelete"
             android:layout_width="45dp"
-            android:layout_height="45dp"
-            />
+            android:layout_height="45dp" />
 
         <Button
             android:id="@+id/PhotoViewCancel"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginLeft="90dp"
-            />
+            android:layout_marginLeft="90dp" />
     </LinearLayout>
 
 </LinearLayout>

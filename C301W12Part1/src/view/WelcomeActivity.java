@@ -5,6 +5,7 @@ import java.io.File;
 import control.Controller;
 
 import ca.ualberta.ca.c301.R;
+import android.R.drawable;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -58,19 +59,6 @@ public class WelcomeActivity extends Activity {
             super.onResume();
             setContentView(R.layout.welcome_view);
 
-            Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
-            newPhoto.setBackgroundColor(Color.GREEN);
-
-            OnClickListener newPhotoListener = new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                            takeAPhoto();       // if new photo button clicked, take a photo
-                    }
-
-            };
-            newPhoto.setOnClickListener(newPhotoListener);
-
             Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
             viewAlbums.setBackgroundColor(Color.CYAN);
 
@@ -88,9 +76,24 @@ public class WelcomeActivity extends Activity {
             };
             viewAlbums.setOnClickListener(viewAlbumsListener);
             
+            Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
+            newPhoto.setBackgroundResource(drawable.ic_menu_camera);
+
+            OnClickListener newPhotoListener = new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                            takeAPhoto();       // if new photo button clicked, take a photo
+                    }
+
+            };
+            newPhoto.setOnClickListener(newPhotoListener);
+
+
+            
             
             Button searchPhotos = (Button) findViewById(R.id.searchButton);
-            searchPhotos.setBackgroundColor(Color.RED);
+            searchPhotos.setBackgroundResource(drawable.ic_menu_search);
             
             OnClickListener searchListener = new OnClickListener()
             {

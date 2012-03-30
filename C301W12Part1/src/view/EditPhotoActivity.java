@@ -142,7 +142,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         ArrayAdapter<String> spinnerAdapter;
 
         ImageButton imageButton = (ImageButton) findViewById(R.id.generated_pic);
-        imageButton.setBackgroundColor(Color.BLACK);
+        imageButton.setBackgroundColor(Color.TRANSPARENT);
         imageButton.setOnClickListener(this);
 
         Button newAlbumButton = (Button) findViewById(R.id.newAlbumButton);
