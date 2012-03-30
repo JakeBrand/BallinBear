@@ -616,7 +616,7 @@ public class Controller
         while (i < albums.size())
         {
             String name = albums.get(i).getAlbumName();
-            if (name.equals(nameToCheck.trim()))
+            if (name.equalsIgnoreCase(nameToCheck.trim()))
             {
                 return i;
             }
@@ -778,12 +778,11 @@ public class Controller
     public static boolean inTags(String tagToCheck)
     {
 
-        Log.e("In tags", tagToCheck);
         boolean inTag = false;
         int i = 0;
         while (i < tags.size() && !inTag)
         {
-            inTag = (tags.get(i).equals(tagToCheck));
+            inTag = (tags.get(i).equalsIgnoreCase(tagToCheck));
             i++;
         }
 

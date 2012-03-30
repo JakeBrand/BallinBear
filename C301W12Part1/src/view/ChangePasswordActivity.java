@@ -54,8 +54,10 @@ public class ChangePasswordActivity extends Activity  implements OnClickListener
         newP2 = (EditText) findViewById(R.id.newPasswordEditText2);
         doneButton = (Button) findViewById(R.id.confirmPasswordButton);
         doneButton.setOnClickListener(this);
+        doneButton.setBackgroundResource(R.drawable.accept);
         cancelButton = (Button) findViewById(R.id.canelPasswordChangeButton);
         cancelButton.setOnClickListener(this);
+        cancelButton.setBackgroundResource(R.drawable.cancel);
         status = (TextView) findViewById(R.id.passwordChangeStatusTextView);
         status.setText("");
         

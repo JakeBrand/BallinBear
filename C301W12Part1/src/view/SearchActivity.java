@@ -140,7 +140,7 @@ public class SearchActivity extends Activity
                     tagET.setText("");
                     }
                 }
-                results = Controller.findPhotos(tag);                   // search for Photos that have the tag or the given date
+                results = Controller.findPhotos(tag.toLowerCase());                   // search for Photos that have the tag or the given date
                 if(results.size() == 0)
                     status.setText("No Results");
                 else
