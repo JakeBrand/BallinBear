@@ -31,8 +31,6 @@ import android.widget.TextView;
 public class CompareActivity extends Activity implements OnClickListener
 {
 
-    private Bitmap BMPphoto;
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -120,7 +118,7 @@ public class CompareActivity extends Activity implements OnClickListener
      * @param providedPhoto
      *            the Photo containing the Uri with the picture to set
      * @exception FileNotFoundexception
-     *                e
+     *                e The FileNotFound exception that may be thrown
      */
     private void handlePic(ImageView imageView, Photo providedPhoto)
     {
@@ -134,7 +132,7 @@ public class CompareActivity extends Activity implements OnClickListener
             inputStream = new FileInputStream(imageFilePath);
             BufferedInputStream bufferedInput = new BufferedInputStream(
                     inputStream);
-            BMPphoto = BitmapFactory.decodeStream(bufferedInput);
+            Bitmap BMPphoto = BitmapFactory.decodeStream(bufferedInput);
             imageView.setImageBitmap(BMPphoto);
         } catch (FileNotFoundException e)
         {

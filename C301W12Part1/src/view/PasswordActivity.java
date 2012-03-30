@@ -1,12 +1,8 @@
 package view;
 
-import org.omg.CORBA.INV_IDENT;
-
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,14 +11,12 @@ import android.os.Bundle;
 import control.Controller;
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 
 /**
  * @author J-Tesseract
  * 
- *         Password Activity takes needs a password from the user to allow access to the rest of the application.
+ * Password Activity takes needs a password from the user to allow access to the rest of the application.
  */
 public class PasswordActivity extends Activity  implements OnClickListener{
     
@@ -35,6 +29,8 @@ public class PasswordActivity extends Activity  implements OnClickListener{
      * 
      * Loads the layout of the password_enter. Sets the on click listener for the 
      * enter password button.
+     * 
+     * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -42,7 +38,11 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         super.onCreate(savedInstanceState);
     }
     
-    
+    /**
+     * onResume
+     * 
+     * Update the view and buttons
+     */
     public void onResume(){
         super.onResume();
         password = Controller.getPassword();
@@ -76,6 +76,13 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         
     }
 
+    /**
+     * onClick
+     * 
+     * Perfome action depending on clicked View
+     * 
+     * @param v The View that has been clicked
+     */
     @Override
     public void onClick(View v)
     {

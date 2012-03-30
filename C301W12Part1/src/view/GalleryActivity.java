@@ -196,6 +196,11 @@ public class GalleryActivity extends Activity implements OnClickListener{
         private Context ctx;
         int imageBackground;
        
+        /**
+         * Constructor
+         * 
+         * @param c The context to set the global "ctx" to
+         */
         public ImageAdapter(Context c) {
                         ctx = c;
                         TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
@@ -203,38 +208,60 @@ public class GalleryActivity extends Activity implements OnClickListener{
                         ta.recycle();
                 }
 
+        /**
+         * getCount
+         * 
+         * Return the number of Photos in the album
+         * 
+         * @return count The number of Photos in the album
+         */
                 @Override
         public int getCount() {
-               
-                return alb.getPhotos().size();
+              int count = alb.getPhotos().size();
+                return count;
         }
 
+                /**
+                 * getItem
+                 * 
+                 * Return the Photo Object at the photoIndex
+                 * 
+                 * @return photo The Photo Object to return
+                 */
         @Override
-        public Object getItem(int arg0) {
-               
-                return alb.getPhotos().get(arg0);
+        public Object getItem(int photoIndex) {
+               Object photo = alb.getPhotos().get(photoIndex);
+                return photo;
         }
 
+        /**
+         * getItemId
+         * 
+         * Get the index of the object displayed in the Gallery as a long
+         * 
+         * @return photoIndex A long of the Photo index
+         */
         @Override
-        public long getItemId(int arg0) {
+        public long getItemId(int photoIndex) {
                
-                return arg0;
+                return photoIndex;
         }
        
        
   
        /**
         * Return the ImageView with the current element Uri
+        * Note: Minimal understanding of this override. It is functional.
         * 
-        * @param arg0 (int)
+        * @param photoIndex The photo index
         * @param arg1 (View)
         * @param arg2 (ViewGroup)
         * @return ImageView
         */
         @Override
-        public View getView(int arg0, View arg1, ViewGroup arg2) {
+        public View getView(int photoIndex, View arg1, ViewGroup arg2) {
                 ImageView iv = new ImageView(ctx);
-                Uri pic = alb.getPhotos().get(arg0).getPicture();
+                Uri pic = alb.getPhotos().get(photoIndex).getPicture();
                 iv.setImageDrawable(Drawable.createFromPath(pic.getPath()));
                 iv.setScaleType(ImageView.ScaleType.FIT_XY);
                 iv.setLayoutParams(new Gallery.LayoutParams(150,120));
@@ -243,15 +270,24 @@ public class GalleryActivity extends Activity implements OnClickListener{
         }
 
     }
-   
+    
     /**
-     * onPause
+     * generateNewUri
      * 
-     * When GalleryActivity paused after update, save current state
+     * Generate a new imageUri based on current timestamp
+     * 
+     * @return imageUri The Uri generated
      */
-    public void onPause(){
-        super.onPause();
-        Controller.saveObject();
+    public Uri generateNewUri(){
+        
+        String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+        File folderF = new File(folder);
+        if(!folderF.exists()){
+            folderF.mkdir();
+        }
+        String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        Uri imageUri = Uri.fromFile(new File(imageFilePath));
+        return imageUri;
     }
 
     /**
@@ -259,7 +295,7 @@ public class GalleryActivity extends Activity implements OnClickListener{
      * 
      * Execute desired code depending on button clicked
      * 
-     * @param v (View)
+     * @param v The view that has been clicked
      */
     @Override
     public void onClick(View v)
@@ -288,23 +324,5 @@ public class GalleryActivity extends Activity implements OnClickListener{
         }
     }
     
-    /**
-     * generateNewUri
-     * 
-     * Generate a new imageUri based on current timestamp
-     * 
-     * @return imageUri
-     */
-    public Uri generateNewUri(){
-        
-        String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
-        File folderF = new File(folder);
-        if(!folderF.exists()){
-            folderF.mkdir();
-        }
-        String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        Uri imageUri = Uri.fromFile(new File(imageFilePath));
-        return imageUri;
-    }
 
 }

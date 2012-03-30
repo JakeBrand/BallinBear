@@ -25,20 +25,14 @@ import ca.ualberta.ca.c301.R;
 public class AlbumListActivity extends Activity
 {
 
-    /**
-     * Declares two globals String[] albumNames is used to store the current
-     * albumNames from the controller It is used to set array adapter
-     * albListAdapter albcounter is an album counter to set empty list string
-     */
-    String[] albumNames;
-    int      albcounter;
-
-    // TODO AlbumListActivity: setup android:albumlist with current data, items
-    // have album name, sub items could have album length, the most current
+    // TODO Make more than album name appear. Some items could be album length, the most current
     // photo could be as a thumbnail, last updated?
+    // TODO: Make long click no longer needed
 
     /**
      * On Create
+     * 
+     * Calls onResume to update the Album list
      * 
      * @param savedInstanceState
      */
@@ -52,13 +46,10 @@ public class AlbumListActivity extends Activity
     /**
      * onResume
      * 
-     * Sets the layout to the main.xml Loads the list view into albumlistView
-     * and finds its ID in R. Gets the count on the number of albums we
-     * currently have if albcounter is 0 then change the string to show that we
-     * have no albums Create an adapter for our albumList Set the clickability
-     * of our albums to true and make so if you click you will open the album in
-     * gallery view, but if you hold (long click) then it will open the Album
-     * Edit View to allow you to delete and change the album name
+     * Sets the layout to the main.xml. Loads the list view into albumlistView.
+     * Gets the count on the number of albums we currently have, if albcounter is 0 then change the string to show that we
+     * have no albums. Create an adapter for our albumList. Set the click action to open the album in
+     * gallery view, but if you hold (long click) then it will open the Album Edit View
      */
     public void onResume()
     {
@@ -66,8 +57,8 @@ public class AlbumListActivity extends Activity
         super.onResume();
         setContentView(R.layout.main);
         ListView albumlistView = (ListView) findViewById(R.id.albumlist);
-        albcounter = Controller.getAlbumNames().length;
-        albumNames = Controller.getAlbumNames();
+        int albcounter = Controller.getAlbumNames().length;
+        String[] albumNames = Controller.getAlbumNames();
         ArrayAdapter<String> albListAdapter = new ArrayAdapter<String>(
                 AlbumListActivity.this, android.R.layout.simple_list_item_1,
                 albumNames);

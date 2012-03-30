@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -23,16 +25,18 @@ public class Photo implements Serializable
     private static final long serialVersionUID = -2561097008925968276L;
     private Date              pTimeStamp;
     private String            comment;
-    transient private Uri               imageUri;
+    transient private Uri     imageUri;
     private ArrayList<String> tags;
-    private String uriBackUp;
+    private String            uriBackUp;
 
     /**
      * hasTag
      * 
-     * given a String tag, determines if the Photo has been 'auto-tagged' with tag
+     * given a String tag, determines if the Photo has been 'auto-tagged' with
+     * tag
      * 
-     * @param tag The tag being searched for
+     * @param tag
+     *            The tag being searched for
      * @return True if the photo has the provided tag
      */
     public boolean hasTag(String tag)
@@ -65,6 +69,8 @@ public class Photo implements Serializable
         this.imageUri = imageU;
         this.tags = generateTags(comm);
         this.uriBackUp = imageU.toString();
+        this.tags = generateTags(comm);
+        Collections.sort(tags);
 
     }
 
@@ -98,7 +104,67 @@ public class Photo implements Serializable
 
         }
 
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        tags.add(formatter.format(pTimeStamp));
+
         return tags;
+    }
+
+    /**
+     * inTags
+     * 
+     * given a String s, determines if s is one of the given tags
+     * 
+     * @param tagToFind
+     *            The tag to find
+     * @return inTag True if the tag is found in known tags. False otherwise.
+     */
+    public boolean inTags(String tagToFind)
+    {
+
+        boolean inTag = false;
+        int i = 0;
+        while (i < tags.size() && !inTag)
+        {
+            inTag = (tags.get(i).equals(tagToFind));
+            i++;
+        }
+
+        return inTag;
+    }
+
+    /**
+     * addTag
+     * 
+     * Add a new tag to the list of known tags
+     * 
+     * @param tag
+     *            The new tag to add
+     * @return hasNewTag True if the comment has the tag. False otherwise.
+     */
+    public boolean addTag(String tag)
+    {
+
+        StringTokenizer token = new StringTokenizer(comment);
+        String str;
+        boolean hasNewTag = false;
+
+        if (inTags(tag))
+        {
+            return true;
+        }
+        while (token.hasMoreTokens())
+        {
+
+            str = token.nextToken();
+            if (str.equals(tag))
+            {
+                tags.add(str);
+                hasNewTag = true;
+            }
+        }
+
+        return hasNewTag;
     }
 
     /**
@@ -168,7 +234,8 @@ public class Photo implements Serializable
      */
     public Uri getPicture()
     {
-    	this.imageUri = Uri.parse(this.uriBackUp);
+
+        this.imageUri = Uri.parse(this.uriBackUp);
         return this.imageUri;
     }
 

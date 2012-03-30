@@ -42,9 +42,7 @@ public class SlideShowActivity extends Activity {
 	 */
 	private Album alb;
 	private Gallery ssg;
-
 	private Handler autoGalleryHandler;
-
 	private Timer autoGallery;
 
 	@Override
@@ -84,7 +82,7 @@ public class SlideShowActivity extends Activity {
 				}
 			}
 		};
-		autoGallery.schedule(new RemindTask(),0,1000);
+		autoGallery.schedule(new RemindTask(),0,1500);
 
 
 		
@@ -149,6 +147,13 @@ public class SlideShowActivity extends Activity {
 
 	}
 
+	/**
+	 * 
+	 * @author J-Tesseract
+	 * 
+	 * Task to be run when timer is fired
+	 *
+	 */
 	public class RemindTask extends TimerTask {
 		int galleryposition = 0;
 

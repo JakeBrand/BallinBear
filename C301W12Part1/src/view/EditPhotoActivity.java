@@ -94,8 +94,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     Spinner                  albumNameSpinner;
     boolean                  newAlbumCreated;
     /**
-     * static final values used to determine how valid the state of the activity
-     * is before saving a photo Clearly indicates state and reduces code to
+     * Static final values used to determine how valid the state of the activity
+     * is before saving a photo. Clearly indicates state and reduces code to
      * simple switch statements
      */
     private static final int INDEX_NOT_IN_BUNDLE                 = -1;
@@ -182,7 +182,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     /**
      * onClick
      * 
-     * perform action depending on button clicked
+     * Perform action depending on button clicked
      * 
      * @param v
      *            The View that has just been clicked
@@ -218,7 +218,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     /**
      * setBogoPic
      * 
-     * Start the Android capture intent
+     * Generate and display a random image
      */
     protected void setBogoPic()
     {
@@ -347,8 +347,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                 finishIntent(intent, imageUri);
                 break;
 
-            // Transferring photo to new album
-
+            // Moveing an existing Photo to existing album
             case MOVING_PHOTO_TO_EXISTING:
                 Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
                         Controller.getCurrentPhotoIndex());
@@ -358,6 +357,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                 finishIntent(intent, imageUri);
                 break;
 
+                // Moving an existing Photo to a new Album
             case MOVING_PHOTO_TO_NEW:
                 Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
                         Controller.getCurrentPhotoIndex());
@@ -365,6 +365,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                         .toString(), imageUri, comment);
                 finishIntent(intent, imageUri);
                 break;
+                
             // No picture has been taken. Must take a picture.
             case NULL_BMP:
                 Toast toast = Toast.makeText(getApplicationContext(),
@@ -399,6 +400,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
                         imageUri, comment);
                 finishIntent(intent, imageUri);
                 break;
+            // Something went wrong...
             default:
                 Log.e("validityCode", "Invalid");
                 break;
@@ -409,7 +411,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     /**
      * validateAcceptState
      * 
-     * Return a verification code based on state of completion
+     * Determine a verification code based on state of completion
      * 
      * @return validityState The state of the Photo being edited
      */

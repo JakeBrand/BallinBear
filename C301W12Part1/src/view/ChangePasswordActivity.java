@@ -3,9 +3,7 @@ package view;
 import ca.ualberta.ca.c301.R;
 import control.Controller;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,11 +14,13 @@ import android.widget.TextView;
 /**
  * @author J-Tesseract
  * 
- *         Password Activity takes needs a password from the user to allow access to the rest of the application.
+ * Password Activity takes needs a password from the user to allow access to the rest of the application.
  */
 public class ChangePasswordActivity extends Activity  implements OnClickListener{
 
-    
+    /**
+     * Variables created in onCreate and used depending on the view clicked
+     */
     String password;
     EditText oldP;
     EditText newP1;
@@ -35,7 +35,7 @@ public class ChangePasswordActivity extends Activity  implements OnClickListener
     /**
      * On Create
      * 
-     * Loads the layout of the change_password. 
+     * Loads the layout of the change_password and create the buttons.
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -65,9 +65,10 @@ public class ChangePasswordActivity extends Activity  implements OnClickListener
     /**
      * onClick
      * 
-     * 
      * depending on the input of the user, onClick determines what to set as a status if there is incorrect input.
      * Or onClick finishes the Activity by canceling or changing the password
+     * 
+     * @param v View that has been clicked
      */
     @Override
     public void onClick(View v)
@@ -84,6 +85,7 @@ public class ChangePasswordActivity extends Activity  implements OnClickListener
                     status.setText("Old Password Incorrect");
                 else if(knowOld && newPassMatch){
                     Controller.setPassword(newP1.getText().toString());
+                    Controller.savePassword();
                     finish();
                 }
                 

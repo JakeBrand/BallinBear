@@ -20,8 +20,8 @@ import android.content.DialogInterface;
 /**
  * @author J-Tesseract
  * 
- *         Album Editing Activity (Displays the album name and allows you to
- *         change it, delete the album, or do nothing)
+ *         Album Editing Activity (Displays the album name and allows you to add
+ *         an alarm, change the name, delete the album, or do nothing)
  */
 public class AlbumEditActivity extends Activity implements OnClickListener
 {
@@ -40,16 +40,20 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     /**
      * On Create
      * 
-     * Loads the layout of the album_edit Sets the on click listener for the
-     * buttons available
+     * Loads the layout of the album_edit.
+     * 
+     * Sets the on click listener for the buttons available
+     * 
+     * addAlarmButton starts the sequence to set up an alarm for this Album
+     * 
+     * removeAlarmButton removes any alarm on this Album
      * 
      * deleteButton allows the user to delete an album
      * 
-     * backToAlbumButton returns the user to the list of albums (main.xml) and
+     * backToAlbumButton returns the user to the list of albums (main.xml)
      * 
-     * doneButton allows the user to save any changes made to the album name
+     * doneButton allows the user to save any changes made to the album
      * 
-     * addAlarmButton allows the user to set up an alarm for this album
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -223,9 +227,8 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     /**
      * displayWarning
      * 
-     * Warn the user that all photos will be deleted
-     * If OK clicked, delete the album
-     * If Cancel clicked, do nothing
+     * Warn the user that all photos will be deleted If OK clicked, delete the
+     * album If Cancel clicked, do nothing
      */
     public void displayWarning()
     {
@@ -241,6 +244,7 @@ public class AlbumEditActivity extends Activity implements OnClickListener
             {
 
                 Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+                Controller.saveObject();
                 finish();
             }
         });
@@ -305,24 +309,11 @@ public class AlbumEditActivity extends Activity implements OnClickListener
                 break;
 
             case R.id.backToAlbumButton:
-                
+
                 finish();
                 break;
 
         }
 
-    }
-
-    /**
-     * onPause
-     * 
-     * On pause saves current object using the controller
-     */
-    public void onPause()
-    {
-
-        super.onPause();
-        // TODO: Save?
-        // Controller.saveObject();
     }
 }

@@ -45,6 +45,7 @@
     <string name="searchText">Search</string>
     <string name="enterTagText">Enter Tag</string>
     <string name="searchPhotosText">Search Photos</string>
+    <string name="searchByDateText">Search By Date</string>
     <string name="addAlarm">Add Alarm</string>
     <string name="removeAlarm">Remove Alarm</string>
     <string name="alarmStartTime">Alarm Start Time</string>

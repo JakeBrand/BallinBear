@@ -27,11 +27,9 @@ import android.widget.Button;
 public class WelcomeActivity extends Activity {
     
         /**
-         * Constants
+         * Constant
          */
-	private Uri imageUri;
 	private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
-	String fileName = "fileSave.data";
 
 	/**
 	 * onCreate
@@ -105,16 +103,6 @@ public class WelcomeActivity extends Activity {
 		
 
 	}
-/**
- * onPause
- * 
- * Save state before taking a new photo
- */
-	public void onPause() {
-		super.onPause();
-		Controller.saveObject();
-
-	}
 
 	/**
 	 * takeAPhoto
@@ -134,7 +122,7 @@ public class WelcomeActivity extends Activity {
 		String imageFilePath = folder + "/"
 				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
 		File imageFile = new File(imageFilePath);
-		imageUri = Uri.fromFile(imageFile);
+		Uri imageUri = Uri.fromFile(imageFile);
 
 		Intent takePhotoIntent = new Intent(this, EditPhotoActivity.class);
 

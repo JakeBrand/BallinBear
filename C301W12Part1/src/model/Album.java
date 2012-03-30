@@ -14,18 +14,19 @@ import java.util.concurrent.ScheduledFuture;
 public class Album implements Serializable
 {
 
-    private static final long        serialVersionUID = 2277251080502459333L;
+    private static final long               serialVersionUID = 2277251080502459333L;
 
     /**
-     * album name and the list of photos are fields
+     * Album name and the list of photos are fields
      */
-    private String                   albumName;
-    private ArrayList<Photo>         photos;
+    private String                          albumName;
+    private ArrayList<Photo>                photos;
     /**
      * Attributes for Album's alarm
      */
-    private static ScheduledExecutorService scheduler  =  Executors.newScheduledThreadPool(1);
-    private ScheduledFuture         notifyerHandle;
+    private static ScheduledExecutorService scheduler        = Executors
+                                                                     .newScheduledThreadPool(1);
+    private ScheduledFuture                 notifyerHandle;
 
     /**
      * Contructor
@@ -70,6 +71,8 @@ public class Album implements Serializable
     /**
      * getAlbumName
      * 
+     * Returns the current name of the Album
+     * 
      * @return albumName The current name of the Album
      */
     public String getAlbumName()
@@ -80,6 +83,8 @@ public class Album implements Serializable
 
     /**
      * setAlbumName
+     * 
+     * Changes the name of the Album
      * 
      * @param albumName
      *            The new name of the Album
@@ -93,6 +98,8 @@ public class Album implements Serializable
     /**
      * getPhotos
      * 
+     * Returns the ArrayList<Photo> in this album
+     * 
      * @return photos The ArrayList<Photo> in this album
      */
     public ArrayList<Photo> getPhotos()
@@ -104,7 +111,10 @@ public class Album implements Serializable
     /**
      * setPhotos
      * 
+     * Change the ArrayList<Photo> in this Album
+     * 
      * @param photos
+     *            The new ArrayList<Photo> to set for this Album
      */
     public void setPhotos(ArrayList<Photo> photos)
     {
@@ -115,7 +125,10 @@ public class Album implements Serializable
     /**
      * getPhoto
      * 
+     * Get the Photo of this album
+     * 
      * @param photoIndex
+     *            The index of the photo in the Album
      * @return Photo at photoIndex in photos
      */
     public Photo getPhoto(int photoIndex)
@@ -127,7 +140,10 @@ public class Album implements Serializable
     /**
      * addPhoto
      * 
+     * Add the provided Photo to the Album
+     * 
      * @param p
+     *            The provided Photo to add to the Album
      */
     public void addPhoto(Photo p)
     {
@@ -138,7 +154,10 @@ public class Album implements Serializable
     /**
      * deletePhoto
      * 
+     * Remove a specified Photo from the Album
+     * 
      * @param photoIndex
+     *            The index of the Photo to be removed
      */
     public void deletePhoto(int photoIndex)
     {
@@ -149,8 +168,12 @@ public class Album implements Serializable
     /**
      * updatePhoto
      * 
+     * Update the Bitmap and/or Comment of the provided Photo
+     * 
      * @param photoIndex
+     *            The index of the Photo to update
      * @param photo
+     *            The new Photo to update to
      */
     public void updatePhoto(int photoIndex, Photo photo)
     {
@@ -163,15 +186,41 @@ public class Album implements Serializable
         // photos.add(photo);
         // }
     }
-    
-    public ScheduledExecutorService geScheduler(){
+
+    /**
+     * getScheduler
+     * 
+     * Return the Album's ScheduledExecutorService for setting up the alarm
+     * 
+     * @return scheduler The Album's ScheduledExecutorService
+     */
+    public ScheduledExecutorService geScheduler()
+    {
+
         return scheduler;
     }
-    
-    public void setNotifyerHandle(Runnable codeToRun,
-            int initialDelay, int repeatedDelay){
-        if(codeToRun == null){
-            if(notifyerHandle != null){
+
+    /**
+     * setNotifyerHandle
+     * 
+     * Set the ScheduledFuture "notifyerHandle" with provided parameters
+     * 
+     * @param codeToRun
+     *            The code to run when schedule is met
+     * @param initialDelay
+     *            The delay (in Seconds) from now to the first notification
+     * @param repeatedDelay
+     *            The delay (in Seconds) from the first notification to the
+     *            repeated notification
+     */
+    public void setNotifyerHandle(Runnable codeToRun, int initialDelay,
+            int repeatedDelay)
+    {
+
+        if (codeToRun == null)
+        {
+            if (notifyerHandle != null)
+            {
                 notifyerHandle.cancel(true);
                 notifyerHandle = null;
                 return;
@@ -180,8 +229,17 @@ public class Album implements Serializable
         notifyerHandle = scheduler.scheduleWithFixedDelay(codeToRun,
                 initialDelay, repeatedDelay, SECONDS);
     }
-    
-    public ScheduledFuture getNotifyerHandler(){
+
+    /**
+     * getNotifyerHandler
+     * 
+     * Return the ScheduledFuture "notifyerHandle"
+     * 
+     * @return notifyerHandle The ScheduledFuture of this Album
+     */
+    public ScheduledFuture getNotifyerHandler()
+    {
+
         return notifyerHandle;
     }
 
