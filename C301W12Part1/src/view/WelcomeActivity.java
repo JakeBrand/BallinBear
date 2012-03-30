@@ -25,10 +25,7 @@ import android.widget.Button;
  * 
  */
 public class WelcomeActivity extends Activity {
-    
-        /**
-         * Constant
-         */
+
 	private static final int TAKE_PICTURE_ACTIVITY_REQUEST = 200;
 
 	/**
@@ -41,68 +38,74 @@ public class WelcomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		try {
-			Controller.loadObject(this);
+			Controller.loadObject();
 		} catch (Exception e) {
 			Log.e(null, "NOTHING LOADED FROM FILE");
 		}
 		
-		
+
 		Controller.setTags();
 		
-		
-		
-		setContentView(R.layout.welcome_view);
-
-		Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
-		newPhoto.setBackgroundColor(Color.GREEN);
-
-		OnClickListener newPhotoListener = new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				takeAPhoto();       // if new photo button clicked, take a photo
-			}
-
-		};
-		newPhoto.setOnClickListener(newPhotoListener);
-
-		Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
-		viewAlbums.setBackgroundColor(Color.CYAN);
-
-		OnClickListener viewAlbumsListener = new OnClickListener() {
-
-			@Override
-			public void onClick(View v) { 
-
-				Intent albumListIntent = new Intent(v.getContext(),
-						AlbumListActivity.class);
-
-				startActivity(albumListIntent); // if albums button clicked, go to album activity
-			}
-
-		};
-		viewAlbums.setOnClickListener(viewAlbumsListener);
-		
-		
-		Button searchPhotos = (Button) findViewById(R.id.searchButton);
-		searchPhotos.setBackgroundColor(Color.RED);
-		
-		OnClickListener searchListener = new OnClickListener()
-                {
-                    
-                    @Override
-                    public void onClick(View v)
-                    {
-                
-                        Intent searchIntent = new Intent(v.getContext(), SearchActivity.class);
-                        startActivity(searchIntent);
-                        
-                    }
-                };
-                searchPhotos.setOnClickListener(searchListener);
-		
-
 	}
+	
+	/**
+	 * onResume
+	 * 
+	 * Update the view and buttons
+	 */
+        @Override
+        public void onResume(){
+            super.onResume();
+            setContentView(R.layout.welcome_view);
+
+            Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
+            newPhoto.setBackgroundColor(Color.GREEN);
+
+            OnClickListener newPhotoListener = new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                            takeAPhoto();       // if new photo button clicked, take a photo
+                    }
+
+            };
+            newPhoto.setOnClickListener(newPhotoListener);
+
+            Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
+            viewAlbums.setBackgroundColor(Color.CYAN);
+
+            OnClickListener viewAlbumsListener = new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) { 
+
+                            Intent albumListIntent = new Intent(v.getContext(),
+                                            AlbumListActivity.class);
+
+                            startActivity(albumListIntent); // if albums button clicked, go to album activity
+                    }
+
+            };
+            viewAlbums.setOnClickListener(viewAlbumsListener);
+            
+            
+            Button searchPhotos = (Button) findViewById(R.id.searchButton);
+            searchPhotos.setBackgroundColor(Color.RED);
+            
+            OnClickListener searchListener = new OnClickListener()
+            {
+                
+                @Override
+                public void onClick(View v)
+                {
+            
+                    Intent searchIntent = new Intent(v.getContext(), SearchActivity.class);
+                    startActivity(searchIntent);
+                    
+                }
+            };
+            searchPhotos.setOnClickListener(searchListener);
+        }
 
 	/**
 	 * takeAPhoto

@@ -45,14 +45,12 @@ public class PasswordActivity extends Activity  implements OnClickListener{
      */
     public void onResume(){
         super.onResume();
-        password = Controller.getPassword();
         
-
+        password = Controller.getPassword();
         
         setContentView(R.layout.password_enter);
 
         passwordET = (EditText) findViewById(R.id.enterPasswordEditText);
-
         passwordET.setText("");
 
         Button enterButton = (Button) findViewById(R.id.enterPasswordButton);
@@ -64,8 +62,7 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         instructions.setText("Enter New Password");
         
         Button resetButton = (Button) findViewById(R.id.resetPasswordButton);
-        resetButton.setOnClickListener(this);
-        
+        resetButton.setOnClickListener(this);       
         resetButton.setVisibility(-1);
         
         if(password != null){
@@ -90,9 +87,9 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         switch (v.getId())
         {
             case R.id.enterPasswordButton:
-                Log.e(null, "HI");
                 if(password == null){
                 Controller.setPassword(PasswordActivity.this.passwordET.getText().toString());
+                Controller.savePassword(this);
                 password = Controller.getPassword();
                 Log.e(null,"password was null now is " + password);
                 }
@@ -103,6 +100,47 @@ public class PasswordActivity extends Activity  implements OnClickListener{
                 
                 Intent welcomeIntent = new Intent(PasswordActivity.this.getApplicationContext(), WelcomeActivity.class);
                 startActivity(welcomeIntent);
+                }
+                else
+                {
+                    int k = (int) (Math.random()*10);
+                    TextView status = (TextView) findViewById(R.id.enterPasswordStatusTextView);
+                    switch (k)
+                    {
+                        case 0:
+                            status.setText("Wrong");
+                            break;
+                        case 1:
+                            status.setText("Fail");
+                            break;
+                        case 2:
+                            status.setText("No...FOOL!");
+                            break;
+                        case 3:
+                            status.setText("Really?");
+                            break;
+                        case 4:
+                            status.setText("Umm.. NO!");
+                            break;
+                        case 5:
+                            status.setText("Come on!");
+                            break;
+                        case 6:
+                            status.setText("You're making me sad");
+                            break;
+                        case 7:
+                            status.setText("That is not the needed input");
+                            break;
+                        case 8:
+                            status.setText("Deleting SDCard... Just kidding");
+                            break;
+                        case 9:
+                            status.setText(":(");
+                            break;
+                        default:
+                            status.setText("Incorrect Password");
+                            break;
+                    }
                 }
                 
                 break;
