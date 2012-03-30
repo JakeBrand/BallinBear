@@ -66,25 +66,27 @@ public class Controller
     /**
      * albums holds all of the Albums
      */
-    private static ArrayList<Album>  albums         = new ArrayList<Album>();
+    private static ArrayList<Album>  albums           = new ArrayList<Album>();
     private static Context           ctx;
-    private static final String      fileName       = "albumsfile.data";
-    private static final String      passwordFileName       = "ps.data";
-    
-    private static ArrayList<String> tags           = new ArrayList<String>();
+    private static final String      fileName         = "albumsfile.data";
+    private static final String      passwordFileName = "ps.data";
+
+    private static ArrayList<String> tags             = new ArrayList<String>();
 
     /**
      * Final variables needed to set an alarm
      */
-    private static final int         SECONDSPERMIN  = 60;
-    private static final int         SECONDSPERHOUR = SECONDSPERMIN * 60;
-    private static final int         SECONDSPERDAY  = SECONDSPERHOUR * 24;
-//    private static final int         CICATRIX_ID      = 1;
+    private static final int         SECONDSPERMIN    = 60;
+    private static final int         SECONDSPERHOUR   = SECONDSPERMIN * 60;
+    private static final int         SECONDSPERDAY    = SECONDSPERHOUR * 24;
 
     /**
      * getAlbum
      * 
+     * Return the Album at the given index
+     * 
      * @param albumIndex
+     *            The index of the album to return
      * @return the Album at index albumIndex
      */
     public static Album getAlbum(int albumIndex)
@@ -96,8 +98,10 @@ public class Controller
     /**
      * setCurrentPhoto
      * 
+     * Set the pointer to the current photo to provided index
+     * 
      * @param currentP
-     * @uml.property name="currentPhoto"
+     *            The index of the current photo
      */
     public static void setCurrentPhoto(int currentP)
     {
@@ -108,7 +112,9 @@ public class Controller
     /**
      * getCurrentPhotoIndex
      * 
-     * @return currentPhoto
+     * Return the index of the current photo
+     * 
+     * @return currentPhoto The index of the current Photo
      */
     public static int getCurrentPhotoIndex()
     {
@@ -119,8 +125,9 @@ public class Controller
     /**
      * getCurrentPhoto
      * 
+     * Return the Photo pointed to by currentPhoto
+     * 
      * @return Photo in the currentAlbum at the currentPhotoIndex
-     * @uml.property name="currentPhoto"
      */
     public static Photo getCurrentPhoto()
     {
@@ -131,8 +138,10 @@ public class Controller
     /**
      * setComparePhoto1
      * 
+     * Set the first of the two Photos to compare
+     * 
      * @param photo1
-     * @uml.property name="comparePhoto1"
+     *            The index of the first photo to compare
      */
     public static void setComparePhoto1(int photo1)
     {
@@ -143,8 +152,10 @@ public class Controller
     /**
      * setComparePhoto2
      * 
+     * Set the second of the two Photos to compare
+     * 
      * @param photo2
-     * @uml.property name="comparePhoto2"
+     *            The index of the second photo to compare
      */
     public static void setComparePhoto2(int photo2)
     {
@@ -153,10 +164,11 @@ public class Controller
     }
 
     /**
-     * getComparePhoto1
+     * getComparePhoto1 Get the Photo object pointed to by comparePhoto1 index
      * 
-     * @return Photo in currentAlbum and comparePhoto1 index
-     * @uml.property name="comparePhoto1"
+     * Get the Photo pointed to by comparePhoto1 index
+     * 
+     * @return Photo pointed to by comparePhoto1 index
      */
     public static Photo getComparePhoto1()
     {
@@ -167,8 +179,9 @@ public class Controller
     /**
      * getComparePhoto2
      * 
-     * @return Photo in currentAlbum and comparePhoto2 index
-     * @uml.property name="comparePhoto2"
+     * Get the Photo pointed to by comparePhoto2 index
+     * 
+     * @return Photo pointed to by comparePhoto2 index
      */
     public static Photo getComparePhoto2()
     {
@@ -179,8 +192,9 @@ public class Controller
     /**
      * getCurrentAlbum
      * 
+     * Get the Album pointed to by the currentAlbum index
+     * 
      * @return Album at currentAlbum index
-     * @uml.property name="currentAlbum"
      */
     public static Album getCurrentAlbum()
     {
@@ -191,8 +205,10 @@ public class Controller
     /**
      * setCurrentAlbum
      * 
+     * Set the pointer "currentAlbum" to the provided Album index
+     * 
      * @param newCurrentAlbum
-     * @uml.property name="currentAlbum"
+     *            The provided Album to set the pointer at
      */
     public static void setCurrentAlbum(int newCurrentAlbum)
     {
@@ -203,7 +219,10 @@ public class Controller
     /**
      * setCurrentAlbumName
      * 
+     * Change the current Album's name to provided new name
+     * 
      * @param newName
+     *            The provided new name to overwrite the old name
      */
     public static void setCurrentAlbumName(String newName)
     {
@@ -213,6 +232,8 @@ public class Controller
 
     /**
      * getCurrentAlbumName
+     * 
+     * Get the name of the Album pointed to by currentAlbum
      * 
      * @return name of the current album
      */
@@ -226,7 +247,10 @@ public class Controller
     /**
      * getCurrentAlbumIndex
      * 
-     * @return currentAlbumIndex
+     * Get the index of teh current Album
+     * 
+     * @return currentAlbumIndex The index of the album pointed to as the
+     *         current album
      */
     public static int getCurrentAlbumIndex()
     {
@@ -235,12 +259,17 @@ public class Controller
     }
 
     /**
-     * addAlbum add new album with string albName and add a Photo to it with
-     * imageUri and comment
+     * addAlbum
+     * 
+     * Add new album with string albName and add a Photo to it with imageUri and
+     * comment
      * 
      * @param albName
+     *            The album name being constructed
      * @param imageUri
+     *            The image Uri of the first photo in the Album
      * @param comment
+     *            The comment of the first Photo in the Album
      */
     public static void addAlbum(String albName, Uri imageUri, String comment)
     {
@@ -254,22 +283,28 @@ public class Controller
     /**
      * deleteAlbum
      * 
+     * Remove the Album at the provided index
+     * 
      * @param albumIndex
+     *            The index of the Album to remove
      */
     public static void deleteAlbum(int albumIndex)
     {
 
-        Log.e("Deleting Album", "album " + albumIndex);
         albums.get(albumIndex).deleteAll();
         albums.remove(albumIndex);
         Controller.setCurrentAlbum(-1);
     }
 
     /**
-     * updateAlbum changes the name of the Album at albumIndex with newName
+     * updateAlbum C
+     * 
+     * Changes the name of the Album at albumIndex with newName
      * 
      * @param albumIndex
+     *            The index of the album being updated
      * @param newName
+     *            The new name assigned to the album
      */
     public static void updateAlbum(int albumIndex, String newName)
     {
@@ -280,17 +315,34 @@ public class Controller
     }
 
     /**
+     * addAlarm
      * 
+     * Add an alarm on the selected Album
      * 
+     * @param alarmDay
+     *            The first day to start the alarm
+     * @param alarmHour
+     *            The first hour to start the alarm
+     * @param alarmMin
+     *            The first min to start the alarm
+     * @param alarmFrequency
+     *            The frequency of the alarms repetition
+     * @param sendingContext
+     *            The context to generate the alarm with
      */
     public static void addAlarm(int alarmDay, int alarmHour, int alarmMin,
             int alarmFrequency, final Context sendingContext)
     {
+
         final Runnable codeToRun = new Runnable()
         {
 
+            /**
+             * The code to run once alarm is triggered
+             */
             public void run()
             {
+
                 Log.d("running", "sendnotification");
                 sendNotification(sendingContext);
 
@@ -313,27 +365,40 @@ public class Controller
         {
             repeatedDelay = getRepeatedDelaySeconds(0, 0, selection);
         }
-        getCurrentAlbum().setNotifyerHandle(codeToRun, initialDelay, repeatedDelay);
-        
+        getCurrentAlbum().setNotifyerHandle(codeToRun, initialDelay,
+                repeatedDelay);
+
     }
-    
-    public static void removeAlarm(){
+
+    /**
+     * removeAlarm
+     * 
+     * Remove the alarm from the Album
+     */
+    public static void removeAlarm()
+    {
+
         ScheduledFuture notifyerHandle = getCurrentAlbum().getNotifyerHandler();
-        if(notifyerHandle!= null){
+        if (notifyerHandle != null)
+        {
             Log.d("NotifyerHandle Not", "Null");
-            getCurrentAlbum().setNotifyerHandle(null,0,0);
+            getCurrentAlbum().setNotifyerHandle(null, 0, 0);
         }
     }
-    
+
     /**
      * sendNotification
      * 
-     * Sends a status bar notification to remind the user
+     * Sends a status bar notification to remind the user to take a photo
+     * 
+     * @param alarmContext
+     *            The Album context the alarm was created in
      */
     private static void sendNotification(Context alarmContext)
     {
+
         Log.d("Sending Notification with", alarmContext.toString());
-        
+
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager notificationManager = (NotificationManager) alarmContext
                 .getSystemService(ns);
@@ -365,13 +430,13 @@ public class Controller
      * notification
      * 
      * @param day
-     *            The day of the week to start the initial notification
+     *            The first day of the week to start the notification
      * @param hour
-     *            The hour to start the initial notification
+     *            The first hour of the day to start the notification
      * @param min
-     *            The min to start the initial notification
-     * @return delaySeconds The number of seconds to delay between current time
-     *         and
+     *            The first min of the hour to start the notification
+     * @return delaySeconds The number of seconds to delay before starting the
+     *         notification
      */
     private static int getInitialDelaySeconds(int day, int hour, int min)
     {
@@ -411,7 +476,6 @@ public class Controller
     private static int getRepeatedDelaySeconds(int week, int day, int hour)
     {
 
-        // TODO: Make Controller do this!
         int secInWeek = (SECONDSPERDAY * 7 * week);
         int secInDay = (SECONDSPERDAY * day);
         int secInHour = (SECONDSPERHOUR * hour);
@@ -423,9 +487,13 @@ public class Controller
     /**
      * getPhoto
      * 
+     * Return the Photo at the given album index and photo index
+     * 
      * @param albumIndex
+     *            The album index of the desired Photo
      * @param photoIndex
-     * @return a_photo
+     *            The photo index of the desired Photo
+     * @return The photo at the given album index and photo index
      */
     public static Photo getPhoto(int albumIndex, int photoIndex)
     {
@@ -436,12 +504,17 @@ public class Controller
     }
 
     /**
-     * addPhoto add a Photo with Uri imageUri and String comment to the album at
+     * addPhoto
+     * 
+     * Add a Photo with Uri imageUri and String comment to the album at
      * albumIndex
      * 
      * @param albumIndex
+     *            The index of the album to add the Photo to
      * @param imageUri
+     *            The Uri the Bitmap of the Photo is stored at
      * @param comment
+     *            The comment of the Photo
      */
     public static void addPhoto(int albumIndex, Uri imageUri, String comment)
     {
@@ -454,10 +527,14 @@ public class Controller
     }
 
     /**
-     * deletePhoto delete photo at photoIndex from album at albumIndex
+     * deletePhoto
+     * 
+     * Delete photo at photoIndex from album at albumIndex
      * 
      * @param albumIndex
+     *            The Album index from which to delete the photo
      * @param photoIndex
+     *            The Photo index to be deleted
      */
     public static void deletePhoto(int albumIndex, int photoIndex)
     {
@@ -477,9 +554,14 @@ public class Controller
     /**
      * updatePhoto
      * 
+     * Update the indicated Photo with a new comment
+     * 
      * @param albumIndex
+     *            The index of the album holding the Photo to update
      * @param photoIndex
+     *            The index of the Photo to update
      * @param newComment
+     *            The new comment to add to the Photo
      */
     public static void updatePhoto(int albumIndex, int photoIndex,
             String newComment)
@@ -498,8 +580,9 @@ public class Controller
     /**
      * getAlbumNames
      * 
+     * Return a String[] of all Album names
      * 
-     * @return String[] of all the album names in Controller
+     * @return albNames A String[] of all the album names
      */
     public static String[] getAlbumNames()
     {
@@ -517,21 +600,23 @@ public class Controller
     }
 
     /**
-     * checkAlbumNames Given a String s, returns the albumIndex that represents
-     * the Album with that name or returns -1 if no album exists.
+     * checkAlbumNames
      * 
-     * @param s
+     * Given a name, returns the albumIndex that represents the Album with that
+     * name or returns -1 if no album exists.
+     * 
+     * @param nameToCheck
      *            The name of the album to check
      * @return index of album if exists, else returns -1
      */
-    public static int checkAlbumNames(String s)
+    public static int checkAlbumNames(String nameToCheck)
     {
 
         int i = 0;
         while (i < albums.size())
         {
             String name = albums.get(i).getAlbumName();
-            if (name.equals(s.trim()))
+            if (name.equals(nameToCheck.trim()))
             {
                 return i;
             }
@@ -542,12 +627,13 @@ public class Controller
     }
 
     /**
-     * saveObject saves the ArrayList albums to file
+     * saveObject 
      * 
+     * Saves the ArrayList albums to file  and sets teh context
      */
     public static void saveObject()
     {
-
+        
         FileOutputStream stream = null;
         try
         {
@@ -562,16 +648,24 @@ public class Controller
         {
             e.printStackTrace();
         }
-        Controller.savePassword();
+        Controller.savePassword(ctx);
     }
-    
-    public static void savePassword()
-    {
 
+    /**
+     * savePassword
+     * 
+     * Saves the password to a file and sets the Context ctx
+     */
+    public static void savePassword(Context c)
+    {
+        if(c!=null){
+        ctx =c;
+        }
         FileOutputStream stream = null;
         try
         {
             stream = ctx.openFileOutput(passwordFileName, Context.MODE_PRIVATE);
+            
             ObjectOutputStream out = new ObjectOutputStream(stream);
             out.writeObject(password);
             out.flush();
@@ -584,20 +678,21 @@ public class Controller
     }
 
     /**
-     * loadObject loads the ArrayList albums from file
+     * loadObject 
      * 
-     * @param c
+     * Loads the ArrayList albums from file
+     * 
+     * @param c Context object was saved in
      */
     @SuppressWarnings("unchecked")
-    public static void loadObject(Context c)
+    public static void loadObject()
     {
 
-        ctx = c;
         FileInputStream stream = null;
 
         try
         {
-            stream = c.openFileInput(fileName);
+            stream = ctx.openFileInput(fileName);
             if (stream == null)
             {
                 return;
@@ -626,9 +721,15 @@ public class Controller
         {
             e.printStackTrace();
         }
-        Controller.loadPassword(c);
+        Controller.loadPassword(ctx);
     }
-    
+
+    /**
+     * loadPassword
+     * 
+     * Load the password from the file
+     * @param c The context the password was saved in
+     */
     public static void loadPassword(Context c)
     {
 
@@ -647,7 +748,7 @@ public class Controller
             temp = in.readObject();
             if (temp != null)
             {
-            	String tt = (String) temp;
+                String tt = (String) temp;
                 stream.close();
                 Controller.setPassword(tt);
             }
@@ -669,21 +770,20 @@ public class Controller
     /**
      * inTags
      * 
-     * given a String s, determines if s is one of the given tags
+     * Given a tag to check, determines if it is one of the given tags
      * 
-     * @param s
-     * @return inTag
+     * @param tagToCheck The tag to check
+     * @return inTag True if the tag is known. False if the tag is not known.
      */
-    public static boolean inTags(String s)
+    public static boolean inTags(String tagToCheck)
     {
 
-        Log.e("In tags", s);
+        Log.e("In tags", tagToCheck);
         boolean inTag = false;
         int i = 0;
         while (i < tags.size() && !inTag)
         {
-            inTag = (tags.get(i).equals(s));
-            Log.e(null, "tag: " + tags.get(i) + " is it equal?: " + inTag);
+            inTag = (tags.get(i).equals(tagToCheck));
             i++;
         }
 
@@ -693,7 +793,7 @@ public class Controller
     /**
      * setTags
      * 
-     * updates the Controller with the givens tags
+     * Initialize the Controller with the known tags
      */
     public static void setTags()
     {
@@ -761,15 +861,15 @@ public class Controller
     /**
      * findPhotos
      * 
-     * given a tag (s), searches through all Photos and takes the Uris of the
-     * Photos that have that tag. The Uris and their coorosponding Album and
+     * given a tag to find, searches through all Photos and takes the Uris of the
+     * Photos that have that tag. The Uris and their corresponding Album and
      * Photo indices are placed in a SearchItem and added to the returned
      * ArrayList
      * 
-     * @param s
-     * @return tagged
+     * @param tagToFind The tag to find
+     * @return tagged The ArrayList<SearchItem> with matching tags
      */
-    public static ArrayList<SearchItem> findPhotos(String s)
+    public static ArrayList<SearchItem> findPhotos(String tagToFind)
     {
 
         ArrayList<SearchItem> tagged = new ArrayList<SearchItem>();
@@ -777,7 +877,7 @@ public class Controller
         {
             for (int j = 0; j < albums.get(i).size(); j++)
             {
-                if (albums.get(i).getPhoto(j).hasTag(s))
+                if (albums.get(i).getPhoto(j).hasTag(tagToFind))
                     tagged.add(new SearchItem(i, j, albums.get(i).getPhoto(j)
                             .getPicture()));
 

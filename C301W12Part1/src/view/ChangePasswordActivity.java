@@ -85,7 +85,7 @@ public class ChangePasswordActivity extends Activity  implements OnClickListener
                     status.setText("Old Password Incorrect");
                 else if(knowOld && newPassMatch){
                     Controller.setPassword(newP1.getText().toString());
-                    Controller.savePassword();
+                    Controller.savePassword(null);
                     finish();
                 }
                 
