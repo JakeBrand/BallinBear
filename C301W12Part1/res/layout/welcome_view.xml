@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
         android:text="@string/welcomeLabelText"
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="100dp"/>
-
-    <Button
-        android:id="@+id/takeNewPhotoButton"
-        android:layout_width="196dp"
-        android:layout_height="84dp"
-        android:layout_margin="60dp"
-        android:text="@string/takeNewLabelText" />
-
-    <Button
-        android:id="@+id/viewAlbumsButton"
-        android:layout_width="196dp"
-        android:layout_height="84dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/albumLabelText" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="196dp"
-        android:layout_height="84dp"
-        android:layout_marginLeft="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:text="@string/searchPhotosText" />
 
-</LinearLayout>
+        <Button
+        android:id="@+id/takeNewPhotoButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/searchButton"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="100dp"
+        android:text="@string/TakeAPicture"/>
+    <Button
+        android:id="@+id/viewAlbumsButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/searchButton"
+        android:layout_alignBottom="@+id/searchButton"
+        android:text="@string/albumLabelText" />
+
+
+
+</RelativeLayout>

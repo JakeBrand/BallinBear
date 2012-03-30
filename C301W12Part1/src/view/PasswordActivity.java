@@ -103,44 +103,7 @@ public class PasswordActivity extends Activity  implements OnClickListener{
                 }
                 else
                 {
-                    int k = (int) (Math.random()*10);
-                    TextView status = (TextView) findViewById(R.id.enterPasswordStatusTextView);
-                    switch (k)
-                    {
-                        case 0:
-                            status.setText("Wrong");
-                            break;
-                        case 1:
-                            status.setText("Fail");
-                            break;
-                        case 2:
-                            status.setText("No...FOOL!");
-                            break;
-                        case 3:
-                            status.setText("Really?");
-                            break;
-                        case 4:
-                            status.setText("Umm.. NO!");
-                            break;
-                        case 5:
-                            status.setText("Come on!");
-                            break;
-                        case 6:
-                            status.setText("You're making me sad");
-                            break;
-                        case 7:
-                            status.setText("That is not the needed input");
-                            break;
-                        case 8:
-                            status.setText("Deleting SDCard... Just kidding");
-                            break;
-                        case 9:
-                            status.setText(":(");
-                            break;
-                        default:
-                            status.setText("Incorrect Password");
-                            break;
-                    }
+                    setErrorText();
                 }
                 
                 break;
@@ -153,7 +116,47 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         }
     }
     
-    
+    private void setErrorText(){
+        
+        int k = (int) (Math.random()*10);
+        TextView status = (TextView) findViewById(R.id.enterPasswordStatusTextView);
+        switch (k)
+        {
+            case 0:
+                status.setText("Wrong");
+                break;
+            case 1:
+                status.setText("Fail");
+                break;
+            case 2:
+                status.setText("No...FOOL!");
+                break;
+            case 3:
+                status.setText("Really?");
+                break;
+            case 4:
+                status.setText("Umm.. NO!");
+                break;
+            case 5:
+                status.setText("Come on!");
+                break;
+            case 6:
+                status.setText("You're making me sad");
+                break;
+            case 7:
+                status.setText("That is not the needed input");
+                break;
+            case 8:
+                status.setText("Deleting SDCard... Just kidding");
+                break;
+            case 9:
+                status.setText(":(");
+                break;
+            default:
+                status.setText("Incorrect Password");
+                break;
+        }
+    }
     
 
 }
