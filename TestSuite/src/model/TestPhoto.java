@@ -1,16 +1,22 @@
-package testModel;
+package model;
 
 import static org.junit.Assert.*;
 
+import java.net.URI;
 import java.util.Date;
 
 import model.Photo;
 
 import org.junit.Test;
 
+import android.net.Uri;
+
+import android.net.Uri;
+
 public class TestPhoto
 {
-
+    
+    
     @Test
     public final void testPhoto(){
 
@@ -63,6 +69,52 @@ public class TestPhoto
         assertEquals("comment2", p.getComment());
     }
 
+    @Test
+    public void testHasTag()
+    {
+        Photo p = new Photo("red foot", null);
+        assert(p.hasTag("red"));
+        assert(p.hasTag("foot"));
+        assertEquals(false, p.hasTag("fffff"));
+        
 
+    }
+
+
+
+    @Test
+    public void testInTags()
+    {
+        Photo p = new Photo("red foot", null);
+        assert(p.inTags("red"));
+        assert(p.inTags("foot"));
+        
+    }
+
+    @Test
+    public void testAddTag()
+    {
+        Photo p = new Photo("red foot djdjdj", null);
+        assert(p.hasTag("red"));
+        p.addTag("djdjdj");
+        assert(p.hasTag("djdjdj"));
+        
+    }
+
+
+
+// Cannot actually test without Uri
+    @Test
+    public void testSetPicture()
+    {
+        assert(true);
+    }
+
+    @Test
+    public void testGetPicture()
+    {
+
+        assert(true);
+    }
 
 }

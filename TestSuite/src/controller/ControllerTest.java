@@ -1,8 +1,11 @@
-package control;
+package controller;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
 
 import model.Album;
@@ -10,20 +13,16 @@ import model.Photo;
 
 import org.junit.Test;
 
+import android.content.Intent;
 import android.net.Uri;
 
 public class ControllerTest {
-	Photo photo1;
-    Photo photo2;
-    Photo photo3;
-    Photo photo4;
-    Photo photo5;
-    Photo photo6;
-    Album album1;
-    Album album2;
-    Album album3;
-    ArrayList<Album> albs;
 
+    ArrayList<Album> albs;
+    public static final int         SECONDSPERMIN    = 60;
+    public static final int         SECONDSPERHOUR   = SECONDSPERMIN * 60;
+    public static final int         SECONDSPERDAY    = SECONDSPERHOUR * 24;
+    //public static Uri uri;
 
 	public void setup(){
 //		photo1 = new Photo("comment1", null);
@@ -63,13 +62,11 @@ public class ControllerTest {
         assertEquals(true, Controller.class != null);
         teardown();
     }
-
     
 	@Test
 	public void testGetAlbum() {
 		setup();
         Controller.addAlbum("Album1", null, "Comment1");
-//      Controller.addPhoto(0, null, "Comment");
         assertEquals("Album1", Controller.getAlbum(0).getAlbumName());
         teardown();
 	}
@@ -243,21 +240,58 @@ public class ControllerTest {
         assertEquals("NewAlbum3", Controller.getAlbumNames()[2]);
         teardown();
 	}
-//	
-//    public static void removeAlarm(){
-//        ScheduledFuture notifyerHandle = getCurrentAlbum().getNotifyerHandler();
-//        if(notifyerHandle!= null){
-////            Log.d("NotifyerHandle Not", "Null");
-//            getCurrentAlbum().setNotifyerHandle(null,0,0);
-//        }
-//    }
 
+//	@Test
+//	public void testRemoveAlarm(){
+//		
+//	}
+	
+//	@Test
+//	public void testAddAlarm(){
+//		
+//	}
+	
+//	@Test
+//	public void testsendNotification(){
+//		
+//	}
+	
 	@Test
-	public void testRemoveAlarm(){
+	public void testGetInitialDelaySeconds(){
 		
+		int day = 0;
+		int hour = 0;
+		int min = 1;
+		Date today = Calendar.getInstance().getTime();
+		SimpleDateFormat DAY = new SimpleDateFormat("dd");
+		int currentDay = (Integer.parseInt(DAY.format(today))) % 7;
+		SimpleDateFormat HOUR = new SimpleDateFormat("HH");
+		int currentHour = Integer.parseInt(HOUR.format(today));
+		SimpleDateFormat MIN = new SimpleDateFormat("mm");
+		int currentMin = Integer.parseInt(MIN.format(today));
+		SimpleDateFormat SEC = new SimpleDateFormat("ss");
+		int currentSec = Integer.parseInt(SEC.format(today));
+		int secInDay = ((day + 7) % 7 - currentDay) * SECONDSPERDAY;
+		int secInHour = ((hour + 24) % 24 - currentHour) * SECONDSPERHOUR;
+		int secInMin = ((min + 60) % 60 - currentMin) * SECONDSPERMIN;
+		int delaySeconds = secInDay + secInHour + secInMin - currentSec;
 		
+		assertEquals(delaySeconds, Controller.getInitialDelaySeconds(day, hour, min));	
 		
 	}
+	@Test
+	public void testGetRepeatedDelaySeconds(){
+		int week = 0;
+		int day = 0;
+		int hour = 1;
+		int secInWeek = (SECONDSPERDAY * 7 * week);
+        int secInDay = (SECONDSPERDAY * day);
+        int secInHour = (SECONDSPERHOUR * hour);
+        int delaySeconds = secInWeek + secInDay + secInHour;
+        assertEquals(delaySeconds, Controller.getRepeatedDelaySeconds(week, day, hour));
+	
+	}
+
 	
 	@Test
 	public void testGetPhoto() {
@@ -324,16 +358,27 @@ public class ControllerTest {
         teardown();
 	}
 
-//	@Test
-//	public void testCheckAlbumNames() {
-//		fail("Not yet implemented");
-//	}
-//
+	@Test
+	public void testCheckAlbumNames() {
+		setup();
+        assertEquals(0, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals(1, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album2", null, "Comment2");
+        assertEquals(2, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album3", null, "Comment");
+        assertEquals(3, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album4", null, "Comment");
+        assertEquals(4, Controller.getAlbumNames().length);
+        assertEquals(3, Controller.checkAlbumNames("Album1"));
+	}
+
 //	@Test
 //	public void testSaveObject() {
-//		fail("Not yet implemented");
+//		Controller.saveObject();
+//		
 //	}
-//
+
 //	@Test
 //	public void testLoadObject() {
 //		fail("Not yet implemented");
