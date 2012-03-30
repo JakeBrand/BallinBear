@@ -3,6 +3,7 @@ package control;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledFuture;
 
 import model.Album;
 import model.Photo;
@@ -66,215 +67,261 @@ public class ControllerTest {
     
 	@Test
 	public void testGetAlbum() {
-//        setup();
-        Controller.addAlbum("Album1", null, null);
+		setup();
+        Controller.addAlbum("Album1", null, "Comment1");
+//      Controller.addPhoto(0, null, "Comment");
         assertEquals("Album1", Controller.getAlbum(0).getAlbumName());
+        teardown();
 	}
 
 	@Test
 	public void testSetCurrentPhoto() {
-		//setup();
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		assertEquals("Comment2", Controller.getCurrentPhoto().getComment());
+		teardown();
 	}
 
 	@Test
 	public void testGetCurrentPhotoIndex() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		assertEquals(2, Controller.getCurrentPhotoIndex());
+		teardown();
 	}
 
 	@Test
 	public void testGetCurrentPhoto() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		assertEquals("Comment2", Controller.getCurrentPhoto().getComment());
-	
+		teardown();
 	}
 
 	@Test
 	public void testSetComparePhoto1() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setComparePhoto1(0);
 		Controller.setCurrentPhoto(0);
 		assertEquals(Controller.getComparePhoto1(), Controller.getCurrentPhoto());
-		
+		teardown();		
 	}
 
 	@Test
 	public void testSetComparePhoto2() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setComparePhoto2(0);
 		Controller.setCurrentPhoto(0);
 		assertEquals(Controller.getComparePhoto2(), Controller.getCurrentPhoto());
+		teardown();
 	}
 
 	@Test
 	public void testGetComparePhoto1() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setComparePhoto1(0);
 		Controller.setCurrentPhoto(0);
 		assertEquals(Controller.getComparePhoto1(), Controller.getCurrentPhoto());
+		teardown();
 	}
 
 	@Test
 	public void testGetComparePhoto2() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setComparePhoto2(0);
 		Controller.setCurrentPhoto(0);
 		assertEquals(Controller.getComparePhoto2(), Controller.getCurrentPhoto());
+		teardown();
 	}
 
 	@Test
 	public void testGetCurrentAlbum() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		Controller.setCurrentAlbum(0);
 		assertEquals("Album1", Controller.getCurrentAlbum().getAlbumName());
+		teardown();
 	}
 
 	@Test
 	public void testSetCurrentAlbum() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		Controller.setCurrentAlbum(0);
 		assertEquals("Album1", Controller.getCurrentAlbum().getAlbumName());
+		teardown();
 	}
 
 	@Test
 	public void testSetCurrentAlbumName() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		Controller.setCurrentAlbum(0);
 		Controller.setCurrentAlbumName("Name");
 		assertEquals("Name", Controller.getCurrentAlbum().getAlbumName());
+		teardown();
 	}
 
 	@Test
 	public void testGetCurrentAlbumIndex() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		Controller.setCurrentAlbum(0);
 		Controller.setCurrentAlbumName("Name");
 		assertEquals("Name", Controller.getCurrentAlbum().getAlbumName());
+		teardown();
 	}
 
 	@Test
 	public void testAddAlbum() {
+		setup();
+		Controller.addAlbum("Album1", null, "Comment");
 		Controller.addPhoto(0, null, "Comment");
 		Controller.addPhoto(0, null, "Comment2");
 		Controller.setCurrentPhoto(2);
 		Controller.setCurrentAlbum(0);
 		Controller.addAlbum("Hello", null, "Comment3");
 		assertEquals("Comment3", Controller.getCurrentAlbum().getPhoto(0).getComment());
+		teardown();
 	}
 
-//	@Test
-//	public void testDeleteAlbum() {
-//        Controller.addAlbum("Album1", null, null);
-//        assertEquals(3, Controller.getAlbumNames().length);
-//        Controller.setCurrentAlbum(0);
-//        Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
-//        Controller.deleteAlbum(1);
-//        Controller.deleteAlbum(0);
-//        assertEquals(0, Controller.getAlbumNames().length);
-// 	}
-//
-//	@Test
-//	public void testUpdateAlbum() {
-//        setup();
-//        Controller.addAlbum("Album1", null, null);
-//        assertEquals(1, Controller.getAlbumNames().length);
-//        Controller.deleteAlbum(0);
-//        assertEquals(0, Controller.getAlbumNames().length);
-//        Controller.addAlbum("Album1", null, null);
-//        Controller.addAlbum("Album2", null, null);
-//        Controller.addAlbum("Album3", null, null);
-//        Controller.updateAlbum(2, "NewAlbum3");
-//        assertEquals("NewAlbum3", Controller.getAlbumNames()[2]);
-//        teardown();
-//
-//	}
-//
-//	@Test
-//	public void testGetPhoto() {
-//        setup();
-//        Controller.addAlbum("Album1", null, null);
-//        assertEquals(1, Controller.getAlbumNames().length);
-//        Controller.deleteAlbum(0);
-//        assertEquals(0, Controller.getAlbumNames().length);
-//        Controller.addAlbum("Album1", null, null);
-//        Controller.addAlbum("Album2", null, "Comment");
-//        Controller.addAlbum("Album3", null, null);
-//        assertEquals("Comment", Controller.getPhoto(1, 0).getComment());
-//        teardown();
-//	}
-//
-//	@Test
-//	public void testAddPhoto() {
-//        setup();
-//        Controller.addAlbum("Album1", null, null);
-//        assertEquals(1, Controller.getAlbumNames().length);
-//        Controller.deleteAlbum(0);
-//        assertEquals(0, Controller.getAlbumNames().length);
-//        Controller.addAlbum("Album1", null, null);
-//        Controller.addAlbum("Album2", null, null);
-//        Controller.addAlbum("Album3", null, null);
-//        Controller.addPhoto(1, null, null);
-//        assertEquals(2, Controller.getAlbum(1).getPhotos().size());
-//        teardown();
-//
-//	}
-//
-//	@Test
-//	public void testDeletePhoto() {
-//        setup();
-//        Controller.addAlbum("Album1", null, null);
-//        assertEquals(1, Controller.getAlbumNames().length);
-//        Controller.deleteAlbum(0);
-//        assertEquals(0, Controller.getAlbumNames().length);
-//        Controller.addAlbum("Album1", null, null);
-//        Controller.addAlbum("Album2", null, "Comment");
-//        Controller.addAlbum("Album3", null, null);
-//        Controller.deletePhoto(1, 0);
-//        assertEquals(0, Controller.getAlbum(1).getPhotos().size());
-//        teardown();
-//	}
-//
-//	@Test
-//	public void testUpdatePhoto() {
-//        setup();
-//        Controller.addAlbum("Album1", null, null);
-//        assertEquals(1, Controller.getAlbumNames().length);
-//        Controller.deleteAlbum(0);
-//        assertEquals(0, Controller.getAlbumNames().length);
-//        Controller.addAlbum("Album1", null, null);
-//        Controller.addAlbum("Album2", null, "Comment");
-//        Controller.addAlbum("Album3", null, null);
-//        assertEquals("Comment", Controller.getPhoto(1, 0).getComment());
-//        Controller.updatePhoto(1, 0, "New Comment");
-//        assertEquals("New Comment", Controller.getPhoto(1, 0).getComment());
-//        teardown();
-//	}
+	@Test
+	public void testDeleteAlbum() {
+		setup();
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals(1, Controller.getAlbumNames().length);
+        Controller.setCurrentAlbum(0);
+        Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+        assertEquals(0, Controller.getAlbumNames().length);
+        teardown();
+ 	}
+
+	@Test
+	public void testUpdateAlbum() {
+        setup();
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals(1, Controller.getAlbumNames().length);
+        Controller.deleteAlbum(0);
+        assertEquals(0, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album1", null, "Comment2");
+        Controller.addAlbum("Album2", null, "Comment3");
+        Controller.addAlbum("Album3", null, "Comment4");
+        Controller.updateAlbum(2, "NewAlbum3");
+        assertEquals("NewAlbum3", Controller.getAlbumNames()[2]);
+        teardown();
+	}
+//	
+//    public static void removeAlarm(){
+//        ScheduledFuture notifyerHandle = getCurrentAlbum().getNotifyerHandler();
+//        if(notifyerHandle!= null){
+////            Log.d("NotifyerHandle Not", "Null");
+//            getCurrentAlbum().setNotifyerHandle(null,0,0);
+//        }
+//    }
+
+	@Test
+	public void testRemoveAlarm(){
+		
+		
+		
+	}
+	
+	@Test
+	public void testGetPhoto() {
+        setup();
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals(1, Controller.getAlbumNames().length);
+        Controller.deleteAlbum(0);
+        assertEquals(0, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album1", null, "Comment2");
+        Controller.addAlbum("Album2", null, "Comment3");
+        Controller.addAlbum("Album3", null, "Comment4");
+        assertEquals("Comment3", Controller.getPhoto(1, 0).getComment());
+        teardown();
+	}
+
+	@Test
+	public void testAddPhoto() {
+        setup();
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals(1, Controller.getAlbumNames().length);
+        Controller.deleteAlbum(0);
+        assertEquals(0, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album1", null, "Comment2");
+        Controller.addAlbum("Album2", null, "Comment3");
+        Controller.addAlbum("Album3", null, "Comment4");
+        Controller.addPhoto(1, null, "Comment");
+        assertEquals(2, Controller.getAlbum(1).getPhotos().size());
+        teardown();
+
+	}
+
+	@Test
+	public void testDeletePhoto() {
+        setup();
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals(1, Controller.getAlbumNames().length);
+        Controller.deleteAlbum(0);
+        assertEquals(0, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album1", null, "Comment2");
+        Controller.addPhoto(0, null, "hi");
+        Controller.addAlbum("Album2", null, "Comment3");
+        Controller.addAlbum("Album3", null, "Comment4");
+        Controller.deletePhoto(0, 0);
+        assertEquals(1, Controller.getAlbum(0).getPhotos().size());
+        teardown();
+	}
+
+	@Test
+	public void testUpdatePhoto() {
+        setup();
+        assertEquals(0, Controller.getAlbumNames().length);
+        Controller.addAlbum("Album1", null, "Comment");
+        assertEquals("Comment", Controller.getPhoto(0, 0).getComment());
+        Controller.updatePhoto(0, 0, "New Comment");
+        assertEquals("New Comment", Controller.getPhoto(0, 0).getComment());
+        teardown();
+	}
 
 	@Test
 	public void testGetAlbumNames() {
         setup();
-        Controller.addAlbum("Album1", null, null);
+        Controller.addAlbum("Album1", null, "Comment");
         assertEquals("Album1", Controller.getAlbum(0).getAlbumName());
+        teardown();
 	}
 
 //	@Test
