@@ -10,7 +10,7 @@ import model.Photo;
 
 import org.junit.Test;
 
-import control.Controller;
+import controller.Controller;
 
 
 public class TestController
@@ -71,7 +71,7 @@ public class TestController
     public void testAddAlbum()
     {
         setup();
-        Controller.addAlbum("Album1", null, null);
+        Controller.addAlbum("Album1", null, "Comment");
         System.out.println("" + Controller.getAlbumNames().length);
         assertEquals(1, Controller.getAlbumNames().length);
         assertEquals("Album1", Controller.getAlbum(0).getAlbumName());

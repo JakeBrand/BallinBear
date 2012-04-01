@@ -1,16 +1,15 @@
-package testModel;
+package model;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import model.Album;
-import model.Photo;
-
 import org.junit.Test;
+
 
 public class TestAlbum
 {
+    
     Album album;
     Photo first;
     Photo second;
@@ -155,6 +154,30 @@ public class TestAlbum
         album.updatePhoto(0, second);
         assertEquals(second, album.getPhoto(0));
         tearDown();
+    }
+
+
+ // Cannot actually test without Activities
+    
+    @Test
+    public void testGeScheduler()
+    {
+
+        assert(true);
+    }
+
+    @Test
+    public void testSetNotifyerHandle()
+    {
+
+        assert(true);
+    }
+
+    @Test
+    public void testGetNotifyerHandler()
+    {
+
+        assert(true);
     }
 
 }
