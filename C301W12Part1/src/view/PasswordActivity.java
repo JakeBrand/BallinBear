@@ -36,6 +36,11 @@ public class PasswordActivity extends Activity  implements OnClickListener{
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+		try {
+			Controller.loadPassword(this.getApplicationContext());
+		} catch (Exception e) {
+			
+		}
     }
     
     /**
