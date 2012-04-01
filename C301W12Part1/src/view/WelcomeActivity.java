@@ -60,7 +60,7 @@ public class WelcomeActivity extends Activity {
             setContentView(R.layout.welcome_view);
 
             Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
-            viewAlbums.setBackgroundColor(Color.CYAN);
+            viewAlbums.setBackgroundResource(drawable.ic_menu_gallery);
 
             OnClickListener viewAlbumsListener = new OnClickListener() {
 
