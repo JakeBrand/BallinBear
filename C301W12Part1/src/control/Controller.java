@@ -431,8 +431,13 @@ public class Controller
 
         Date today = Calendar.getInstance().getTime();
 
+        // NOTE: SimpleDatFormat formats day from 1-7. currentDay should be
+        // formatted 0-6
         SimpleDateFormat DAY = new SimpleDateFormat("dd");
-        int currentDay = (Integer.parseInt(DAY.format(today))) % 7;
+        int currentDay = ((Integer.parseInt(DAY.format(today))) % 7 - 1);
+        Log.d("day =", "" + day);
+        Log.d("currentDay =", "" + currentDay);
+
         SimpleDateFormat HOUR = new SimpleDateFormat("HH");
         int currentHour = Integer.parseInt(HOUR.format(today));
         SimpleDateFormat MIN = new SimpleDateFormat("mm");
@@ -453,7 +458,9 @@ public class Controller
      * 
      * Convert the week, day, or hour into seconds
      * 
-     * @param alarmFrequencyCode The code indicating which alarm frequency was chosen. 0=WEEK, 1=DAY, 2=HOUR; 
+     * @param alarmFrequencyCode
+     *            The code indicating which alarm frequency was chosen. 0=WEEK,
+     *            1=DAY, 2=HOUR;
      * @return delaySeconds The number of seconds to delay before repetition
      */
     private static int getRepeatedDelaySeconds(int alarmFrequencyCode)
@@ -556,6 +563,7 @@ public class Controller
     public static void updatePhoto(int albumIndex, int photoIndex,
             String newComment)
     {
+
         Album tempAlbum = albums.get(albumIndex);
 
         Photo tempPhoto = tempAlbum.getPhoto(photoIndex);
@@ -718,6 +726,7 @@ public class Controller
      */
     public static void loadPassword(Context c)
     {
+
         try
         {
             FileInputStream stream = c.openFileInput(passwordFileName);
