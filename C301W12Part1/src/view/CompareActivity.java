@@ -122,14 +122,11 @@ public class CompareActivity extends Activity implements OnClickListener
      */
     private void handlePic(ImageView imageView, Photo providedPhoto)
     {
-
-        Uri uri = providedPhoto.getPicture();
         try
         {
 
-            String imageFilePath = uri.getPath();
-            FileInputStream inputStream;
-            inputStream = new FileInputStream(imageFilePath);
+            String imageFilePath = providedPhoto.getPicture().getPath();
+            FileInputStream inputStream = new FileInputStream(imageFilePath);
             BufferedInputStream bufferedInput = new BufferedInputStream(
                     inputStream);
             Bitmap BMPphoto = BitmapFactory.decodeStream(bufferedInput);

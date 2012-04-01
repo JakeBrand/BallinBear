@@ -487,12 +487,10 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      */
     private void saveBMP(Uri imageUri)
     {
-
-        OutputStream stream;
         try
         {
             File intentFile = new File(imageUri.getPath());
-            stream = new FileOutputStream(intentFile);
+            OutputStream stream = new FileOutputStream(intentFile);
             BMPphoto.compress(Bitmap.CompressFormat.JPEG, 75, stream);
             stream.close();
         } catch (FileNotFoundException e)

@@ -89,12 +89,9 @@ public class Photo implements Serializable
 
         StringTokenizer token = new StringTokenizer(comm);
         String str;
-        int count = 0;
         ArrayList<String> tags = new ArrayList<String>();
         while (token.hasMoreTokens())
         {
-            count++;
-
             str = token.nextToken();
             if (Controller.inTags(str))
             {

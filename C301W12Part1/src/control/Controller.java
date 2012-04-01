@@ -352,19 +352,7 @@ public class Controller
         int initialDelay = getInitialDelaySeconds(alarmDay, alarmHour, alarmMin);
         Log.d("Adding alarm with Initial Delay", "" + initialDelay);
 
-        int selection = 1;
-        int repeatedDelay = 0;
-
-        if (alarmFrequency == 0)
-        {
-            repeatedDelay = getRepeatedDelaySeconds(selection, 0, 0);
-        } else if (alarmFrequency == 1)
-        {
-            repeatedDelay = getRepeatedDelaySeconds(0, selection, 0);
-        } else if (alarmFrequency == 2)
-        {
-            repeatedDelay = getRepeatedDelaySeconds(0, 0, selection);
-        }
+        int repeatedDelay = getRepeatedDelaySeconds(alarmFrequency);
         getCurrentAlbum().setNotifyerHandle(codeToRun, initialDelay,
                 repeatedDelay);
 
@@ -465,21 +453,23 @@ public class Controller
      * 
      * Convert the week, day, or hour into seconds
      * 
-     * @param week
-     *            The number of weeks to convert to seconds
-     * @param day
-     *            The number of days to convert to seconds
-     * @param hour
-     *            The number of hours to convert to seconds
+     * @param alarmFrequencyCode The code indicating which alarm frequency was chosen. 0=WEEK, 1=DAY, 2=HOUR; 
      * @return delaySeconds The number of seconds to delay before repetition
      */
-    private static int getRepeatedDelaySeconds(int week, int day, int hour)
+    private static int getRepeatedDelaySeconds(int alarmFrequencyCode)
     {
 
-        int secInWeek = (SECONDSPERDAY * 7 * week);
-        int secInDay = (SECONDSPERDAY * day);
-        int secInHour = (SECONDSPERHOUR * hour);
-        int delaySeconds = secInWeek + secInDay + secInHour;
+        int delaySeconds = 0;
+        if (alarmFrequencyCode == 0)
+        {
+            delaySeconds = (SECONDSPERDAY * 7);
+        } else if (alarmFrequencyCode == 1)
+        {
+            delaySeconds = (SECONDSPERDAY);
+        } else
+        /* (alarmFrequency == 2) */{
+            delaySeconds = (SECONDSPERHOUR);
+        }
 
         return delaySeconds;
     }
@@ -566,9 +556,6 @@ public class Controller
     public static void updatePhoto(int albumIndex, int photoIndex,
             String newComment)
     {
-
-        Log.e("updatePhoto", "update photo " + photoIndex + " in album "
-                + albumIndex + " with comment " + newComment);
         Album tempAlbum = albums.get(albumIndex);
 
         Photo tempPhoto = tempAlbum.getPhoto(photoIndex);
@@ -627,13 +614,13 @@ public class Controller
     }
 
     /**
-     * saveObject 
+     * saveObject
      * 
-     * Saves the ArrayList albums to file  and sets teh context
+     * Saves the ArrayList albums to file and sets teh context
      */
     public static void saveObject()
     {
-        
+
         FileOutputStream stream = null;
         try
         {
@@ -658,14 +645,16 @@ public class Controller
      */
     public static void savePassword(Context c)
     {
-        if(c!=null){
-        ctx =c;
+
+        if (c != null)
+        {
+            ctx = c;
         }
-        FileOutputStream stream = null;
         try
         {
-            stream = ctx.openFileOutput(passwordFileName, Context.MODE_PRIVATE);
-            
+            FileOutputStream stream = ctx.openFileOutput(passwordFileName,
+                    Context.MODE_PRIVATE);
+
             ObjectOutputStream out = new ObjectOutputStream(stream);
             out.writeObject(password);
             out.flush();
@@ -678,21 +667,17 @@ public class Controller
     }
 
     /**
-     * loadObject 
+     * loadObject
      * 
      * Loads the ArrayList albums from file
-     * 
-     * @param c Context object was saved in
      */
     @SuppressWarnings("unchecked")
     public static void loadObject()
     {
 
-        FileInputStream stream = null;
-
         try
         {
-            stream = ctx.openFileInput(fileName);
+            FileInputStream stream = ctx.openFileInput(fileName);
             if (stream == null)
             {
                 return;
@@ -700,8 +685,7 @@ public class Controller
 
             ObjectInputStream in = new ObjectInputStream(stream);
             ArrayList<Album> list;
-            Object temp;
-            temp = in.readObject();
+            Object temp = in.readObject();
             if (temp != null)
             {
                 list = (ArrayList<Album>) temp;
@@ -728,24 +712,22 @@ public class Controller
      * loadPassword
      * 
      * Load the password from the file
-     * @param c The context the password was saved in
+     * 
+     * @param c
+     *            The context the password was saved in
      */
     public static void loadPassword(Context c)
     {
-
-        FileInputStream stream = null;
-
         try
         {
-            stream = c.openFileInput(passwordFileName);
+            FileInputStream stream = c.openFileInput(passwordFileName);
             if (stream == null)
             {
                 return;
             }
 
             ObjectInputStream in = new ObjectInputStream(stream);
-            Object temp;
-            temp = in.readObject();
+            Object temp = in.readObject();
             if (temp != null)
             {
                 String tt = (String) temp;
@@ -772,7 +754,8 @@ public class Controller
      * 
      * Given a tag to check, determines if it is one of the given tags
      * 
-     * @param tagToCheck The tag to check
+     * @param tagToCheck
+     *            The tag to check
      * @return inTag True if the tag is known. False if the tag is not known.
      */
     public static boolean inTags(String tagToCheck)
@@ -860,12 +843,13 @@ public class Controller
     /**
      * findPhotos
      * 
-     * given a tag to find, searches through all Photos and takes the Uris of the
-     * Photos that have that tag. The Uris and their corresponding Album and
+     * given a tag to find, searches through all Photos and takes the Uris of
+     * the Photos that have that tag. The Uris and their corresponding Album and
      * Photo indices are placed in a SearchItem and added to the returned
      * ArrayList
      * 
-     * @param tagToFind The tag to find
+     * @param tagToFind
+     *            The tag to find
      * @return tagged The ArrayList<SearchItem> with matching tags
      */
     public static ArrayList<SearchItem> findPhotos(String tagToFind)
