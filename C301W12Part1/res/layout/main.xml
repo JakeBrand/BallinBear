@@ -24,5 +24,12 @@
             android:layout_height="wrap_content" >
         </ListView>
     </LinearLayout>
+    
+    
+	<Button
+        android:id="@+id/editAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editAlbum" />
 
 </LinearLayout>

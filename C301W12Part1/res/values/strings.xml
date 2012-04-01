@@ -50,6 +50,7 @@
     <string name="removeAlarm">Remove Alarm</string>
     <string name="alarmStartTime">Alarm Start Time</string>
     <string name="alarmFrequency">Alarm Frequency</string>
+    <string name="editAlbum">Edit Album</string>
 
 
 </resources>

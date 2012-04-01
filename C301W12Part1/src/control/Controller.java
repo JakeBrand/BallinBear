@@ -624,7 +624,7 @@ public class Controller
     /**
      * saveObject
      * 
-     * Saves the ArrayList albums to file and sets teh context
+     * Saves the ArrayList albums to file and sets the context
      */
     public static void saveObject()
     {
@@ -632,7 +632,7 @@ public class Controller
         FileOutputStream stream = null;
         try
         {
-
+            
             stream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream out = new ObjectOutputStream(stream);
             out.writeObject(albums);
@@ -719,7 +719,7 @@ public class Controller
     /**
      * loadPassword
      * 
-     * Load the password from the file
+     * Load the password from the file and set the context
      * 
      * @param c
      *            The context the password was saved in
@@ -729,6 +729,7 @@ public class Controller
 
         try
         {
+            ctx = c;
             FileInputStream stream = c.openFileInput(passwordFileName);
             if (stream == null)
             {
