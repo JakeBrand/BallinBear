@@ -536,18 +536,52 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             Toast toast = Toast.makeText(getApplicationContext(),
                     "This picture is not in an album", Toast.LENGTH_SHORT);
             toast.show();
-        } else if (Controller.getCurrentAlbum().getPhotos().size() == 1)
-        {
-            Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
-
-            finish();
-        } else
-        {
-            Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
-                    Controller.getCurrentPhotoIndex());
-            setResult(RESULT_CANCELED);
-            finish();
+        } else{
+            
+        	deletedialog();
         }
+    }
+    
+    private void deletedialog(){
+    	
+    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Warning");
+    	if (Controller.getCurrentAlbum().getPhotos().size() == 1)
+        {
+    		alert.setMessage("Do you wish to delete the last photo in this album? \n(Album will be deleted)");
+        }
+    	
+    	else {
+    		alert.setMessage("Do you wish to delete this photo from this album?");
+    	}
+
+    	alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+            	if (Controller.getCurrentAlbum().getPhotos().size() == 1)
+                {
+            		Controller.deleteAlbum(Controller.getCurrentAlbumIndex());
+                    finish();
+                }
+
+            	else {
+            		Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
+                            Controller.getCurrentPhotoIndex());
+                    setResult(RESULT_CANCELED);
+                    finish();
+            	}
+            }    	
+        });
+    	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+                return;
+            }
+        });
+
+        alert.show();
     }
 
     /**
