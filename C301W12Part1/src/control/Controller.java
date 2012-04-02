@@ -866,6 +866,23 @@ public class Controller
     {
 
         ArrayList<SearchItem> tagged = new ArrayList<SearchItem>();
+        if(!inTags(tagToFind)){
+            for (int i = 0; i < albums.size(); i++)
+            {
+                for (int j = 0; j < albums.get(i).size(); j++){
+                    if(albums.get(i).getPhoto(j).addTag(tagToFind))
+                        tagged.add(new SearchItem(i, j, albums.get(i).getPhoto(j)
+                                .getPicture()));
+                }
+            }
+            
+            return tagged;
+        }
+        
+        
+        
+        
+        
         for (int i = 0; i < albums.size(); i++)
         {
             for (int j = 0; j < albums.get(i).size(); j++)
