@@ -46,7 +46,7 @@ public class Photo implements Serializable
         boolean hasT = false;
         while (i < tags.size() && !hasT)
         {
-            hasT = (tags.get(i).equals(tag));
+            hasT = (tags.get(i).equalsIgnoreCase(tag));
             i++;
         }
         return hasT;
@@ -123,7 +123,7 @@ public class Photo implements Serializable
         int i = 0;
         while (i < tags.size() && !inTag)
         {
-            inTag = (tags.get(i).equals(tagToFind));
+            inTag = (tags.get(i).equalsIgnoreCase(tagToFind));
             i++;
         }
 

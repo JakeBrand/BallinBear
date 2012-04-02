@@ -52,7 +52,7 @@ public class SearchActivity extends Activity
         setContentView(R.layout.search_view);
 
         final EditText tagET = (EditText) findViewById(R.id.tagEditText);
-        tagET.setHint("right foot");
+        tagET.setHint("right or foot");
         
         
         final Gallery tagGallery = (Gallery) findViewById(R.id.tagGallery);
@@ -77,7 +77,7 @@ public class SearchActivity extends Activity
                 {
                     case 0:
 
-                        tagET.setHint("right foot");
+                        tagET.setHint("right or foot");
                         break;
                     case 1:
 
