@@ -342,6 +342,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         switch (validityState)
         {
             // Updating photo in same album
+        	// If the Bitmap was updated it will update timestamp and move to last position in album
             case UPDATING_PHOTO:
             	if (preBMP != BMPphoto){
                		Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
