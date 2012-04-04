@@ -91,7 +91,7 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Alarm Start Day");
+        alert.setTitle("Begin Setting Alarm");
         alert.setMessage("Select the Alarm Start Day");
 
         String[] days = { "Sunday", "Monday", "Tuesday", "Wednesday",
@@ -141,7 +141,7 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Alarm Start Time");
+        alert.setTitle("Continue Setting Alarm");
         alert.setMessage("Select the Alarm Start Time");
 
         final TimePicker timePicker = new TimePicker(this);
@@ -179,13 +179,14 @@ public class AlbumEditActivity extends Activity implements OnClickListener
     /**
      * setAlarmFrequency
      * 
-     * Set the frequency of the alarm repetition
+     * Set the frequency of the alarm repetition and if confirmed, save the
+     * alarm to the album
      */
     public void setAlarmFrequency()
     {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Alarm Frequency");
+        alert.setTitle("Finish Setting Alarm");
         alert.setMessage("Select the Alarm Frequency");
 
         String[] frequencies = { "Weekly", "Daily", "Hourly" };
@@ -209,6 +210,13 @@ public class AlbumEditActivity extends Activity implements OnClickListener
                 completedAlarm = true;
                 int position = frequencySpinner.getSelectedItemPosition();
                 alarmFrequency = position;
+
+                Controller.addAlarm(alarmDay, alarmHour, alarmMin,
+                        alarmFrequency, alarmContext);
+
+                Toast alarmAdded = Toast.makeText(AlbumEditActivity.this,
+                        "Alarm Added", Toast.LENGTH_SHORT);
+                alarmAdded.show();
             }
         });
 
@@ -230,7 +238,7 @@ public class AlbumEditActivity extends Activity implements OnClickListener
      * Warn the user that all photos will be deleted If OK clicked, delete the
      * album If Cancel clicked, do nothing
      */
-    public void displayWarning()
+    public void displayDeletionWarning()
     {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -282,34 +290,37 @@ public class AlbumEditActivity extends Activity implements OnClickListener
 
             case R.id.removeAlarmButton:
 
-                Controller.removeAlarm();
-                Toast alarmRemoved = Toast.makeText(this, "Alarm Removed",
-                        Toast.LENGTH_SHORT);
-                alarmRemoved.show();
+                Toast alarmRemovedToast;
+                if (Controller.removeAlarm())
+                {
+                    alarmRemovedToast = Toast.makeText(this, "Alarm Removed",
+                            Toast.LENGTH_SHORT);
+                } else
+                {
+                    alarmRemovedToast = Toast.makeText(this,
+                            "No alarm to remove", Toast.LENGTH_SHORT);
+                }
+
+                alarmRemovedToast.show();
                 break;
 
             case R.id.deleteButton:
 
-                displayWarning();
+                displayDeletionWarning();
                 break;
 
             case R.id.doneButton:
 
                 Controller.setCurrentAlbumName(albName.getText().toString());
-                if (completedAlarm)
-                {
-                    Controller.addAlarm(alarmDay, alarmHour, alarmMin,
-                            alarmFrequency, alarmContext);
-
-                    Toast alarmAdded = Toast.makeText(this, "Alarm Added",
-                            Toast.LENGTH_SHORT);
-                    alarmAdded.show();
-                }
+                Controller.saveObject();
                 finish();
                 break;
 
             case R.id.backToAlbumButton:
-
+                if (completedAlarm)
+                {
+                    Controller.removeAlarm();
+                }
                 finish();
                 break;
 

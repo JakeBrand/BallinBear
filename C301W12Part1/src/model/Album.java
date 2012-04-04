@@ -179,12 +179,6 @@ public class Album implements Serializable
     {
 
         photos.set(photoIndex, photo);
-        // if(photo.getPicture().equals(photos.get(photoIndex).getPicture()))
-        // photos.set(photoIndex, photo);
-        // else{
-        // photos.remove(photoIndex);
-        // photos.add(photo);
-        // }
     }
 
     /**

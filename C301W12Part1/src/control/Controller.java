@@ -363,15 +363,16 @@ public class Controller
      * 
      * Remove the alarm from the Album
      */
-    public static void removeAlarm()
+    public static boolean removeAlarm()
     {
-
+        boolean removed = false;
         ScheduledFuture notifyerHandle = getCurrentAlbum().getNotifyerHandler();
         if (notifyerHandle != null)
         {
-            Log.d("NotifyerHandle Not", "Null");
             getCurrentAlbum().setNotifyerHandle(null, 0, 0);
+            removed = true;
         }
+        return removed;
     }
 
     /**
@@ -445,9 +446,11 @@ public class Controller
         SimpleDateFormat SEC = new SimpleDateFormat("ss");
         int currentSec = Integer.parseInt(SEC.format(today));
 
-        int secInDay = ((day + 7) % 7 - currentDay) * SECONDSPERDAY;
-        int secInHour = ((hour + 24) % 24 - currentHour) * SECONDSPERHOUR;
-        int secInMin = ((min + 60) % 60 - currentMin) * SECONDSPERMIN;
+        int secInDay = ((day  - currentDay + 7) % 7) * SECONDSPERDAY;
+        Log.d("DEBUG", "represented day is " + (day+7)%7);
+        Log.d("DEBUG", "represented currentDay is "+ currentDay);
+        int secInHour = ((hour  - currentHour + 24)% 24) * SECONDSPERHOUR;
+        int secInMin = ((min - currentMin + SECONDSPERHOUR) % 60) * SECONDSPERMIN;
         int delaySeconds = secInDay + secInHour + secInMin - currentSec;
 
         return delaySeconds;

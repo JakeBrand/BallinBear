@@ -37,14 +37,17 @@ import android.widget.Toast;
 public class SlideShowActivity extends Activity {
 
 	/**
-	 * alb is a private field representing the Album the slidewhow has been
-	 * called in
+	 * private fields used in methods they can't be passed to
 	 */
 	private Album alb;
 	private Gallery ssg;
 	private Handler autoGalleryHandler;
-	private Timer autoGallery;
 
+	/**
+	 * onCreate
+	 * 
+	 * Update GUI and create timer
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -63,7 +66,6 @@ public class SlideShowActivity extends Activity {
 		back.setOnClickListener(backListener);
 
 		ssg = (Gallery) findViewById(R.id.slideshowgallery);
-
 		ssg.setAdapter(new ImageAdapter(this));
 		ssg.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -71,7 +73,7 @@ public class SlideShowActivity extends Activity {
 			}
 		});
 
-		autoGallery = new Timer();
+		Timer autoGallery = new Timer();
 		autoGalleryHandler = new Handler() {
 			public void handleMessage(Message message) {
 				super.handleMessage(message);
@@ -82,10 +84,7 @@ public class SlideShowActivity extends Activity {
 				}
 			}
 		};
-		autoGallery.schedule(new RemindTask(),0,1500);
-
-
-		
+		autoGallery.schedule(new RemindTask(),0,1500);		
 
 	}
 
@@ -138,7 +137,6 @@ public class SlideShowActivity extends Activity {
 
 			Bitmap bm = BitmapFactory.decodeFile(pic.getPath());
 
-			// i.setImageResource((int) ContentUris.parseId(pic));
 			i.setImageBitmap(bm);
 			i.setLayoutParams(new Gallery.LayoutParams(LayoutParams.FILL_PARENT - 50, LayoutParams.FILL_PARENT - 50));
 			i.setScaleType(ImageView.ScaleType.FIT_XY);

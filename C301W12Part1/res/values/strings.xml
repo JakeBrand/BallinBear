@@ -14,7 +14,7 @@
     <string name="DeletePhoto">Delete Photo</string>
     <string name="Back">Back</string>
 
-    <string name="app_name">CicatrixTracker</string>
+    <string name="app_name">Cicatrix Tracker</string>
     <string name="menuButtonText">Menu</string>
     <string name="sortLabelText">Sort</string>
     <string name="saveLabelext">Save</string>
@@ -46,7 +46,7 @@
     <string name="enterTagText">Enter Tag</string>
     <string name="searchPhotosText">Search Photos</string>
     <string name="searchByDateText">Search By Date</string>
-    <string name="addAlarm">Add Alarm</string>
+    <string name="addAlarm">Set Alarm</string>
     <string name="removeAlarm">Remove Alarm</string>
     <string name="alarmStartTime">Alarm Start Time</string>
     <string name="alarmFrequency">Alarm Frequency</string>
