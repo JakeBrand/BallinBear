@@ -778,7 +778,7 @@ public class Controller
         int i = 0;
         while (i < tags.size() && !inTag)
         {
-            inTag = (tags.get(i).equalsIgnoreCase(tagToCheck));
+            inTag = (tags.get(i).equals(tagToCheck.toLowerCase()));
             i++;
         }
 
@@ -873,7 +873,7 @@ public class Controller
             for (int i = 0; i < albums.size(); i++)
             {
                 for (int j = 0; j < albums.get(i).size(); j++){
-                    if(albums.get(i).getPhoto(j).addTag(tagToFind))
+                    if(albums.get(i).getPhoto(j).addTag(tagToFind.toLowerCase()))
                         tagged.add(new SearchItem(i, j, albums.get(i).getPhoto(j)
                                 .getPicture()));
                 }

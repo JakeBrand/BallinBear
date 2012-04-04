@@ -96,7 +96,7 @@ public class Photo implements Serializable
             if (Controller.inTags(str))
             {
                 Log.e(null, str);
-                tags.add(str);
+                tags.add(str.toLowerCase());
             }
 
         }
@@ -156,7 +156,7 @@ public class Photo implements Serializable
             str = token.nextToken();
             if (str.equals(tag))
             {
-                tags.add(str);
+                tags.add(str.toLowerCase());
                 hasNewTag = true;
             }
         }
