@@ -1,16 +1,20 @@
 package view;
 
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Bundle;
 
 import control.Controller;
 import ca.ualberta.ca.c301.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 /**
@@ -23,7 +27,6 @@ public class PasswordActivity extends Activity  implements OnClickListener{
     EditText passwordET;
     String password;
     TextView instructions;
-
     /**
      * On Create
      * 
@@ -81,7 +84,7 @@ public class PasswordActivity extends Activity  implements OnClickListener{
     /**
      * onClick
      * 
-     * Perfome action depending on clicked View
+     * Perform action depending on clicked View
      * 
      * @param v The View that has been clicked
      */
@@ -93,16 +96,12 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         {
             case R.id.enterPasswordButton:
                 if(password == null){
-                Controller.setPassword(PasswordActivity.this.passwordET.getText().toString());
-                Controller.savePassword(this);
-                password = Controller.getPassword();
-                Log.e(null,"password was null now is " + password);
+                	inflatePasswordCheckDialog();
                 }
                 
-                if(passwordET.getText().toString().equals(password)){
-                    Log.e(null,"entered password equals set password");
+                else if(passwordET.getText().toString().equals(password)){
                 finish();
-                
+               
                 Intent welcomeIntent = new Intent(PasswordActivity.this.getApplicationContext(), WelcomeActivity.class);
                 startActivity(welcomeIntent);
                 }
@@ -119,6 +118,71 @@ public class PasswordActivity extends Activity  implements OnClickListener{
                 break;
 
         }
+    }
+    
+    
+    /**
+     * inflatePasswordCheckDialog
+     * 
+     * Inflates a dialog to confirm the password you entered previously
+     * 
+     * If the password entered in the dialog does not match you will be asked to confirm again.
+     * If the password does match the previously provided password you will be entered into the application
+     */
+    private void inflatePasswordCheckDialog(){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Confirm Password");
+        alert.setMessage("Please re-enter your password confirm your password");
+        
+        final EditText input = new EditText(this);
+        alert.setView(input);
+        
+        alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+
+                String confirmPassword = input.getText().toString();
+                
+                if (!confirmPassword.equals(passwordET.getText().toString())){
+                	Toast toast = Toast
+                    .makeText(
+                            getApplicationContext(),
+                            "Passwords do not match try again",
+                            Toast.LENGTH_SHORT);
+                	toast.show();
+                	inflatePasswordCheckDialog();
+                }
+                else
+                {
+                	goodPassword();
+                	finish();
+                	Intent welcomeIntent = new Intent(PasswordActivity.this.getApplicationContext(), WelcomeActivity.class);
+                    startActivity(welcomeIntent);
+                }
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+            	
+            }
+        });
+        alert.show();
+    }
+    /**
+     * goodPassword
+     * 
+     * Sets and saves the password using the controller
+     */
+    private void goodPassword(){
+    	Controller.setPassword(PasswordActivity.this.passwordET.getText().toString());
+        Controller.savePassword(this);
+        password = Controller.getPassword();        
     }
     
     private void setErrorText(){

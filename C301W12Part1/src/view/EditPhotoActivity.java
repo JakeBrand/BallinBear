@@ -91,6 +91,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * expensive
      */
     private Bitmap           BMPphoto;
+    private Bitmap			 preBMP;
     Spinner                  albumNameSpinner;
     boolean                  newAlbumCreated;
     /**
@@ -132,7 +133,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      */
     public void onResume()
     {
-
+    	preBMP = BMPphoto;
         super.onResume();
         setContentView(R.layout.editphotoview);
 
@@ -341,12 +342,21 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         switch (validityState)
         {
             // Updating photo in same album
+        	// If the Bitmap was updated it will update timestamp and move to last position in album
             case UPDATING_PHOTO:
-                Controller.updatePhoto(Controller.getCurrentAlbumIndex(),
+            	if (preBMP != BMPphoto){
+               		Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
+                        Controller.getCurrentPhotoIndex());
+            		Controller.addPhoto(Controller.getCurrentAlbumIndex(), imageUri, comment);
+            		finishIntent(intent, imageUri);
+            		break;
+            	}
+            	else {
+            		Controller.updatePhoto(Controller.getCurrentAlbumIndex(),
                         Controller.getCurrentPhotoIndex(), comment);
                 finishIntent(intent, imageUri);
                 break;
-
+            	}
             // Moveing an existing Photo to existing album
             case MOVING_PHOTO_TO_EXISTING:
                 Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
