@@ -177,7 +177,6 @@ public class Album implements Serializable
      */
     public void updatePhoto(int photoIndex, Photo photo)
     {
-
         photos.set(photoIndex, photo);
     }
 

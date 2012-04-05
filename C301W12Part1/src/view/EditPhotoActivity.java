@@ -109,6 +109,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     private static final int MOVING_PHOTO_TO_EXISTING            = 6;
     private static final int MOVING_PHOTO_TO_NEW                 = 7;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static boolean 	 CHANGED_PICTURE = false;
 
     /**
      * Set view to editphotoview.xml, set global variables, call initIndicies,
@@ -133,10 +134,8 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      */
     public void onResume()
     {
-    	preBMP = BMPphoto;
-        super.onResume();
+    	super.onResume();
         setContentView(R.layout.editphotoview);
-
         newAlbumCreated = false;
         albumNameSpinner = (Spinner) findViewById(R.id.albumNameSpinner);
         String[] albumNames = Controller.getAlbumNames();
@@ -232,9 +231,9 @@ public class EditPhotoActivity extends Activity implements OnClickListener
         // startActivityForResult(cameraViewIntent,
         // CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         ImageButton button = (ImageButton) findViewById(R.id.generated_pic);
+        preBMP = BMPphoto;
         BMPphoto = BogoPicGen.generateBitmap(350, 350);
         button.setImageBitmap(BMPphoto);
-
     }
 
     /**
@@ -344,7 +343,9 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             // Updating photo in same album
         	// If the Bitmap was updated it will update timestamp and move to last position in album
             case UPDATING_PHOTO:
-            	if (preBMP != BMPphoto){
+            	Log.d(null, "preBMP is " + preBMP + "and BMPphoto is " + BMPphoto);
+            	if (preBMP != BMPphoto && preBMP !=null){
+            		
                		Controller.deletePhoto(Controller.getCurrentAlbumIndex(),
                         Controller.getCurrentPhotoIndex());
             		Controller.addPhoto(Controller.getCurrentAlbumIndex(), imageUri, comment);
