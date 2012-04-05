@@ -109,7 +109,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
     private static final int MOVING_PHOTO_TO_EXISTING            = 6;
     private static final int MOVING_PHOTO_TO_NEW                 = 7;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    private static boolean 	 CHANGED_PICTURE = false;
 
     /**
      * Set view to editphotoview.xml, set global variables, call initIndicies,
