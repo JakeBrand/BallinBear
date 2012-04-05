@@ -1,6 +1,7 @@
 package view;
 
 import android.text.Editable;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -136,6 +137,7 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         alert.setMessage("Please re-enter your password confirm your password");
         
         final EditText input = new EditText(this);
+        input.setTransformationMethod(PasswordTransformationMethod.getInstance());
         alert.setView(input);
         
         alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener()

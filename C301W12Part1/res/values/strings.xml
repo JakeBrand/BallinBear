@@ -51,6 +51,7 @@
     <string name="alarmStartTime">Alarm Start Time</string>
     <string name="alarmFrequency">Alarm Frequency</string>
     <string name="editAlbum">Edit Album</string>
+    <string name="enterPassword">Enter Password</string>
 
 
 </resources>
