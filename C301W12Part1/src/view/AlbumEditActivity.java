@@ -67,18 +67,23 @@ public class AlbumEditActivity extends Activity implements OnClickListener
         albName.setText(Controller.getCurrentAlbum().getAlbumName());
 
         Button deleteButton = (Button) findViewById(R.id.deleteButton);
+        deleteButton.setBackgroundResource(R.drawable.deletealbum);
         deleteButton.setOnClickListener(this);
 
         Button backToAlbumButton = (Button) findViewById(R.id.backToAlbumButton);
+        backToAlbumButton.setBackgroundResource(R.drawable.backtoalbums);
         backToAlbumButton.setOnClickListener(this);
 
         Button doneButton = (Button) findViewById(R.id.doneButton);
+        doneButton.setBackgroundResource(R.drawable.accept);
         doneButton.setOnClickListener(this);
 
         Button addAlarmButton = (Button) findViewById(R.id.addAlarmButton);
+        addAlarmButton.setBackgroundResource(R.drawable.alarm_button);
         addAlarmButton.setOnClickListener(this);
 
         Button removeAlarmButton = (Button) findViewById(R.id.removeAlarmButton);
+        removeAlarmButton.setBackgroundResource(R.drawable.clearalarm);
         removeAlarmButton.setOnClickListener(this);
     }
 

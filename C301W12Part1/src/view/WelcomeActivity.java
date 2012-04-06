@@ -59,7 +59,7 @@ public class WelcomeActivity extends Activity {
             setContentView(R.layout.welcome_view);
 
             Button viewAlbums = (Button) findViewById(R.id.viewAlbumsButton);
-            viewAlbums.setBackgroundResource(drawable.ic_menu_gallery);
+            viewAlbums.setBackgroundResource(R.drawable.albums);
 
             OnClickListener viewAlbumsListener = new OnClickListener() {
 
@@ -76,7 +76,7 @@ public class WelcomeActivity extends Activity {
             viewAlbums.setOnClickListener(viewAlbumsListener);
             
             Button newPhoto = (Button) findViewById(R.id.takeNewPhotoButton);
-            newPhoto.setBackgroundResource(drawable.ic_menu_camera);
+            newPhoto.setBackgroundResource(R.drawable.camera);
 
             OnClickListener newPhotoListener = new OnClickListener() {
 
@@ -92,7 +92,7 @@ public class WelcomeActivity extends Activity {
             
             
             Button searchPhotos = (Button) findViewById(R.id.searchButton);
-            searchPhotos.setBackgroundResource(drawable.ic_menu_search);
+            searchPhotos.setBackgroundResource(R.drawable.search);
             
             OnClickListener searchListener = new OnClickListener()
             {

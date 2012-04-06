@@ -21,15 +21,13 @@
         <ListView
             android:id="@+id/albumlist"
             android:layout_width="wrap_content"
-            android:layout_height="410dp" >
+            android:layout_height="300dp" >
         </ListView>
     </LinearLayout>
-    
-    
-	<Button
+
+    <Button
         android:id="@+id/editAlbum"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/editAlbum" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

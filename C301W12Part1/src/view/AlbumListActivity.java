@@ -106,6 +106,7 @@ public class AlbumListActivity extends Activity
                 }
             };
             editAlbumButton.setOnClickListener(editAlbumsListener);
+            editAlbumButton.setBackgroundResource(R.drawable.edit_album);
         } else
         {
             editAlbumButton.setBackgroundColor(Color.TRANSPARENT);

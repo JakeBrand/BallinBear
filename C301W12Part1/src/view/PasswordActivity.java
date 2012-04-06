@@ -1,8 +1,6 @@
 package view;
 
-import android.text.Editable;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -63,14 +61,14 @@ public class PasswordActivity extends Activity  implements OnClickListener{
         passwordET.setText("");
 
         Button enterButton = (Button) findViewById(R.id.enterPasswordButton);
-        instructions = (TextView) findViewById(R.id.enterPasswordTextView);
+        enterButton.setBackgroundResource(R.drawable.accept);
         enterButton.setOnClickListener(this);
-        
 
-    
+        instructions = (TextView) findViewById(R.id.enterPasswordTextView);
         instructions.setText("Enter New Password");
         
         Button resetButton = (Button) findViewById(R.id.resetPasswordButton);
+        resetButton.setBackgroundResource(R.drawable.edit_password);
         resetButton.setOnClickListener(this);       
         resetButton.setVisibility(-1);
         

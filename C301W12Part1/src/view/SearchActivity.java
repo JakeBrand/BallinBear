@@ -54,7 +54,6 @@ public class SearchActivity extends Activity
         final EditText tagET = (EditText) findViewById(R.id.tagEditText);
         tagET.setHint("right or foot");
         
-        
         final Gallery tagGallery = (Gallery) findViewById(R.id.tagGallery);
         final Spinner searchSpinner = (Spinner) findViewById(R.id.searchSpinner);
         String[] options = { "By Tag", "By Date"};
@@ -118,6 +117,7 @@ public class SearchActivity extends Activity
                 });
 
         Button searchButton = (Button) findViewById(R.id.searchButton);
+        searchButton.setBackgroundResource(R.drawable.acceptsearch);
         searchButton.setOnClickListener(new OnClickListener()
         {
 

@@ -91,7 +91,7 @@ public class EditPhotoActivity extends Activity implements OnClickListener
      * expensive
      */
     private Bitmap           BMPphoto;
-    private Bitmap			 preBMP;
+    private Bitmap	     preBMP;
     Spinner                  albumNameSpinner;
     boolean                  newAlbumCreated;
     /**
@@ -342,7 +342,6 @@ public class EditPhotoActivity extends Activity implements OnClickListener
             // Updating photo in same album
         	// If the Bitmap was updated it will update timestamp and move to last position in album
             case UPDATING_PHOTO:
-            	Log.d(null, "preBMP is " + preBMP + "and BMPphoto is " + BMPphoto);
             	if (preBMP != BMPphoto && preBMP !=null){
             		
                		Controller.deletePhoto(Controller.getCurrentAlbumIndex(),

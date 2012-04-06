@@ -57,6 +57,7 @@ public class SlideShowActivity extends Activity {
 		alb = Controller.getCurrentAlbum();
 
 		Button back = (Button) findViewById(R.id.backToAlbumButton);
+		back.setBackgroundResource(R.drawable.backtoalbums);
 		OnClickListener backListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {

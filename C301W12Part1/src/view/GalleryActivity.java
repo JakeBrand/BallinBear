@@ -61,14 +61,17 @@ public class GalleryActivity extends Activity implements OnClickListener{
         alb = Controller.getCurrentAlbum();
 
         Button newPhotoButton = (Button) findViewById(R.id.NewPhotoButton);
+        newPhotoButton.setBackgroundResource(R.drawable.camera);
         newPhotoButton.setOnClickListener(this);
         
         Button comparePhotosButton = (Button) findViewById(R.id.ComparePhotosButton);
+        comparePhotosButton.setBackgroundResource(R.drawable.compare_photos);
         comparePhotosButton.setOnClickListener(this);
         Gallery ga = (Gallery) findViewById(R.id.albumGallery);       
         ga.setAdapter(new ImageAdapter(this));
         
         Button SlideShowButton = (Button) findViewById(R.id.SlideShowButton);
+        SlideShowButton.setBackgroundResource(R.drawable.slideshow);
         SlideShowButton.setOnClickListener(this);
        
     }
